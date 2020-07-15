@@ -1,38 +1,46 @@
-# Stellar SDK for Rust
+# Rust Stellar Horizon Client
 
-![CI](https://github.com/aurora-rs/stellar-sdk/workflows/CI/badge.svg)
-[![codecov](https://codecov.io/gh/aurora-rs/stellar-sdk/branch/master/graph/badge.svg?token=3DR7ZYCPTQ)](https://codecov.io/gh/aurora-rs/stellar-sdk)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](https://github.com/aurora-rs/stellar-sdk/blob/master/LICENSE)
+![CI](https://github.com/aurora-rs/stellar-horizon-rs/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/aurora-rs/stellar-horizon-rs/branch/master/graph/badge.svg?token=3DR7ZYCPTQ)](https://codecov.io/gh/aurora-rs/stellar-horizon-rs)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue?style=flat-square)](https://github.com/aurora-rs/stellar-horizen-rs/blob/master/LICENSE)
 
 
 ## Introduction
 
-This Stellar SDK contains libraries to interact with the Stellar
-network from Rust:
+This crate contains a client for Stellar Horizon, supporting both the
+REST API and streaming mode.
 
- * `stellar-base`: defines base types for Stellar (such as Assets,
-   Transactions, and Key Pairs), together with traits to serialize
-   them from and to XDR.
- * `stellar-horizon`: provides a client to connect to Horizon. The
-   client supports HTTP requests and streaming mode.
-
+If you are looking for a crate to build Stellar transactions, look at
+[stellar-base](https://github.com/aurora-rs/stellar-base-rs).
 
 ## Features
 
+ * Easy to mock for testing
  * Support all Horizon endpoints
  * Support for Horizon streaming mode
  * Completely async
- * Working XDR definitions for all Stellar types
 
 
 ## Documentation
 
-You can find the documentation on docs.rs:
+You can find the documentation on [docs.rs](https://docs.rs/stellar-horizon).
 
- * [Stellar Base](https://docs.rs/stellar-base)
- * [Stellar Horizon](https://docs.rs/stellar-horizon)
 
+## Roadmap
+
+This crate is still a work in progress. Relevant SEPs will be
+implemented as separate crates when possible.
+
+ - [x] Request single resources
+ - [x] Request paginated resources
+ - [x] Stream resources
+ - [ ] Cleanup API, e.g. turn `String` into `Into<String>`
+ - [ ] Submit transactions
+ - [ ] Lazily parse resources fields
+ - [ ] Navigation support, follow links
+ - [ ] Improve documentation
+ - [ ] Link to example applications
 
 ## Changelog
 
-[You can find a changelog here.](https://github.com/aurora-rs/stellar-sdk/blob/master/CHANGELOG.md)
+[You can find a changelog here.](https://github.com/aurora-rs/stellar-horizon-rs/blob/master/CHANGELOG.md)
