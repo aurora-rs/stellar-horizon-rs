@@ -22,7 +22,7 @@ pub trait HorizonClient {
     fn stream<'a, R: StreamRequest + 'a>(
         &'a self,
         req: R,
-    ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'a + Unpin>>;
+    ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'a + Send + Unpin>>;
 }
 
 type HttpClient = Client<HttpsConnector<hyper::client::HttpConnector>>;
@@ -126,7 +126,7 @@ impl HorizonClient for HorizonHttpClient {
     fn stream<'a, 'b, R: StreamRequest + 'a>(
         &'a self,
         request: R,
-    ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'a + Unpin>> {
+    ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'a + Send + Unpin>> {
         Ok(Box::new(HorizonHttpStream {
             client: self.inner.clone(),
             request,
