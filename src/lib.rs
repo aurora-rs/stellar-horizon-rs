@@ -10,6 +10,7 @@ pub mod request;
 pub mod api;
 pub mod client;
 pub mod error;
+pub mod horizon_error;
 pub mod resources;
 
 /// The crate version.

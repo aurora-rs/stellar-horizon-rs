@@ -1,4 +1,5 @@
 use crate::error::{Error, Result};
+use crate::horizon_error::HorizonError;
 use crate::request::{Request, StreamRequest};
 use futures::future::{BoxFuture, Future};
 use futures::stream::{BoxStream, IntoAsyncRead, TryStreamExt};
@@ -130,9 +131,12 @@ async fn execute_request<R: Request>(client: &HorizonHttpClient, req: R) -> Resu
         let bytes = hyper::body::to_bytes(response).await?;
         let result: R::Response = serde_json::from_slice(&bytes)?;
         Ok(result)
+    } else if response.status().is_client_error() {
+        let bytes = hyper::body::to_bytes(response).await?;
+        let result: HorizonError = serde_json::from_slice(&bytes)?;
+        Err(Error::HorizonRequestError(result))
     } else {
-        // Parse Error response
-        todo!()
+        Err(Error::HorizonServerError)
     }
 }
 

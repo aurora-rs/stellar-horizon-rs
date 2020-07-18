@@ -6,6 +6,10 @@ pub enum Error {
     StellarBaseError(#[from] stellar_base::error::Error),
     #[error("sse decoder error")]
     SSEDecoderError,
+    #[error("horizon request error")]
+    HorizonRequestError(crate::horizon_error::HorizonError),
+    #[error("horizon server error")]
+    HorizonServerError,
     #[error("http error")]
     HttpError(#[from] http::Error),
     #[error("hyper error")]
