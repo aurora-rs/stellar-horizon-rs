@@ -29,25 +29,60 @@ type HttpClient = Client<HttpsConnector<hyper::client::HttpConnector>>;
 
 /// Type that implements `HorizonClient` using `hyper` for http.
 pub struct HorizonHttpClient {
+    inner: Arc<HorizonHttpClientInner>,
+}
+
+struct HorizonHttpClientInner {
     inner: HttpClient,
     host: Url,
     client_name: String,
     client_version: String,
 }
 
-type BoxDecoder = Box<dyn Unpin + Stream<Item = http_types::Result<async_sse::Event>>>;
+type BoxDecoder = Box<dyn Unpin + Send + Stream<Item = http_types::Result<async_sse::Event>>>;
 
 /// A `Stream` that represents a horizon stream connection.
 #[must_use = "Streams are lazy and do nothing unless polled"]
-pub struct HorizonHttpStream<'a, R>
+pub struct HorizonHttpStream<R>
 where
     R: StreamRequest,
 {
-    client: &'a HorizonHttpClient,
+    client: Arc<HorizonHttpClientInner>,
     last_id: Option<String>,
     request: R,
     response: Option<ResponseFuture>,
     decoder: Option<BoxDecoder>,
+}
+
+impl HorizonHttpClientInner {
+    pub fn new(host: Url) -> Result<HorizonHttpClientInner> {
+        let https = HttpsConnector::new();
+        let inner = Client::builder().build::<_, hyper::Body>(https);
+        let host = host.try_into().map_err(|_| Error::InvalidHost)?;
+        let client_name = "aurora-rs/stellar-sdk".to_string();
+        let client_version = crate::VERSION.to_string();
+        Ok(HorizonHttpClientInner {
+            inner,
+            host,
+            client_name,
+            client_version,
+        })
+    }
+
+    pub fn request_builder(&self, uri: Url) -> http::request::Builder {
+        hyper::Request::builder()
+            .uri(uri.to_string())
+            .header("X-Client-Name", self.client_name.to_string())
+            .header("X-Client-Version", self.client_version.to_string())
+    }
+
+    fn get(&self, uri: Url) -> http::request::Builder {
+        self.request_builder(uri).method(hyper::Method::GET)
+    }
+
+    fn raw_request(&self, req: hyper::Request<hyper::Body>) -> ResponseFuture {
+        self.inner.request(req)
+    }
 }
 
 impl HorizonHttpClient {
@@ -62,35 +97,24 @@ impl HorizonHttpClient {
     where
         U: TryInto<Url>,
     {
-        let https = HttpsConnector::new();
-        let inner = Client::builder().build::<_, hyper::Body>(https);
         let host = host.try_into().map_err(|_| Error::InvalidHost)?;
-        let client_name = "aurora-rs/stellar-sdk".to_string();
-        let client_version = crate::VERSION.to_string();
-        Ok(HorizonHttpClient {
-            inner,
-            host,
-            client_name,
-            client_version,
-        })
+        let inner = Arc::new(HorizonHttpClientInner::new(host)?);
+        Ok(HorizonHttpClient { inner })
     }
 
     /// Returns a request builder with default headers.
     fn request_builder(&self, uri: Url) -> http::request::Builder {
-        hyper::Request::builder()
-            .uri(uri.to_string())
-            .header("X-Client-Name", self.client_name.to_string())
-            .header("X-Client-Version", self.client_version.to_string())
+        self.inner.request_builder(uri)
     }
 
     /// Returns a request builder for a GET request.
     fn get(&self, uri: Url) -> http::request::Builder {
-        self.request_builder(uri).method(hyper::Method::GET)
+        self.inner.get(uri)
     }
 
     /// Performs a request.
     fn raw_request(&self, req: hyper::Request<hyper::Body>) -> ResponseFuture {
-        self.inner.request(req)
+        self.inner.raw_request(req)
     }
 }
 
@@ -104,7 +128,7 @@ impl HorizonClient for HorizonHttpClient {
         request: R,
     ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'a + Unpin>> {
         Ok(Box::new(HorizonHttpStream {
-            client: &self,
+            client: self.inner.clone(),
             request,
             last_id: None,
             response: None,
@@ -119,7 +143,7 @@ async fn execute_request<R: Request>(client: &HorizonHttpClient, req: R) -> Resu
     } else {
         hyper::Method::GET
     };
-    let uri = req.uri(&client.host)?;
+    let uri = req.uri(&client.inner.host)?;
     let request = client
         .request_builder(uri)
         .method(http_method)
@@ -140,7 +164,7 @@ async fn execute_request<R: Request>(client: &HorizonHttpClient, req: R) -> Resu
     }
 }
 
-impl<'a, R> Stream for HorizonHttpStream<'a, R>
+impl<R> Stream for HorizonHttpStream<R>
 where
     R: StreamRequest,
 {
