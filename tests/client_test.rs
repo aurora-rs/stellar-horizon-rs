@@ -128,3 +128,12 @@ async fn test_trades_for_account() {
     let response = client.request(req).await.unwrap();
     assert!(response.records.is_empty());
 }
+
+#[tokio::test]
+async fn test_data_for_account() {
+    let client = new_client();
+    let root_key = new_root_key();
+    let req = api::data::for_account(root_key.public_key(), "FooBar");
+    let response = client.request(req).await;
+    assert!(response.is_err());
+}

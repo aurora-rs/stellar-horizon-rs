@@ -4,6 +4,7 @@ use crate::resources;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
+/// Creates a request to retrieve a single data for the account.
 pub fn for_account<S: Into<String>>(account: &PublicKey, key: S) -> DataForAccountRequest {
     DataForAccountRequest {
         account_id: account.account_id(),
@@ -11,6 +12,7 @@ pub fn for_account<S: Into<String>>(account: &PublicKey, key: S) -> DataForAccou
     }
 }
 
+/// Request account data.
 #[derive(Debug, Clone)]
 pub struct DataForAccountRequest {
     account_id: String,
