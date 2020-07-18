@@ -12,7 +12,7 @@ pub struct Account {
     pub sequence: String,
     pub subentry_count: i32,
     pub inflation_destination: Option<String>,
-    pub home_domain: String,
+    pub home_domain: Option<String>,
     pub last_modified_ledger: u32,
     pub last_modified_time: Option<DateTime<Utc>>,
     pub thresholds: AccountThresholds,
@@ -39,6 +39,7 @@ pub struct AccountLinks {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountThresholds {
     pub low_threshold: u8,
+    #[serde(rename = "med_threshold")]
     pub medium_threshold: u8,
     pub high_threshold: u8,
 }

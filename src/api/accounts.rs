@@ -4,14 +4,16 @@ use crate::resources;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
-#[derive(Debug, Clone)]
-pub struct SingleAccountRequest {
-    account_id: String,
-}
-
+/// Creates a reques to retrieve a single account.
 pub fn single(public_key: &PublicKey) -> SingleAccountRequest {
     let account_id = public_key.account_id();
     SingleAccountRequest { account_id }
+}
+
+/// Request a single account.
+#[derive(Debug, Clone)]
+pub struct SingleAccountRequest {
+    account_id: String,
 }
 
 impl Request for SingleAccountRequest {

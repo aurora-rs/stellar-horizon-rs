@@ -1,10 +1,15 @@
 use futures::stream::StreamExt;
+use stellar_base::{KeyPair, Network};
 use stellar_horizon::api;
 use stellar_horizon::client::{HorizonClient, HorizonHttpClient};
 use stellar_horizon::request::{Order, PageRequest};
 
 fn new_client() -> HorizonHttpClient {
     HorizonHttpClient::new_from_str("https://horizon-testnet.stellar.org").unwrap()
+}
+
+fn new_root_key() -> KeyPair {
+    KeyPair::from_network(&Network::new_test()).unwrap()
 }
 
 #[tokio::test]
@@ -46,13 +51,10 @@ async fn test_stream_all_ledgers() {
 }
 
 #[tokio::test]
-async fn test_stream() {
+async fn test_single_account() {
     let client = new_client();
-    let mut stream = client.stream(api::trades::all()).unwrap().take(10);
-    let mut count = 0;
-    while let Some(event) = stream.next().await {
-        assert!(!event.unwrap().paging_token.is_empty());
-        count += 1;
-    }
-    assert_eq!(10, count);
+    let root_key = new_root_key();
+    let req = api::accounts::single(root_key.public_key());
+    let response = client.request(req).await.unwrap();
+    assert_eq!(root_key.public_key().account_id(), response.paging_token);
 }
