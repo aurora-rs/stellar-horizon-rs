@@ -5,122 +5,122 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Trade {
     #[serde(rename = "_links")]
-    links: TradeLinks,
-    id: String,
-    paging_token: String,
-    ledger_close_time: DateTime<Utc>,
-    offer_id: String,
-    base_offer_id: String,
-    base_account: String,
-    base_amount: String,
+    pub links: TradeLinks,
+    pub id: String,
+    pub paging_token: String,
+    pub ledger_close_time: DateTime<Utc>,
+    pub offer_id: String,
+    pub base_offer_id: String,
+    pub base_account: String,
+    pub base_amount: String,
     #[serde(flatten, with = "BaseAsset")]
-    base_asset: Asset,
-    counter_offer_id: String,
-    counter_account: String,
-    counter_amount: String,
+    pub base_asset: Asset,
+    pub counter_offer_id: String,
+    pub counter_account: String,
+    pub counter_amount: String,
     #[serde(flatten, with = "CounterAsset")]
-    couter_asset: Asset,
-    base_is_seller: bool,
-    price: Option<Price>,
+    pub couter_asset: Asset,
+    pub base_is_seller: bool,
+    pub price: Option<Price>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TradeEffect {
     #[serde(rename = "_links")]
-    links: TradeEffectLinks,
-    id: String,
-    paging_token: String,
-    offer_id: String,
-    seller: String,
-    sold_amount: String,
+    pub links: TradeEffectLinks,
+    pub id: String,
+    pub paging_token: String,
+    pub offer_id: String,
+    pub seller: String,
+    pub sold_amount: String,
     #[serde(flatten, with = "SoldAsset")]
-    sold_asset: Asset,
-    buyer: String,
-    bought_amount: String,
+    pub sold_asset: Asset,
+    pub buyer: String,
+    pub bought_amount: String,
     #[serde(flatten, with = "BoughtAsset")]
-    bought_asset: Asset,
-    created_at: DateTime<Utc>,
+    pub bought_asset: Asset,
+    pub created_at: DateTime<Utc>,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TradeAggregation {
-    timestamp: String,
-    trade_count: String,
-    base_volume: String,
-    counter_volume: String,
+    pub timestamp: String,
+    pub trade_count: String,
+    pub base_volume: String,
+    pub counter_volume: String,
     #[serde(rename = "avg")]
-    average: String,
+    pub average: String,
     #[serde(rename = "high_r")]
-    high_ratio: Price,
-    high: String,
+    pub high_ratio: Price,
+    pub high: String,
     #[serde(rename = "low_r")]
-    low_ratio: Price,
-    low: String,
+    pub low_ratio: Price,
+    pub low: String,
     #[serde(rename = "open_r")]
-    open_ratio: Price,
-    open: String,
+    pub open_ratio: Price,
+    pub open: String,
     #[serde(rename = "close_r")]
-    close_ration: Price,
-    close: String,
+    pub close_ration: Price,
+    pub close: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TradeLinks {
     #[serde(rename = "self")]
-    self_: Link,
-    base: Link,
-    counter: Link,
-    operation: Link,
+    pub self_: Link,
+    pub base: Link,
+    pub counter: Link,
+    pub operation: Link,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TradeEffectLinks {
     #[serde(rename = "self")]
-    self_: Link,
-    seller: Link,
-    buyer: Link,
-    operation: Link,
+    pub self_: Link,
+    pub seller: Link,
+    pub buyer: Link,
+    pub operation: Link,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
 struct BaseAsset {
     #[serde(rename = "base_asset_type")]
-    asset_type: String,
+    pub asset_type: String,
     #[serde(rename = "base_asset_code")]
-    asset_code: Option<String>,
+    pub asset_code: Option<String>,
     #[serde(rename = "base_asset_issuer")]
-    asset_issuer: Option<String>,
+    pub asset_issuer: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
 struct CounterAsset {
     #[serde(rename = "counter_asset_type")]
-    asset_type: String,
+    pub asset_type: String,
     #[serde(rename = "counter_asset_code")]
-    asset_code: Option<String>,
+    pub asset_code: Option<String>,
     #[serde(rename = "counter_asset_issuer")]
-    asset_issuer: Option<String>,
+    pub asset_issuer: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
 struct SoldAsset {
     #[serde(rename = "sold_asset_type")]
-    asset_type: String,
+    pub asset_type: String,
     #[serde(rename = "sold_asset_code")]
-    asset_code: Option<String>,
+    pub asset_code: Option<String>,
     #[serde(rename = "sold_asset_issuer")]
-    asset_issuer: Option<String>,
+    pub asset_issuer: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
 struct BoughtAsset {
     #[serde(rename = "bought_asset_type")]
-    asset_type: String,
+    pub asset_type: String,
     #[serde(rename = "bought_asset_code")]
-    asset_code: Option<String>,
+    pub asset_code: Option<String>,
     #[serde(rename = "bought_asset_issuer")]
-    asset_issuer: Option<String>,
+    pub asset_issuer: Option<String>,
 }

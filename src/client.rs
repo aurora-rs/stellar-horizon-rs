@@ -9,7 +9,7 @@ use hyper::header::HeaderValue;
 use hyper::Client;
 use hyper_tls::HttpsConnector;
 use serde::de::{Deserialize, DeserializeOwned};
-use std::convert::TryFrom;
+use std::convert::{TryFrom, TryInto};
 use std::marker::PhantomData;
 use std::marker::Unpin;
 use std::pin::Pin;
@@ -17,8 +17,11 @@ use std::sync::Arc;
 use std::task::{Context, Poll};
 use url::Url;
 
+/// Horizon Client trait. Send HTTP and stream requests to Horizon.
 pub trait HorizonClient {
+    /// Send a request `R` to horizon, returns the corresponding response.
     fn request<'a, R: Request + 'a>(&'a self, req: R) -> BoxFuture<'a, Result<R::Response>>;
+    /// Create a stream request.
     fn stream<'a, R: StreamRequest + 'a>(
         &'a self,
         req: R,
@@ -27,6 +30,7 @@ pub trait HorizonClient {
 
 type HttpClient = Client<HttpsConnector<hyper::client::HttpConnector>>;
 
+/// Type that implements `HorizonClient` using `hyper` for http.
 pub struct HorizonHttpClient {
     inner: HttpClient,
     host: Url,
@@ -36,6 +40,8 @@ pub struct HorizonHttpClient {
 
 type BoxDecoder = Box<dyn Unpin + Stream<Item = http_types::Result<async_sse::Event>>>;
 
+/// A `Stream` that represents a horizon stream connection.
+#[must_use = "Streams are lazy and do nothing unless polled"]
 pub struct HorizonHttpStream<'a, R>
 where
     R: StreamRequest,
@@ -48,10 +54,20 @@ where
 }
 
 impl HorizonHttpClient {
-    pub fn new(host: &str) -> Result<HorizonHttpClient> {
+    /// Creates a new horizon client with the specified host url str.
+    pub fn new_from_str(host: &str) -> Result<HorizonHttpClient> {
+        let host: Url = host.parse().map_err(|_| Error::InvalidHost)?;
+        HorizonHttpClient::new(host)
+    }
+
+    /// Creates a new horizon client with the specified host url.
+    pub fn new<U>(host: U) -> Result<HorizonHttpClient>
+    where
+        U: TryInto<Url>,
+    {
         let https = HttpsConnector::new();
         let inner = Client::builder().build::<_, hyper::Body>(https);
-        let host: Url = host.parse()?;
+        let host = host.try_into().map_err(|_| Error::InvalidHost)?;
         let client_name = "aurora-rs/stellar-sdk".to_string();
         let client_version = crate::VERSION.to_string();
         Ok(HorizonHttpClient {
@@ -62,6 +78,7 @@ impl HorizonHttpClient {
         })
     }
 
+    /// Returns a request builder with default headers.
     fn request_builder(&self, uri: Url) -> http::request::Builder {
         hyper::Request::builder()
             .uri(uri.to_string())
@@ -69,10 +86,12 @@ impl HorizonHttpClient {
             .header("X-Client-Version", self.client_version.to_string())
     }
 
+    /// Returns a request builder for a GET request.
     fn get(&self, uri: Url) -> http::request::Builder {
         self.request_builder(uri).method(hyper::Method::GET)
     }
 
+    /// Performs a request.
     fn raw_request(&self, req: hyper::Request<hyper::Body>) -> ResponseFuture {
         self.inner.request(req)
     }

@@ -14,6 +14,8 @@ pub enum Error {
     JsonError(#[from] serde_json::error::Error),
     #[error("invalid uri")]
     InvalidUri(#[from] http::uri::InvalidUri),
-    #[error("invalid ul")]
+    #[error("invalid url")]
     InvalidUrl(#[from] url::ParseError),
+    #[error("invalid host")]
+    InvalidHost,
 }

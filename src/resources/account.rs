@@ -6,86 +6,86 @@ use std::collections::BTreeMap as Map;
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Account {
     #[serde(rename = "_links")]
-    links: AccountLinks,
-    id: String,
-    account_id: String,
-    sequence: String,
-    subentry_count: i32,
-    inflation_destination: Option<String>,
-    home_domain: String,
-    last_modified_ledger: u32,
-    last_modified_time: Option<DateTime<Utc>>,
-    thresholds: AccountThresholds,
-    flags: AccountFlags,
-    balances: Vec<Balance>,
-    signers: Vec<Signer>,
-    data: Map<String, String>,
-    paging_token: String,
+    pub links: AccountLinks,
+    pub id: String,
+    pub account_id: String,
+    pub sequence: String,
+    pub subentry_count: i32,
+    pub inflation_destination: Option<String>,
+    pub home_domain: String,
+    pub last_modified_ledger: u32,
+    pub last_modified_time: Option<DateTime<Utc>>,
+    pub thresholds: AccountThresholds,
+    pub flags: AccountFlags,
+    pub balances: Vec<Balance>,
+    pub signers: Vec<Signer>,
+    pub data: Map<String, String>,
+    pub paging_token: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountLinks {
     #[serde(rename = "self")]
-    self_: Link,
-    transactions: Link,
-    operations: Link,
-    payments: Link,
-    effects: Link,
-    offers: Link,
-    trades: Link,
-    data: Link,
+    pub self_: Link,
+    pub transactions: Link,
+    pub operations: Link,
+    pub payments: Link,
+    pub effects: Link,
+    pub offers: Link,
+    pub trades: Link,
+    pub data: Link,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountThresholds {
-    low_threshold: u8,
-    medium_threshold: u8,
-    high_threshold: u8,
+    pub low_threshold: u8,
+    pub medium_threshold: u8,
+    pub high_threshold: u8,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountFlags {
-    auth_required: bool,
-    auth_revocable: bool,
-    auth_immutable: bool,
+    pub auth_required: bool,
+    pub auth_revocable: bool,
+    pub auth_immutable: bool,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Balance {
-    balance: String,
-    limit: Option<String>,
-    buying_liabilities: String,
-    selling_liabilities: String,
-    last_modified_ledger: Option<u32>,
-    is_authorized: Option<bool>,
-    is_authorized_to_maintain_liabilities: Option<bool>,
+    pub balance: String,
+    pub limit: Option<String>,
+    pub buying_liabilities: String,
+    pub selling_liabilities: String,
+    pub last_modified_ledger: Option<u32>,
+    pub is_authorized: Option<bool>,
+    pub is_authorized_to_maintain_liabilities: Option<bool>,
     #[serde(flatten)]
-    asset: Asset,
+    pub asset: Asset,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountSigner {
     #[serde(rename = "_links")]
-    links: AccountSignerLinks,
-    id: String,
-    account_id: String,
-    paging_token: String,
-    signer: Signer,
+    pub links: AccountSignerLinks,
+    pub id: String,
+    pub account_id: String,
+    pub paging_token: String,
+    pub signer: Signer,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountData {
-    value: String,
+    pub value: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AccountSignerLinks {
-    account: Link,
+    pub account: Link,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Signer {
-    weight: i32,
-    key: String,
+    pub weight: i32,
+    pub key: String,
     #[serde(rename = "type")]
-    type_: String,
+    pub type_: String,
 }

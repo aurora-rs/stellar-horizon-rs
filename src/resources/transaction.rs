@@ -5,61 +5,61 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Transaction {
     #[serde(rename = "_links")]
-    links: TransactionLinks,
-    id: String,
-    paging_token: String,
-    successful: bool,
-    hash: String,
-    ledger: i32,
-    created_at: DateTime<Utc>,
-    source_account: String,
-    source_account_sequence: String,
-    fee_account: String,
-    fee_charged: String,
-    max_fee: String,
-    operation_count: i32,
-    envelope_xdr: String,
-    result_xdr: String,
-    result_meta_xdr: String,
-    fee_meta_xdr: String,
-    memo_type: String,
-    memo_bytes: Option<String>,
-    memo: Option<String>,
-    signatures: Vec<String>,
-    valid_after: Option<String>,
-    valid_before: Option<String>,
-    fee_bump_transaction: Option<FeeBumpTransaction>,
-    inner_transaction: Option<InnerTransaction>,
+    pub links: TransactionLinks,
+    pub id: String,
+    pub paging_token: String,
+    pub successful: bool,
+    pub hash: String,
+    pub ledger: i32,
+    pub created_at: DateTime<Utc>,
+    pub source_account: String,
+    pub source_account_sequence: String,
+    pub fee_account: String,
+    pub fee_charged: String,
+    pub max_fee: String,
+    pub operation_count: i32,
+    pub envelope_xdr: String,
+    pub result_xdr: String,
+    pub result_meta_xdr: String,
+    pub fee_meta_xdr: String,
+    pub memo_type: String,
+    pub memo_bytes: Option<String>,
+    pub memo: Option<String>,
+    pub signatures: Vec<String>,
+    pub valid_after: Option<String>,
+    pub valid_before: Option<String>,
+    pub fee_bump_transaction: Option<FeeBumpTransaction>,
+    pub inner_transaction: Option<InnerTransaction>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct FeeBumpTransaction {
-    hash: String,
-    signatures: Vec<String>,
+    pub hash: String,
+    pub signatures: Vec<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct InnerTransaction {
-    hash: String,
-    signatures: Vec<String>,
-    max_fee: String,
+    pub hash: String,
+    pub signatures: Vec<String>,
+    pub max_fee: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TransactionResultCodes {
-    transaction: String,
-    operations: Vec<String>,
+    pub transaction: String,
+    pub operations: Vec<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct TransactionLinks {
     #[serde(rename = "self")]
-    self_: Link,
-    account: Link,
-    ledger: Link,
-    operations: Link,
-    effects: Link,
-    precedes: Link,
-    succeeds: Link,
-    transaction: Link,
+    pub self_: Link,
+    pub account: Link,
+    pub ledger: Link,
+    pub operations: Link,
+    pub effects: Link,
+    pub precedes: Link,
+    pub succeeds: Link,
+    pub transaction: Link,
 }

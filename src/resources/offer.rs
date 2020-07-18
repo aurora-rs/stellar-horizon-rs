@@ -5,24 +5,23 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Offer {
     #[serde(rename = "_links")]
-    links: OfferLinks,
-    // TODO(fra): should parse to i64
-    id: String,
-    paging_token: String,
-    seller: String,
-    selling: Asset,
-    buying: Asset,
-    amount: String,
+    pub links: OfferLinks,
+    pub id: String,
+    pub paging_token: String,
+    pub seller: String,
+    pub selling: Asset,
+    pub buying: Asset,
+    pub amount: String,
     #[serde(rename = "price_r")]
-    price_ratio: Price,
-    price: String,
-    last_modified_ledger: i32,
-    last_modified_time: Option<DateTime<Utc>>,
+    pub price_ratio: Price,
+    pub price: String,
+    pub last_modified_ledger: i32,
+    pub last_modified_time: Option<DateTime<Utc>>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OfferLinks {
     #[serde(rename = "self")]
-    self_: Link,
-    offer_maker: Link,
+    pub self_: Link,
+    pub offer_maker: Link,
 }

@@ -12,4 +12,5 @@ pub mod client;
 pub mod error;
 pub mod resources;
 
+/// The crate version.
 pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");

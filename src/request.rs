@@ -3,34 +3,52 @@ use serde::de::DeserializeOwned;
 use stellar_base::asset::{Asset, CreditAssetType};
 use url::Url;
 
+/// Records order.
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Order {
+    /// Order in ascending order.
     Ascending,
+    /// Order in descending order.
     Descending,
 }
 
+/// Horizon request trait.
 pub trait Request: Send + Sync {
+    /// The type of this request response.
     type Response: DeserializeOwned;
 
     fn is_post(&self) -> bool {
         false
     }
 
+    /// Returns the request uri.
     fn uri(&self, host: &Url) -> Result<Url>;
 }
 
+/// Horizon page request trait.
 pub trait PageRequest: Request {
+    /// Set the request cursor.
     fn with_cursor(self, cursor: &str) -> Self;
+
+    /// Returns the request cursor.
     fn cursor(&self) -> &Option<String>;
 
+    /// Set the request limit.
     fn with_limit(self, limit: u64) -> Self;
+
+    /// Returns the request limit.
     fn limit(&self) -> &Option<u64>;
 
+    /// Set the request order.
     fn with_order(self, direction: &Order) -> Self;
+
+    /// Returns the request order.
     fn order(&self) -> &Option<Order>;
 }
 
+/// Horizon stream request.
 pub trait StreamRequest: Request + Unpin {
+    /// The type of streamed resources.
     type Resource: DeserializeOwned + Send + Sync;
 }
 
@@ -106,6 +124,7 @@ impl UrlPageRequestExt for Url {
 }
 
 impl Order {
+    /// Return the order query value.
     pub fn to_query_value(&self) -> String {
         match self {
             Order::Ascending => "asc".to_string(),

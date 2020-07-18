@@ -10,6 +10,7 @@ pub mod ledgers;
 pub mod offers;
 pub mod operations;
 pub mod payments;
+pub mod root;
 pub mod trades;
 pub mod transactions;
 

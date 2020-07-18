@@ -5,62 +5,62 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Ledger {
     #[serde(rename = "_links")]
-    links: LedgerLinks,
-    id: String,
-    paging_token: String,
-    hash: String,
+    pub links: LedgerLinks,
+    pub id: String,
+    pub paging_token: String,
+    pub hash: String,
     #[serde(rename = "prev_hash", skip_serializing_if = "Option::is_none")]
-    previous_hash: Option<String>,
-    sequence: i32,
-    successful_transaction_count: i32,
-    failed_transaction_count: Option<i32>,
-    operation_count: i32,
+    pub previous_hash: Option<String>,
+    pub sequence: i32,
+    pub successful_transaction_count: i32,
+    pub failed_transaction_count: Option<i32>,
+    pub operation_count: i32,
     #[serde(rename = "tx_set_operation_count")]
-    transaction_set_operation_count: Option<i32>,
-    closed_at: DateTime<Utc>,
-    total_coins: String,
-    fee_pool: String,
-    base_fee_in_stroops: i32,
-    base_reserve_in_stroops: i32,
+    pub transaction_set_operation_count: Option<i32>,
+    pub closed_at: DateTime<Utc>,
+    pub total_coins: String,
+    pub fee_pool: String,
+    pub base_fee_in_stroops: i32,
+    pub base_reserve_in_stroops: i32,
     #[serde(rename = "max_tx_set_size")]
-    max_transaction_set_size: i32,
-    protocol_version: i32,
-    header_xdr: String,
+    pub max_transaction_set_size: i32,
+    pub protocol_version: i32,
+    pub header_xdr: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct FeeDistribution {
-    max: String,
-    min: String,
-    mode: String,
-    p10: String,
-    p20: String,
-    p30: String,
-    p40: String,
-    p50: String,
-    p60: String,
-    p70: String,
-    p80: String,
-    p90: String,
-    p95: String,
-    p99: String,
+    pub max: String,
+    pub min: String,
+    pub mode: String,
+    pub p10: String,
+    pub p20: String,
+    pub p30: String,
+    pub p40: String,
+    pub p50: String,
+    pub p60: String,
+    pub p70: String,
+    pub p80: String,
+    pub p90: String,
+    pub p95: String,
+    pub p99: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct FeeStats {
-    last_ledger: String,
-    last_ledger_base_fee: String,
-    ledger_capacity_usage: String,
-    fee_charged: FeeDistribution,
-    max_fee: FeeDistribution,
+    pub last_ledger: String,
+    pub last_ledger_base_fee: String,
+    pub ledger_capacity_usage: String,
+    pub fee_charged: FeeDistribution,
+    pub max_fee: FeeDistribution,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct LedgerLinks {
     #[serde(rename = "self")]
-    self_: Link,
-    transactions: Link,
-    operations: Link,
-    payments: Link,
-    effects: Link,
+    pub self_: Link,
+    pub transactions: Link,
+    pub operations: Link,
+    pub payments: Link,
+    pub effects: Link,
 }
