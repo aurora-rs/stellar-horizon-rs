@@ -1574,9 +1574,9 @@ checksum = "213701ba3370744dcd1a12960caa4843b3d68b4d1c0a5d575e0d65b2ee9d16c0"
 
 [[package]]
 name = "stellar-base"
-version = "0.1.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ea5af1ad520123ad376abe30f15d07240e70bd6d2d1fc0fb660bd17e780fed19"
+checksum = "bf97b0486c8f291d86294c4a4b9a24fec6bc6dcfe70b41741efadf9e3d0ccc6f"
 dependencies = [
  "base32",
  "base64 0.12.3",

@@ -282,18 +282,18 @@ mod tests {
     fn credit_asset0() -> Asset {
         let issuer = keypair0();
         let code = "ABCD";
-        Asset::credit(code, issuer).unwrap()
+        Asset::new_credit(code, issuer).unwrap()
     }
 
     fn credit_asset1() -> Asset {
         let issuer = keypair1();
         let code = "WXYZ0";
-        Asset::credit(code, issuer).unwrap()
+        Asset::new_credit(code, issuer).unwrap()
     }
 
     #[test]
     fn test_order_book_request_uri() {
-        let req = order_book(credit_asset0(), Asset::native());
+        let req = order_book(credit_asset0(), Asset::new_native());
         let uri = req.uri(&host()).unwrap();
         assert!(uri
             .to_string()
@@ -316,7 +316,7 @@ mod tests {
 
     #[test]
     fn test_order_book_request_uri_with_limit() {
-        let req = order_book(credit_asset0(), Asset::native()).with_limit(100);
+        let req = order_book(credit_asset0(), Asset::new_native()).with_limit(100);
         let uri = req.uri(&host()).unwrap();
         let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
         assert!(uri
