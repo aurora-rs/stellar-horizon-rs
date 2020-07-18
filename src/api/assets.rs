@@ -1,6 +1,6 @@
 use crate::api::Page;
 use crate::error::Result;
-use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
+use crate::request::{Order, PageRequest, Request, UrlPageRequestExt};
 use crate::resources;
 use stellar_base::crypto::PublicKey;
 use url::Url;

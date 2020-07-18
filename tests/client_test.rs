@@ -1,4 +1,4 @@
-use futures::stream::{Stream, StreamExt};
+use futures::stream::StreamExt;
 use stellar_horizon::api;
 use stellar_horizon::client::{HorizonClient, HorizonHttpClient};
 

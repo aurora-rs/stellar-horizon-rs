@@ -1,16 +1,12 @@
 use crate::error::{Error, Result};
 use crate::request::{Request, StreamRequest};
 use futures::future::{BoxFuture, Future};
-use futures::stream::{BoxStream, IntoAsyncRead};
-use futures::stream::{StreamExt, TryStreamExt};
+use futures::stream::{BoxStream, IntoAsyncRead, TryStreamExt};
 use futures::Stream;
 use hyper::client::ResponseFuture;
-use hyper::header::HeaderValue;
 use hyper::Client;
 use hyper_tls::HttpsConnector;
-use serde::de::{Deserialize, DeserializeOwned};
-use std::convert::{TryFrom, TryInto};
-use std::marker::PhantomData;
+use std::convert::TryInto;
 use std::marker::Unpin;
 use std::pin::Pin;
 use std::sync::Arc;
@@ -106,7 +102,6 @@ impl HorizonClient for HorizonHttpClient {
         &'a self,
         request: R,
     ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'a + Unpin>> {
-        let phantom: PhantomData<R> = PhantomData;
         Ok(Box::new(HorizonHttpStream {
             client: &self,
             request,
