@@ -7,6 +7,7 @@ use stellar_base::transaction::TransactionEnvelope;
 use stellar_base::xdr::XDRSerialize;
 use url::Url;
 
+/// Creates a request to retrieve all transactions.
 pub fn all() -> AllTransactionsRequest {
     AllTransactionsRequest {
         limit: None,
@@ -15,15 +16,18 @@ pub fn all() -> AllTransactionsRequest {
     }
 }
 
+/// Creates a request to retrieve a single transaction.
 pub fn single<S: Into<String>>(id: S) -> SingleTransactionRequest {
     SingleTransactionRequest { id: id.into() }
 }
 
+/// Creates a request to submit a transaction.
 pub fn submit(tx: &TransactionEnvelope) -> Result<SubmitTransactionRequest> {
     let xdr = tx.xdr_base64()?;
     Ok(SubmitTransactionRequest { xdr })
 }
 
+/// Creates a request to retrieve a account's transactions.
 pub fn for_account(account: &PublicKey) -> TransactionsForAccountRequest {
     TransactionsForAccountRequest {
         account_id: account.account_id(),
@@ -33,6 +37,7 @@ pub fn for_account(account: &PublicKey) -> TransactionsForAccountRequest {
     }
 }
 
+/// Creates a request to retrieve a ledger's request.
 pub fn for_ledger(ledger: u32) -> TransactionsForLedgerRequest {
     TransactionsForLedgerRequest {
         ledger,
@@ -42,6 +47,7 @@ pub fn for_ledger(ledger: u32) -> TransactionsForLedgerRequest {
     }
 }
 
+/// Request all transactions.
 #[derive(Debug, Clone)]
 pub struct AllTransactionsRequest {
     limit: Option<u64>,
@@ -49,16 +55,19 @@ pub struct AllTransactionsRequest {
     order: Option<Order>,
 }
 
+/// Request a single transaction.
 #[derive(Debug, Clone)]
 pub struct SingleTransactionRequest {
     id: String,
 }
 
+/// Submit a transaction.
 #[derive(Debug, Clone)]
 pub struct SubmitTransactionRequest {
     xdr: String,
 }
 
+/// Request an account's transaction.
 #[derive(Debug, Clone)]
 pub struct TransactionsForAccountRequest {
     account_id: String,
@@ -67,6 +76,7 @@ pub struct TransactionsForAccountRequest {
     order: Option<Order>,
 }
 
+/// Request a ledger's transaction.
 #[derive(Debug, Clone)]
 pub struct TransactionsForLedgerRequest {
     ledger: u32,

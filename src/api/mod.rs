@@ -19,16 +19,7 @@ pub struct Page<T>
 where
     T: DeserializeOwned + Serialize,
 {
-    records: Vec<T>,
-}
-
-impl<T> Page<T>
-where
-    T: DeserializeOwned + Serialize,
-{
-    pub fn records(&self) -> &Vec<T> {
-        &self.records
-    }
+    pub records: Vec<T>,
 }
 
 impl<'de, T> Deserialize<'de> for Page<T>

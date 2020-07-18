@@ -37,7 +37,7 @@ async fn test_all_ledgers() {
         .with_order(&Order::Descending)
         .with_limit(7);
     let response = client.request(req).await.unwrap();
-    assert_eq!(7, response.records().len());
+    assert_eq!(7, response.records.len());
 }
 
 #[tokio::test]
@@ -57,4 +57,44 @@ async fn test_single_account() {
     let req = api::accounts::single(root_key.public_key());
     let response = client.request(req).await.unwrap();
     assert_eq!(root_key.public_key().account_id(), response.paging_token);
+}
+
+#[tokio::test]
+async fn test_all_transactions() {
+    let client = new_client();
+    let req = api::transactions::all()
+        .with_order(&Order::Descending)
+        .with_limit(5);
+    let response = client.request(req).await.unwrap();
+    assert_eq!(response.records.len(), 5);
+}
+
+#[tokio::test]
+async fn test_stream_all_transactions() {
+    let client = new_client();
+    let req = api::transactions::all().with_order(&Order::Descending);
+    let mut stream = client.stream(req).unwrap().take(10);
+    while let Some(event) = stream.next().await {
+        assert!(!event.unwrap().paging_token.is_empty());
+    }
+}
+
+#[tokio::test]
+async fn test_transactions_for_account() {
+    let client = new_client();
+    let root_key = new_root_key();
+    let req = api::transactions::for_account(root_key.public_key())
+        .with_order(&Order::Descending)
+        .with_limit(5);
+    let response = client.request(req).await.unwrap();
+    assert_eq!(response.records.len(), 5);
+}
+
+#[tokio::test]
+async fn test_transactions_for_ledger() {
+    let client = new_client();
+    let root = client.request(api::root::root()).await.unwrap();
+    let req = api::transactions::for_ledger(root.history_latest_ledger as u32);
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
 }
