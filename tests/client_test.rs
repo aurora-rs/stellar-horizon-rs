@@ -95,6 +95,36 @@ async fn test_transactions_for_ledger() {
     let client = new_client();
     let root = client.request(api::root::root()).await.unwrap();
     let req = api::transactions::for_ledger(root.history_latest_ledger as u32);
+    let _response = client.request(req).await.unwrap();
+}
+
+#[tokio::test]
+async fn test_all_trades() {
+    let client = new_client();
+    let req = api::trades::all()
+        .with_order(&Order::Descending)
+        .with_limit(5);
     let response = client.request(req).await.unwrap();
-    assert!(!response.records.is_empty());
+    assert_eq!(response.records.len(), 5);
+}
+
+#[tokio::test]
+async fn test_stream_all_trades() {
+    let client = new_client();
+    let req = api::trades::all().with_order(&Order::Descending);
+    let mut stream = client.stream(req).unwrap().take(10);
+    while let Some(event) = stream.next().await {
+        assert!(!event.unwrap().paging_token.is_empty());
+    }
+}
+
+#[tokio::test]
+async fn test_trades_for_account() {
+    let client = new_client();
+    let root_key = new_root_key();
+    let req = api::trades::for_account(root_key.public_key())
+        .with_order(&Order::Descending)
+        .with_limit(5);
+    let response = client.request(req).await.unwrap();
+    assert!(response.records.is_empty());
 }
