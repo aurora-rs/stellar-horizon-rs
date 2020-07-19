@@ -24,8 +24,10 @@ pub use transaction::*;
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Price {
     #[serde(rename = "n")]
+    #[serde(alias = "N")]
     pub numerator: i32,
     #[serde(rename = "d")]
+    #[serde(alias = "D")]
     pub denominator: i32,
 }
 
@@ -40,7 +42,7 @@ pub struct Asset {
 pub struct Path {
     #[serde(flatten, with = "SourceAsset")]
     pub source_asset: Asset,
-    pub souce_amount: String,
+    pub source_amount: String,
     #[serde(flatten, with = "DestinationAsset")]
     pub destination_asset: Asset,
     pub destination_amount: String,

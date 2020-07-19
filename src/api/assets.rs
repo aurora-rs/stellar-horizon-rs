@@ -5,6 +5,7 @@ use crate::resources;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
+/// Creates a request to list all assets issued on the network.
 pub fn all() -> AllAssetsRequest {
     AllAssetsRequest {
         asset_code: None,
@@ -15,6 +16,7 @@ pub fn all() -> AllAssetsRequest {
     }
 }
 
+/// Request all assets issued on the network.
 #[derive(Debug, Clone)]
 pub struct AllAssetsRequest {
     asset_code: Option<String>,
@@ -25,11 +27,16 @@ pub struct AllAssetsRequest {
 }
 
 impl AllAssetsRequest {
-    pub fn with_asset_code(mut self, code: &str) -> AllAssetsRequest {
-        self.asset_code = Some(code.to_string());
+    /// Filter assets by asset code.
+    pub fn with_asset_code<S>(mut self, code: S) -> AllAssetsRequest
+    where
+        S: Into<String>,
+    {
+        self.asset_code = Some(code.into());
         self
     }
 
+    /// Filter assets by issuer.
     pub fn with_asset_issuer(mut self, issuer: &PublicKey) -> AllAssetsRequest {
         self.asset_issuer = Some(issuer.account_id());
         self

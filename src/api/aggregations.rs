@@ -6,9 +6,11 @@ use chrono::{DateTime, Duration, Utc};
 use std::convert::TryInto;
 use stellar_base::amount::{Amount, Stroops};
 use stellar_base::asset::{Asset, CreditAsset};
+use stellar_base::crypto::PublicKey;
 use stellar_base::error::Error as StellarBaseError;
 use url::Url;
 
+/// Creates a request to retrieve order book data.
 pub fn order_book(selling: Asset, buying: Asset) -> OrderBookRequest {
     OrderBookRequest {
         buying,
@@ -17,6 +19,13 @@ pub fn order_book(selling: Asset, buying: Asset) -> OrderBookRequest {
     }
 }
 
+/// Creates a request to retrieve information about potential path payments.
+///
+/// The strict receive payment path endpoint lists the paths a payment
+/// can take based on the amount of an asset you want the recipient to
+/// receive. The destination asset amount stays constant, and the type
+/// and amount of an asset sent varies based on offers in the order
+/// books.
 pub fn paths_strict_receive<S: TryInto<Stroops>>(
     source_assets: Vec<CreditAsset>,
     destination_asset: Asset,
@@ -33,6 +42,12 @@ pub fn paths_strict_receive<S: TryInto<Stroops>>(
     })
 }
 
+/// Creates a request to retrieve information about potential path payments.
+///
+/// The strict receive payment path endpoint lists the paths a payment
+/// can take based on the amount of an asset you want to send. The
+/// source asset amount stays constant, and the type and amount of an
+/// asset received varies based on offers in the order books.
 pub fn paths_strict_send<S: TryInto<Stroops>>(
     source_asset: Asset,
     destination_assets: Vec<CreditAsset>,
@@ -49,6 +64,27 @@ pub fn paths_strict_send<S: TryInto<Stroops>>(
     })
 }
 
+/// Creates a request to retrieve aggregated trade data.
+///
+/// A trade aggregation represents aggregated statistics on an asset
+/// pair (base and counter) for a specific time period. Trade
+/// aggregations are useful to developers of trading clients and
+/// provide historical trade data.
+///
+/// This endpoint displays trade data based on filters set in the arguments.
+///
+/// This is done by dividing a given time range into segments and
+/// aggregating statistics, for a given asset pair (base, counter)
+/// over each of these segments.
+///
+/// The duration of the segments is specified with the `resolution`
+/// parameter. The start and end of the time range are given by
+/// `start_time` and `end_time` respectively, which are both rounded
+/// to the nearest multiple of `resolution` since epoch.
+///
+/// The individual segments are also aligned with multiples of
+/// `resolution` since epoch. If you want to change this alignment, the
+/// segments can be `offset` by specifying the offset parameter.
 pub fn all_trades(
     start_time: DateTime<Utc>,
     end_time: DateTime<Utc>,
@@ -68,21 +104,35 @@ pub fn all_trades(
     }
 }
 
+/// Creates a request to retrieve statistics about network fees.
 pub fn fee_stats() -> FeeStatsRequest {
     FeeStatsRequest {}
 }
 
+/// Trade aggregation resolution.
 #[derive(Debug, Copy, Clone)]
 pub enum Resolution {
+    /// 1 minute.
     OneMinute,
+    /// 5 minutes.
     FiveMinutes,
+    /// 15 minutes.
     FifteenMinutes,
+    /// 1 hour.
     OneHour,
+    /// 1 day.
     OneDay,
+    /// 1 week.
     OneWeek,
+    /// Custom duration.
+    ///
+    /// Horizon only supports the value defined in this enum, a custom
+    /// duration can be used as escape hatch if horizon introduces new
+    /// values to this enum.
     Custom(Duration),
 }
 
+/// Request order book data.
 #[derive(Debug, Clone)]
 pub struct OrderBookRequest {
     limit: Option<u64>,
@@ -90,6 +140,7 @@ pub struct OrderBookRequest {
     buying: Asset,
 }
 
+/// Request paths for path payment strict receive.
 #[derive(Debug, Clone)]
 pub struct PathsStrictReceiveRequest {
     source_account: Option<String>,
@@ -98,6 +149,7 @@ pub struct PathsStrictReceiveRequest {
     destination_amount: Stroops,
 }
 
+/// Request paths for path payment strict send.
 #[derive(Debug, Clone)]
 pub struct PathsStrictSendRequest {
     destination_account: Option<String>,
@@ -106,6 +158,7 @@ pub struct PathsStrictSendRequest {
     source_amount: Stroops,
 }
 
+/// Request aggregated trade data.
 #[derive(Debug, Clone)]
 pub struct AllTradesRequest {
     start_time: DateTime<Utc>,
@@ -118,10 +171,12 @@ pub struct AllTradesRequest {
     offset: Option<Duration>,
 }
 
+/// Request fee stats.
 #[derive(Debug, Clone)]
 pub struct FeeStatsRequest {}
 
 impl OrderBookRequest {
+    /// The total number of records returned.
     pub fn with_limit(mut self, limit: u64) -> Self {
         self.limit = Some(limit);
         self
@@ -129,15 +184,17 @@ impl OrderBookRequest {
 }
 
 impl PathsStrictReceiveRequest {
-    pub fn with_source_account(mut self, source_account: String) -> Self {
-        self.source_account = Some(source_account);
+    /// Update the request to include only paths that `source_account` holds.
+    pub fn with_source_account(mut self, source_account: &PublicKey) -> Self {
+        self.source_account = Some(source_account.account_id());
         self
     }
 }
 
 impl PathsStrictSendRequest {
-    pub fn with_destination_account(mut self, destination_account: String) -> Self {
-        self.destination_account = Some(destination_account);
+    /// Update the request to include only paths that `destination_acconut` can hold.
+    pub fn with_destination_account(mut self, destination_account: &PublicKey) -> Self {
+        self.destination_account = Some(destination_account.account_id());
         self
     }
 }
@@ -157,7 +214,7 @@ impl Request for OrderBookRequest {
 }
 
 impl Request for PathsStrictReceiveRequest {
-    type Response = resources::Path;
+    type Response = Page<resources::Path>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/paths/strict-receive")?;
@@ -176,7 +233,7 @@ impl Request for PathsStrictReceiveRequest {
 }
 
 impl Request for PathsStrictSendRequest {
-    type Response = resources::Path;
+    type Response = Page<resources::Path>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/paths/strict-send")?;
