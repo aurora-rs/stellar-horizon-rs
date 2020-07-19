@@ -60,7 +60,7 @@ impl HorizonHttpClientInner {
         let https = HttpsConnector::new();
         let inner = Client::builder().build::<_, hyper::Body>(https);
         let host = host.try_into().map_err(|_| Error::InvalidHost)?;
-        let client_name = "aurora-rs/stellar-sdk".to_string();
+        let client_name = "aurora-rs/stellar-horizon-rs".to_string();
         let client_version = crate::VERSION.to_string();
         Ok(HorizonHttpClientInner {
             inner,

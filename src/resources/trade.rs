@@ -158,7 +158,7 @@ struct CounterAsset {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
-struct SoldAsset {
+pub(crate) struct SoldAsset {
     #[serde(rename = "sold_asset_type")]
     asset_type: String,
     #[serde(rename = "sold_asset_code")]
@@ -169,7 +169,7 @@ struct SoldAsset {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
-struct BoughtAsset {
+pub(crate) struct BoughtAsset {
     #[serde(rename = "bought_asset_type")]
     asset_type: String,
     #[serde(rename = "bought_asset_code")]

@@ -459,3 +459,98 @@ async fn test_stream_payments_for_account() {
     }
     assert_eq!(3, count);
 }
+
+#[tokio::test]
+async fn test_all_effects() {
+    let client = new_client();
+
+    let req = api::effects::all();
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_all_effects() {
+    let client = new_client();
+
+    let req = api::effects::all();
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}
+
+#[tokio::test]
+async fn test_effects_for_transaction() {
+    let client = new_client();
+
+    let tx_req = api::transactions::all().with_limit(1);
+    let tx_response = client.request(tx_req).await.unwrap();
+    let tx_hash = &tx_response.records.iter().next().unwrap().id;
+
+    let req = api::effects::for_transaction(tx_hash.to_string());
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_effects_for_operation() {
+    let client = new_client();
+
+    let op_req = api::operations::all().with_limit(1);
+    let op_response = client.request(op_req).await.unwrap();
+    let op_id = &op_response.records.iter().next().unwrap().base().id;
+
+    let req = api::effects::for_operation(op_id.to_string());
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_effects_for_ledger() {
+    let client = new_client();
+    let root = client.request(api::root::root()).await.unwrap();
+
+    let req = api::effects::for_ledger(root.history_latest_ledger);
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_effects_for_ledger() {
+    let client = new_client();
+    let root = client.request(api::root::root()).await.unwrap();
+
+    let req = api::effects::for_ledger(root.history_latest_ledger);
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}
+
+#[tokio::test]
+async fn test_effects_for_account() {
+    let client = new_client();
+
+    let req = api::effects::for_account(&new_project_public_key());
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_effects_for_account() {
+    let client = new_client();
+    let root = client.request(api::root::root()).await.unwrap();
+
+    let req = api::effects::for_account(&new_project_public_key());
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}

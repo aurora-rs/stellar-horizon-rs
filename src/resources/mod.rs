@@ -6,6 +6,7 @@
 pub mod account;
 pub mod asset;
 pub mod book;
+pub mod effect;
 pub mod ledger;
 pub mod offer;
 pub mod operation;
@@ -16,6 +17,7 @@ pub mod transaction;
 pub use account::*;
 pub use asset::*;
 pub use book::*;
+pub use effect::*;
 pub use ledger::*;
 pub use offer::*;
 pub use operation::*;
