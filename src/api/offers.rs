@@ -6,6 +6,7 @@ use stellar_base::asset::Asset;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
+/// Creates a request to retrieve all open offers.
 pub fn all() -> AllOffersRequest {
     AllOffersRequest {
         seller: None,
@@ -17,10 +18,12 @@ pub fn all() -> AllOffersRequest {
     }
 }
 
+/// Creates a request to retrieve a single offer.
 pub fn single(offer_id: i64) -> SingleOfferRequest {
     SingleOfferRequest { offer_id }
 }
 
+/// Creates a request to retrieve the account's offers.
 pub fn for_account(account: &PublicKey) -> OffersForAccountRequest {
     OffersForAccountRequest {
         account_id: account.account_id(),
@@ -31,22 +34,26 @@ pub fn for_account(account: &PublicKey) -> OffersForAccountRequest {
 }
 
 impl AllOffersRequest {
+    /// Filter by the account id of the offer creator.
     pub fn with_seller(mut self, pk: &PublicKey) -> AllOffersRequest {
         self.seller = Some(pk.account_id());
         self
     }
 
+    /// Filter by the asset being sold.
     pub fn with_selling(mut self, selling: Asset) -> AllOffersRequest {
         self.selling = Some(selling);
         self
     }
 
+    /// Filter by the asset being bought.
     pub fn with_buying(mut self, buying: Asset) -> AllOffersRequest {
         self.buying = Some(buying);
         self
     }
 }
 
+/// Request all open offers.
 #[derive(Debug, Clone)]
 pub struct AllOffersRequest {
     seller: Option<String>,
@@ -57,11 +64,13 @@ pub struct AllOffersRequest {
     order: Option<Order>,
 }
 
+/// Request a single offer.
 #[derive(Debug, Clone)]
 pub struct SingleOfferRequest {
     offer_id: i64,
 }
 
+/// Request offers for an account.
 #[derive(Debug, Clone)]
 pub struct OffersForAccountRequest {
     account_id: String,

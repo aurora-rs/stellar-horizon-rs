@@ -243,3 +243,46 @@ async fn test_fee_stats() {
     let base_fee = response.last_ledger_base_fee.parse::<u64>().unwrap();
     assert!(base_fee >= 100);
 }
+
+#[tokio::test]
+async fn test_all_offers() {
+    let client = new_client();
+
+    let req = api::offers::all()
+        .with_limit(10)
+        .with_selling(Asset::new_native())
+        .with_buying(new_credit_asset());
+
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_offers_for_account() {
+    let client = new_client();
+
+    let req = api::offers::for_account(&new_project_public_key())
+        .with_cursor("now")
+        .with_limit(10);
+
+    let response = client.request(req).await.unwrap();
+    assert!(response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_single_offer() {
+    let client = new_client();
+
+    let req = api::offers::all()
+        .with_limit(1)
+        .with_selling(Asset::new_native())
+        .with_buying(new_credit_asset());
+
+    let response = client.request(req).await.unwrap();
+    let offer = response.records.iter().next().unwrap();
+    let offer_id = offer.id.parse::<i64>().unwrap();
+
+    let req = api::offers::single(offer_id);
+    let response = client.request(req).await.unwrap();
+    assert_eq!(offer.id, response.id);
+}
