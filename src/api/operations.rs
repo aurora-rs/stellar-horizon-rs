@@ -1,4 +1,4 @@
-use crate::api::Page;
+use crate::api::{Join, Page};
 use crate::error::Result;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
 use crate::resources;
@@ -42,13 +42,6 @@ pub fn for_ledger(ledger: i32) -> OperationsForLedgerRequest {
     }
 }
 
-/// Optionally join data with the operations response.
-#[derive(Debug, Copy, Clone)]
-pub enum Join {
-    /// Include the operation transaction.
-    Transactions,
-}
-
 impl AllOperationsRequest {
     pub fn with_include_failed(mut self, include_failed: bool) -> Self {
         self.include_failed = Some(include_failed);
@@ -89,15 +82,6 @@ impl OperationsForLedgerRequest {
     pub fn with_join(mut self, join: Join) -> Self {
         self.join = Some(join);
         self
-    }
-}
-
-impl Join {
-    /// Return the order query value.
-    pub fn to_query_value(&self) -> String {
-        match self {
-            Join::Transactions => "transactions".to_string(),
-        }
     }
 }
 

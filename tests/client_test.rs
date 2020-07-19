@@ -333,7 +333,7 @@ async fn test_submit_transaction() {
 async fn test_all_operations() {
     let client = new_client();
 
-    let req = api::operations::all().with_join(api::operations::Join::Transactions);
+    let req = api::operations::all().with_join(api::Join::Transactions);
     let response = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
@@ -342,7 +342,7 @@ async fn test_all_operations() {
 async fn test_stream_all_operations() {
     let client = new_client();
 
-    let req = api::operations::all().with_join(api::operations::Join::Transactions);
+    let req = api::operations::all().with_join(api::Join::Transactions);
     let mut stream = client.stream(req).unwrap().take(3);
     let mut count = 0;
     while let Some(event) = stream.try_next().await.unwrap() {
@@ -356,15 +356,14 @@ async fn test_single_operation() {
     let client = new_client();
 
     let req = api::operations::all()
-        .with_join(api::operations::Join::Transactions)
+        .with_join(api::Join::Transactions)
         .with_limit(1);
     let response = client.request(req).await.unwrap();
     let response_id = &response.records.iter().next().unwrap().base().id;
 
     let response = client
         .request(
-            api::operations::single(response_id.to_string())
-                .with_join(api::operations::Join::Transactions),
+            api::operations::single(response_id.to_string()).with_join(api::Join::Transactions),
         )
         .await
         .unwrap();
@@ -409,6 +408,50 @@ async fn test_stream_operations_for_ledger() {
     let root = client.request(api::root::root()).await.unwrap();
 
     let req = api::operations::for_ledger(root.history_latest_ledger);
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}
+
+#[tokio::test]
+async fn test_all_payments() {
+    let client = new_client();
+
+    let req = api::payments::all().with_join(api::Join::Transactions);
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_all_payments() {
+    let client = new_client();
+
+    let req = api::payments::all().with_join(api::Join::Transactions);
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}
+
+#[tokio::test]
+async fn test_payments_for_account() {
+    let client = new_client();
+
+    let req = api::payments::for_account(&new_project_public_key());
+    let response = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_payments_for_account() {
+    let client = new_client();
+
+    let req = api::payments::for_account(&new_project_public_key());
     let mut stream = client.stream(req).unwrap().take(3);
     let mut count = 0;
     while let Some(event) = stream.try_next().await.unwrap() {

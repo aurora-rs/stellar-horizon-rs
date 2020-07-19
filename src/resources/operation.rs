@@ -23,6 +23,17 @@ pub enum Operation {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(tag = "type")]
+#[serde(rename_all = "snake_case")]
+pub enum Payment {
+    CreateAccount(CreateAccountOperation),
+    Payment(PaymentOperation),
+    PathPaymentStrictReceive(PathPaymentStrictReceiveOperation),
+    PathPaymentStrictSend(PathPaymentStrictSendOperation),
+    AccountMerge(AccountMergeOperation),
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OperationBase {
     #[serde(rename = "_links")]
     pub links: OperationLinks,

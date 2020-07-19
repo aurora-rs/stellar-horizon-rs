@@ -47,3 +47,19 @@ struct Embedded<T> {
 struct EmbeddedRecords<T> {
     records: Vec<T>,
 }
+
+/// Optionally join data with the operations response.
+#[derive(Debug, Copy, Clone)]
+pub enum Join {
+    /// Include the operation transaction.
+    Transactions,
+}
+
+impl Join {
+    /// Return the order query value.
+    pub fn to_query_value(&self) -> String {
+        match self {
+            Join::Transactions => "transactions".to_string(),
+        }
+    }
+}
