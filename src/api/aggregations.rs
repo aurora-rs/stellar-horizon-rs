@@ -199,7 +199,7 @@ impl StreamRequest for OrderBookRequest {
 }
 
 impl Request for AllTradesRequest {
-    type Response = Page<resources::Trade>;
+    type Response = Page<resources::TradeAggregation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/trade_aggregations")?;
