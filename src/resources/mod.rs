@@ -24,34 +24,34 @@ pub use transaction::*;
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Price {
     #[serde(rename = "n")]
-    numerator: i32,
+    pub numerator: i32,
     #[serde(rename = "d")]
-    denominator: i32,
+    pub denominator: i32,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Asset {
-    asset_type: String,
-    asset_code: Option<String>,
-    asset_issuer: Option<String>,
+    pub asset_type: String,
+    pub asset_code: Option<String>,
+    pub asset_issuer: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Path {
     #[serde(flatten, with = "SourceAsset")]
-    source_asset: Asset,
-    souce_amount: String,
+    pub source_asset: Asset,
+    pub souce_amount: String,
     #[serde(flatten, with = "DestinationAsset")]
-    destination_asset: Asset,
-    destination_amount: String,
-    path: Vec<Asset>,
+    pub destination_asset: Asset,
+    pub destination_amount: String,
+    pub path: Vec<Asset>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
-    href: String,
+    pub href: String,
     #[serde(default = "default_templated_as_false")]
-    templated: bool,
+    pub templated: bool,
 }
 
 fn default_templated_as_false() -> bool {
