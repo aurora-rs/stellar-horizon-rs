@@ -5,7 +5,7 @@ use crate::resources;
 use stellar_base::crypto::PublicKey;
 use stellar_base::transaction::TransactionEnvelope;
 use stellar_base::xdr::XDRSerialize;
-use url::Url;
+use url::{form_urlencoded, Url};
 
 /// Creates a request to retrieve all transactions.
 pub fn all() -> AllTransactionsRequest {
@@ -111,8 +111,11 @@ impl Request for SingleTransactionRequest {
 impl Request for SubmitTransactionRequest {
     type Response = resources::Transaction;
 
-    fn is_post(&self) -> bool {
-        true
+    fn post_body(&self) -> Result<Option<String>> {
+        let body = form_urlencoded::Serializer::new(String::new())
+            .append_pair("tx", &self.xdr)
+            .finish();
+        Ok(Some(body))
     }
 
     fn uri(&self, host: &Url) -> Result<Url> {

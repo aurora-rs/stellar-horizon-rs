@@ -5,4 +5,6 @@ use serde::{Deserialize, Serialize};
 pub struct HorizonError {
     /// A short description of the error.
     pub title: String,
+    /// A longer description of the error.
+    pub detail: String,
 }

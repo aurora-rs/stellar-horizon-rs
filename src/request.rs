@@ -1,5 +1,6 @@
 use crate::error::Result;
 use serde::de::DeserializeOwned;
+use serde::ser::Serialize;
 use stellar_base::asset::{Asset, CreditAssetType};
 use url::Url;
 
@@ -17,8 +18,8 @@ pub trait Request: Send + Sync {
     /// The type of this request response.
     type Response: DeserializeOwned;
 
-    fn is_post(&self) -> bool {
-        false
+    fn post_body(&self) -> Result<Option<String>> {
+        Ok(None)
     }
 
     /// Returns the request uri.

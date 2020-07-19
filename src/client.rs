@@ -7,6 +7,7 @@ use futures::Stream;
 use hyper::client::ResponseFuture;
 use hyper::Client;
 use hyper_tls::HttpsConnector;
+use serde::ser::Serialize;
 use std::convert::TryInto;
 use std::marker::Unpin;
 use std::pin::Pin;
@@ -138,16 +139,22 @@ impl HorizonClient for HorizonHttpClient {
 }
 
 async fn execute_request<R: Request>(client: &HorizonHttpClient, req: R) -> Result<R::Response> {
-    let http_method = if req.is_post() {
-        hyper::Method::POST
-    } else {
-        hyper::Method::GET
-    };
     let uri = req.uri(&client.inner.host)?;
-    let request = client
-        .request_builder(uri)
-        .method(http_method)
-        .body(hyper::Body::empty())?;
+    let request_builder = client.request_builder(uri);
+
+    let request = if let Some(body) = req.post_body()? {
+        request_builder
+            .method(hyper::Method::POST)
+            .header(
+                hyper::header::CONTENT_TYPE,
+                "application/x-www-form-urlencoded",
+            )
+            .body(hyper::Body::from(body))?
+    } else {
+        request_builder
+            .method(hyper::Method::GET)
+            .body(hyper::Body::empty())?
+    };
 
     let response = client.raw_request(request).await?;
 
