@@ -35,3 +35,5 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
+        env:
+          SECRET_SEED: ${{ secrets.SECRET_SEED }}

@@ -22,6 +22,8 @@ jobs:
 
       - name: Run cargo tarpaulin
         uses: actions-rs/tarpaulin@v0.1
+        env:
+          SECRET_SEED: ${{ secrets.SECRET_SEED }}
 
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v1.0.2
