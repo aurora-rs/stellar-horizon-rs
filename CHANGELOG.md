@@ -8,9 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.3.0] - 2020-07-19
+### Added
+ - Implement all endpoints
+
+
 ## [0.2.3] - 2020-07-18
 ### Fixed
  - Mark stream response as `'static`
+
 
 ## [0.2.2] - 2020-07-18
 ### Fixed
@@ -24,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - 2020-07-18
 ### Added
- - Implenet several endpoints
+ - Implement several endpoints
  - Improve documentation
 
 
