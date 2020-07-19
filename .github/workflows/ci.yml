@@ -41,7 +41,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: -- --num-threads=1
+          args: -- --test-threads=1
         if: github.ref == 'refs/heads/master'
         env:
           SECRET_SEED: ${{ secrets.SECRET_SEED }}
