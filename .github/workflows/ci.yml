@@ -35,13 +35,13 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-            args: --lib
+          args: --lib
 
       - name: Run cargo integration test
         uses: actions-rs/cargo@v1
         with:
           command: test
-            args: -- --num-threads=1
+          args: -- --num-threads=1
         if: github.ref == 'refs/heads/master'
         env:
           SECRET_SEED: ${{ secrets.SECRET_SEED }}
