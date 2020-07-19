@@ -1,4 +1,4 @@
-use crate::api::{Join, Page};
+use crate::api::Page;
 use crate::error::Result;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
 use crate::resources;

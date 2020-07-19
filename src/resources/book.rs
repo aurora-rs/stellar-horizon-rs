@@ -1,4 +1,4 @@
-use crate::resources::{Asset, Link, Price};
+use crate::resources::{Asset, Price};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]

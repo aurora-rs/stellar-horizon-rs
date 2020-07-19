@@ -2,12 +2,11 @@ use crate::error::{Error, Result};
 use crate::horizon_error::HorizonError;
 use crate::request::{Request, StreamRequest};
 use futures::future::{BoxFuture, Future};
-use futures::stream::{BoxStream, IntoAsyncRead, TryStreamExt};
+use futures::stream::TryStreamExt;
 use futures::Stream;
 use hyper::client::ResponseFuture;
 use hyper::Client;
 use hyper_tls::HttpsConnector;
-use serde::ser::Serialize;
 use std::convert::TryInto;
 use std::marker::Unpin;
 use std::pin::Pin;
@@ -106,11 +105,6 @@ impl HorizonHttpClient {
     /// Returns a request builder with default headers.
     fn request_builder(&self, uri: Url) -> http::request::Builder {
         self.inner.request_builder(uri)
-    }
-
-    /// Returns a request builder for a GET request.
-    fn get(&self, uri: Url) -> http::request::Builder {
-        self.inner.get(uri)
     }
 
     /// Performs a request.

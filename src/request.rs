@@ -1,6 +1,5 @@
 use crate::error::Result;
 use serde::de::DeserializeOwned;
-use serde::ser::Serialize;
 use stellar_base::asset::{Asset, CreditAssetType};
 use url::Url;
 

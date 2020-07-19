@@ -1,6 +1,6 @@
 use crate::api::Page;
 use crate::error::{Error, Result};
-use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
+use crate::request::{Order, Request, StreamRequest, UrlPageRequestExt};
 use crate::resources;
 use chrono::{DateTime, Duration, Utc};
 use std::convert::TryInto;
@@ -330,20 +330,9 @@ mod tests {
             .unwrap()
     }
 
-    fn keypair1() -> PublicKey {
-        PublicKey::from_account_id("GB6YS5JYLNFHLFSFF7KXQ6DWIRGZTMZ64MBAXOF7OV764PET3T7FHVR")
-            .unwrap()
-    }
-
     fn credit_asset0() -> Asset {
         let issuer = keypair0();
         let code = "ABCD";
-        Asset::new_credit(code, issuer).unwrap()
-    }
-
-    fn credit_asset1() -> Asset {
-        let issuer = keypair1();
-        let code = "WXYZ0";
         Asset::new_credit(code, issuer).unwrap()
     }
 
