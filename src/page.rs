@@ -1,3 +1,4 @@
+//! Pagination page.
 use serde::de::{Deserialize, DeserializeOwned, Deserializer};
 use serde::ser::Serialize;
 

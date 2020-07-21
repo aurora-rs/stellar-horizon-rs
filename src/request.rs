@@ -1,3 +1,4 @@
+//! Request traits.
 use crate::error::Result;
 use serde::de::DeserializeOwned;
 use stellar_base::asset::{Asset, CreditAssetType};

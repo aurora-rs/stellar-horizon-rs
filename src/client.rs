@@ -1,3 +1,4 @@
+//! Horizon client traits and types.
 use crate::error::{Error, Result};
 use crate::headers::HeaderMap;
 use crate::horizon_error::HorizonError;

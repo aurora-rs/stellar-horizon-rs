@@ -1,3 +1,5 @@
+//! Horizon resources.
+
 // All resources have the same type (when possible) of the
 // horizon protocol definition at
 // https://github.com/stellar/go/blob/master/protocols/horizon/

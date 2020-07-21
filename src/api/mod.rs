@@ -1,3 +1,4 @@
+//! Horizon API requests builders and types.
 pub mod accounts;
 pub mod aggregations;
 pub mod assets;

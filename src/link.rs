@@ -1,3 +1,5 @@
+//! Pagination link.
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Link {
     pub href: String,

@@ -1,3 +1,4 @@
+//! Horizon error response.
 use serde::{Deserialize, Serialize};
 
 /// Horizon error response.
