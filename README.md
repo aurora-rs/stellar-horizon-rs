@@ -35,7 +35,8 @@ implemented as separate crates when possible.
  - [x] Request paginated resources
  - [x] Stream resources
  - [ ] Cleanup API, e.g. turn `String` into `Into<String>`
- - [ ] Submit transactions
+ - [x] Submit transactions
+ - [x] Expose rate limit headers
  - [ ] Lazily parse resources fields
  - [ ] Navigation support, follow links
  - [ ] Improve documentation
