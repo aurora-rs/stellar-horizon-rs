@@ -1,5 +1,5 @@
-use crate::api::Page;
 use crate::error::{Error, Result};
+use crate::page::Page;
 use crate::request::{Order, Request, StreamRequest, UrlPageRequestExt};
 use crate::resources;
 use chrono::{DateTime, Duration, Utc};

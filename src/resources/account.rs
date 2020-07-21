@@ -1,4 +1,5 @@
-use crate::resources::{Asset, Link};
+use crate::link::Link;
+use crate::resources::Asset;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap as Map;

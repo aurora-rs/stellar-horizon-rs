@@ -1,5 +1,6 @@
-use crate::api::{Join, Page};
+use crate::api::Join;
 use crate::error::Result;
+use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
 use crate::resources;
 use stellar_base::PublicKey;

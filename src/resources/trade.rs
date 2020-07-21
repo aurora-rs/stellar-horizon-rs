@@ -1,4 +1,5 @@
-use crate::resources::{Asset, Link, Price};
+use crate::link::Link;
+use crate::resources::{Asset, Price};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 

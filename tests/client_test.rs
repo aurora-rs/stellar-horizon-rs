@@ -553,3 +553,32 @@ async fn test_stream_effects_for_account() {
     }
     assert_eq!(3, count);
 }
+
+/*
+#[tokio::test]
+async fn test_pagination() {
+    let client = new_client();
+    let req = api::ledgers::all()
+        .with_order(&Order::Descending)
+        .with_cursor("now");
+    let response = client.request(req).await.unwrap();
+    let prev = response.previous.unwrap();
+    let prev_response = client.request(prev).await.unwrap();
+    let next = prev_response.next.unwrap();
+    let _next_response = client.request(next).await.unwrap();
+}
+
+#[tokio::test]
+async fn test_navigation_links() {
+    let client = new_client();
+    let req = api::ledgers::all()
+        .with_order(&Order::Descending)
+        .with_cursor("now");
+    let response = client.request(req).await.unwrap();
+    let ledger = response.records.iter().next().unwrap();
+    let _tx_response = client
+        .request(ledger.links.transactions.clone())
+        .await
+        .unwrap();
+}
+*/

@@ -1,6 +1,3 @@
-use serde::de::{Deserialize, DeserializeOwned, Deserializer};
-use serde::ser::Serialize;
-
 pub mod accounts;
 pub mod aggregations;
 pub mod assets;
@@ -13,40 +10,6 @@ pub mod payments;
 pub mod root;
 pub mod trades;
 pub mod transactions;
-
-#[derive(Debug, Clone)]
-pub struct Page<T>
-where
-    T: DeserializeOwned + Serialize,
-{
-    pub records: Vec<T>,
-}
-
-impl<'de, T> Deserialize<'de> for Page<T>
-where
-    T: DeserializeOwned + Serialize,
-{
-    fn deserialize<D>(d: D) -> std::result::Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let inner: Embedded<EmbeddedRecords<T>> = Embedded::deserialize(d)?;
-        Ok(Page {
-            records: inner.embedded.records,
-        })
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct Embedded<T> {
-    #[serde(rename = "_embedded")]
-    embedded: T,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct EmbeddedRecords<T> {
-    records: Vec<T>,
-}
 
 /// Optionally join data with the operations response.
 #[derive(Debug, Copy, Clone)]

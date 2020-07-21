@@ -53,17 +53,6 @@ pub struct Path {
     pub path: Vec<Asset>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct Link {
-    pub href: String,
-    #[serde(default = "default_templated_as_false")]
-    pub templated: bool,
-}
-
-fn default_templated_as_false() -> bool {
-    false
-}
-
 // https://github.com/serde-rs/serde/issues/970#issuecomment-312282671
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]

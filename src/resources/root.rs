@@ -1,4 +1,4 @@
-use crate::resources::Link;
+use crate::link::Link;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]

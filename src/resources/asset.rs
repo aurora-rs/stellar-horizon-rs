@@ -1,5 +1,6 @@
+use crate::link::Link;
 use crate::resources::account::AccountFlags;
-use crate::resources::{Asset, Link};
+use crate::resources::Asset;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
