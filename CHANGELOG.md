@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.4.0] - 2020-07-21
+### Added
+ - Parse response header to obtain rate limit information
+
+### Changed
+ - Request now returns a `(header, response)` tuple
+
+
 ## [0.3.0] - 2020-07-19
 ### Added
  - Implement all endpoints
