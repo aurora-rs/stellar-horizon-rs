@@ -1,4 +1,5 @@
 use crate::error::{Error, Result};
+use crate::headers::HeaderMap;
 use crate::horizon_error::HorizonError;
 use crate::request::{Request, StreamRequest};
 use futures::future::{BoxFuture, Future};
@@ -17,7 +18,10 @@ use url::Url;
 /// Horizon Client trait. Send HTTP and stream requests to Horizon.
 pub trait HorizonClient {
     /// Send a request `R` to horizon, returns the corresponding response.
-    fn request<'a, R: Request + 'a>(&'a self, req: R) -> BoxFuture<'a, Result<R::Response>>;
+    fn request<'a, R: Request + 'a>(
+        &'a self,
+        req: R,
+    ) -> BoxFuture<'a, Result<(HeaderMap, R::Response)>>;
     /// Create a stream request.
     fn stream<'a, R: StreamRequest + 'static>(
         &'a self,
@@ -114,7 +118,10 @@ impl HorizonHttpClient {
 }
 
 impl HorizonClient for HorizonHttpClient {
-    fn request<'a, R: Request + 'a>(&'a self, req: R) -> BoxFuture<'a, Result<R::Response>> {
+    fn request<'a, R: Request + 'a>(
+        &'a self,
+        req: R,
+    ) -> BoxFuture<'a, Result<(HeaderMap, R::Response)>> {
         Box::pin(execute_request(self, req))
     }
 
@@ -132,7 +139,10 @@ impl HorizonClient for HorizonHttpClient {
     }
 }
 
-async fn execute_request<R: Request>(client: &HorizonHttpClient, req: R) -> Result<R::Response> {
+async fn execute_request<R: Request>(
+    client: &HorizonHttpClient,
+    req: R,
+) -> Result<(HeaderMap, R::Response)> {
     let uri = req.uri(&client.inner.host)?;
     let request_builder = client.request_builder(uri);
 
@@ -153,9 +163,10 @@ async fn execute_request<R: Request>(client: &HorizonHttpClient, req: R) -> Resu
     let response = client.raw_request(request).await?;
 
     if response.status().is_success() {
+        let headers = response.headers().clone();
         let bytes = hyper::body::to_bytes(response).await?;
         let result: R::Response = serde_json::from_slice(&bytes)?;
-        Ok(result)
+        Ok((headers, result))
     } else if response.status().is_client_error() {
         let bytes = hyper::body::to_bytes(response).await?;
         let result: HorizonError = serde_json::from_slice(&bytes)?;

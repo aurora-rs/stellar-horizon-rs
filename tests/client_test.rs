@@ -10,6 +10,7 @@ use stellar_base::{Asset, KeyPair, Network, Operation, PublicKey, Transaction};
 use stellar_horizon::api;
 use stellar_horizon::api::aggregations::Resolution;
 use stellar_horizon::client::{HorizonClient, HorizonHttpClient};
+use stellar_horizon::headers::rate_limit_limit;
 use stellar_horizon::request::{Order, PageRequest};
 use tokio::stream::StreamExt;
 
@@ -40,15 +41,23 @@ fn new_credit_asset() -> Asset {
 #[tokio::test]
 async fn test_root() {
     let client = new_client();
-    let response = client.request(api::root::root()).await.unwrap();
+    let (_, response) = client.request(api::root::root()).await.unwrap();
     assert!(!response.horizon_version.is_empty());
+}
+
+#[tokio::test]
+async fn test_headers() {
+    let client = new_client();
+    let (headers, _) = client.request(api::root::root()).await.unwrap();
+    let limit = rate_limit_limit(&headers).unwrap();
+    assert!(limit > 0);
 }
 
 #[tokio::test]
 async fn test_single_ledger() {
     let client = new_client();
-    let root = client.request(api::root::root()).await.unwrap();
-    let response = client
+    let (_, root) = client.request(api::root::root()).await.unwrap();
+    let (_, response) = client
         .request(api::ledgers::single(root.history_latest_ledger))
         .await
         .unwrap();
@@ -61,7 +70,7 @@ async fn test_all_ledgers() {
     let req = api::ledgers::all()
         .with_order(&Order::Descending)
         .with_limit(7);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!(7, response.records.len());
 }
 
@@ -80,7 +89,7 @@ async fn test_single_account() {
     let client = new_client();
     let root_key = new_root_key();
     let req = api::accounts::single(root_key.public_key());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!(root_key.public_key().account_id(), response.paging_token);
 }
 
@@ -90,7 +99,7 @@ async fn test_all_transactions() {
     let req = api::transactions::all()
         .with_order(&Order::Descending)
         .with_limit(5);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!(response.records.len(), 5);
 }
 
@@ -111,14 +120,14 @@ async fn test_transactions_for_account() {
     let req = api::transactions::for_account(root_key.public_key())
         .with_order(&Order::Descending)
         .with_limit(5);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!(response.records.len(), 5);
 }
 
 #[tokio::test]
 async fn test_transactions_for_ledger() {
     let client = new_client();
-    let root = client.request(api::root::root()).await.unwrap();
+    let (_, root) = client.request(api::root::root()).await.unwrap();
     let req = api::transactions::for_ledger(root.history_latest_ledger as u32);
     let _response = client.request(req).await.unwrap();
 }
@@ -129,7 +138,7 @@ async fn test_all_trades() {
     let req = api::trades::all()
         .with_order(&Order::Descending)
         .with_limit(5);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!(response.records.len(), 5);
 }
 
@@ -150,7 +159,7 @@ async fn test_trades_for_account() {
     let req = api::trades::for_account(root_key.public_key())
         .with_order(&Order::Descending)
         .with_limit(5);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(response.records.is_empty());
 }
 
@@ -167,7 +176,7 @@ async fn test_data_for_account() {
 async fn test_all_assets() {
     let client = new_client();
     let req = api::assets::all().with_asset_code("BTC");
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -176,7 +185,7 @@ async fn test_order_book() {
     let client = new_client();
 
     let req = api::aggregations::order_book(Asset::new_native(), new_credit_asset());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!("native", response.base.asset_type);
     assert_eq!("credit_alphanum4", response.counter.asset_type);
 }
@@ -209,7 +218,7 @@ async fn test_paths_strict_receive() {
     )
     .unwrap()
     .with_source_account(&new_project_public_key());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -223,7 +232,7 @@ async fn test_paths_strict_send() {
     )
     .unwrap()
     .with_destination_account(&new_project_public_key());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -240,7 +249,7 @@ async fn test_all_trades_aggregation() {
         Asset::new_native(),
         new_credit_asset(),
     );
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -248,7 +257,7 @@ async fn test_all_trades_aggregation() {
 async fn test_fee_stats() {
     let client = new_client();
     let req = api::aggregations::fee_stats();
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     let base_fee = response.last_ledger_base_fee.parse::<u64>().unwrap();
     assert!(base_fee >= 100);
 }
@@ -262,7 +271,7 @@ async fn test_all_offers() {
         .with_selling(Asset::new_native())
         .with_buying(new_credit_asset());
 
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -274,7 +283,7 @@ async fn test_offers_for_account() {
         .with_cursor("now")
         .with_limit(10);
 
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(response.records.is_empty());
 }
 
@@ -287,12 +296,12 @@ async fn test_single_offer() {
         .with_selling(Asset::new_native())
         .with_buying(new_credit_asset());
 
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     let offer = response.records.iter().next().unwrap();
     let offer_id = offer.id.parse::<i64>().unwrap();
 
     let req = api::offers::single(offer_id);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert_eq!(offer.id, response.id);
 }
 
@@ -302,7 +311,7 @@ async fn test_submit_transaction() {
     let key_pair = new_project_key_pair();
 
     let account_req = api::accounts::single(key_pair.public_key());
-    let account = client.request(account_req).await.unwrap();
+    let (_, account) = client.request(account_req).await.unwrap();
     let sequence = account.sequence.parse::<i64>().unwrap();
 
     let data_value = DataValue::from_slice("Hello".as_bytes()).unwrap();
@@ -322,7 +331,7 @@ async fn test_submit_transaction() {
 
     tx.sign(&key_pair, &Network::new_public()).unwrap();
 
-    let response = client
+    let (_, response) = client
         .request(api::transactions::submit(&tx).unwrap())
         .await
         .unwrap();
@@ -334,7 +343,7 @@ async fn test_all_operations() {
     let client = new_client();
 
     let req = api::operations::all().with_join(api::Join::Transactions);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -358,10 +367,10 @@ async fn test_single_operation() {
     let req = api::operations::all()
         .with_join(api::Join::Transactions)
         .with_limit(1);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     let response_id = &response.records.iter().next().unwrap().base().id;
 
-    let response = client
+    let (_, response) = client
         .request(
             api::operations::single(response_id.to_string()).with_join(api::Join::Transactions),
         )
@@ -375,7 +384,7 @@ async fn test_operations_for_account() {
     let client = new_client();
 
     let req = api::operations::for_account(&new_project_public_key());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -395,17 +404,17 @@ async fn test_stream_operations_for_account() {
 #[tokio::test]
 async fn test_operations_for_ledger() {
     let client = new_client();
-    let root = client.request(api::root::root()).await.unwrap();
+    let (_, root) = client.request(api::root::root()).await.unwrap();
 
     let req = api::operations::for_ledger(root.history_latest_ledger);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
 #[tokio::test]
 async fn test_stream_operations_for_ledger() {
     let client = new_client();
-    let root = client.request(api::root::root()).await.unwrap();
+    let (_, root) = client.request(api::root::root()).await.unwrap();
 
     let req = api::operations::for_ledger(root.history_latest_ledger);
     let mut stream = client.stream(req).unwrap().take(3);
@@ -421,7 +430,7 @@ async fn test_all_payments() {
     let client = new_client();
 
     let req = api::payments::all().with_join(api::Join::Transactions);
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -443,7 +452,7 @@ async fn test_payments_for_account() {
     let client = new_client();
 
     let req = api::payments::for_account(&new_project_public_key());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -465,7 +474,7 @@ async fn test_all_effects() {
     let client = new_client();
 
     let req = api::effects::all();
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -487,11 +496,11 @@ async fn test_effects_for_transaction() {
     let client = new_client();
 
     let tx_req = api::transactions::all().with_limit(1);
-    let tx_response = client.request(tx_req).await.unwrap();
+    let (_, tx_response) = client.request(tx_req).await.unwrap();
     let tx_hash = &tx_response.records.iter().next().unwrap().id;
 
     let req = api::effects::for_transaction(tx_hash.to_string());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
@@ -500,18 +509,18 @@ async fn test_effects_for_operation() {
     let client = new_client();
 
     let op_req = api::operations::all().with_limit(1);
-    let op_response = client.request(op_req).await.unwrap();
+    let (_, op_response) = client.request(op_req).await.unwrap();
     let op_id = &op_response.records.iter().next().unwrap().base().id;
 
     let req = api::effects::for_operation(op_id.to_string());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
 #[tokio::test]
 async fn test_effects_for_ledger() {
     let client = new_client();
-    let root = client.request(api::root::root()).await.unwrap();
+    let (_, root) = client.request(api::root::root()).await.unwrap();
 
     let req = api::effects::for_ledger(root.history_latest_ledger);
     let _response = client.request(req).await.unwrap();
@@ -521,7 +530,7 @@ async fn test_effects_for_ledger() {
 #[tokio::test]
 async fn test_stream_effects_for_ledger() {
     let client = new_client();
-    let root = client.request(api::root::root()).await.unwrap();
+    let (_, root) = client.request(api::root::root()).await.unwrap();
 
     let req = api::effects::for_ledger(root.history_latest_ledger);
     let mut stream = client.stream(req).unwrap().take(3);
@@ -537,7 +546,7 @@ async fn test_effects_for_account() {
     let client = new_client();
 
     let req = api::effects::for_account(&new_project_public_key());
-    let response = client.request(req).await.unwrap();
+    let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }
 
