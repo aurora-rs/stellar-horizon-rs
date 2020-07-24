@@ -10,6 +10,7 @@ use url::{form_urlencoded, Url};
 /// Creates a request to retrieve all transactions.
 pub fn all() -> AllTransactionsRequest {
     AllTransactionsRequest {
+        include_failed: None,
         limit: None,
         cursor: None,
         order: None,
@@ -31,6 +32,7 @@ pub fn submit(tx: &TransactionEnvelope) -> Result<SubmitTransactionRequest> {
 pub fn for_account(account: &PublicKey) -> TransactionsForAccountRequest {
     TransactionsForAccountRequest {
         account_id: account.account_id(),
+        include_failed: None,
         limit: None,
         cursor: None,
         order: None,
@@ -41,6 +43,7 @@ pub fn for_account(account: &PublicKey) -> TransactionsForAccountRequest {
 pub fn for_ledger(ledger: u32) -> TransactionsForLedgerRequest {
     TransactionsForLedgerRequest {
         ledger,
+        include_failed: None,
         limit: None,
         cursor: None,
         order: None,
@@ -50,6 +53,7 @@ pub fn for_ledger(ledger: u32) -> TransactionsForLedgerRequest {
 /// Request all transactions.
 #[derive(Debug, Clone)]
 pub struct AllTransactionsRequest {
+    include_failed: Option<bool>,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -70,6 +74,7 @@ pub struct SubmitTransactionRequest {
 /// Request an account's transaction.
 #[derive(Debug, Clone)]
 pub struct TransactionsForAccountRequest {
+    include_failed: Option<bool>,
     account_id: String,
     limit: Option<u64>,
     cursor: Option<String>,
@@ -79,17 +84,25 @@ pub struct TransactionsForAccountRequest {
 /// Request a ledger's transaction.
 #[derive(Debug, Clone)]
 pub struct TransactionsForLedgerRequest {
+    include_failed: Option<bool>,
     ledger: u32,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
 }
 
+impl AllTransactionsRequest {
+    impl_include_failed!();
+}
+
 impl Request for AllTransactionsRequest {
     type Response = Page<resources::Transaction>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join("/transactions")?;
+        let mut url = host.join("/transactions")?;
+        if let Some(include_failed) = self.include_failed {
+            url = url.append_query_param("include_failed", &include_failed.to_string());
+        }
         Ok(url.append_pagination_params(self))
     }
 }
@@ -123,22 +136,36 @@ impl Request for SubmitTransactionRequest {
     }
 }
 
+impl TransactionsForAccountRequest {
+    impl_include_failed!();
+}
+
 impl Request for TransactionsForAccountRequest {
     type Response = Page<resources::Transaction>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/accounts/{}/transactions", self.account_id))?;
+        let mut url = host.join(&format!("/accounts/{}/transactions", self.account_id))?;
+        if let Some(include_failed) = self.include_failed {
+            url = url.append_query_param("include_failed", &include_failed.to_string());
+        }
         Ok(url.append_pagination_params(self))
     }
 }
 
 impl_page_request!(TransactionsForAccountRequest);
 
+impl TransactionsForLedgerRequest {
+    impl_include_failed!();
+}
+
 impl Request for TransactionsForLedgerRequest {
     type Response = Page<resources::Transaction>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/ledgers/{}/transactions", self.ledger))?;
+        let mut url = host.join(&format!("/ledgers/{}/transactions", self.ledger))?;
+        if let Some(include_failed) = self.include_failed {
+            url = url.append_query_param("include_failed", &include_failed.to_string());
+        }
         Ok(url.append_pagination_params(self))
     }
 }

@@ -102,6 +102,7 @@ async fn test_all_transactions() {
     let client = new_client();
     let req = api::transactions::all()
         .with_order(&Order::Descending)
+        .with_include_failed(true)
         .with_limit(5);
     let (_, response) = client.request(req).await.unwrap();
     assert_eq!(response.records.len(), 5);
@@ -123,6 +124,7 @@ async fn test_transactions_for_account() {
     let root_key = new_root_key();
     let req = api::transactions::for_account(root_key.public_key())
         .with_order(&Order::Descending)
+        .with_include_failed(true)
         .with_limit(5);
     let (_, response) = client.request(req).await.unwrap();
     assert_eq!(response.records.len(), 5);

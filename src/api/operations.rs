@@ -63,10 +63,7 @@ impl SingleOperationRequest {
 }
 
 impl OperationsForAccountRequest {
-    pub fn with_include_failed(mut self, include_failed: bool) -> Self {
-        self.include_failed = Some(include_failed);
-        self
-    }
+    impl_include_failed!();
 
     pub fn with_join(mut self, join: Join) -> Self {
         self.join = Some(join);
@@ -75,10 +72,7 @@ impl OperationsForAccountRequest {
 }
 
 impl OperationsForLedgerRequest {
-    pub fn with_include_failed(mut self, include_failed: bool) -> Self {
-        self.include_failed = Some(include_failed);
-        self
-    }
+    impl_include_failed!();
 
     pub fn with_join(mut self, join: Join) -> Self {
         self.join = Some(join);

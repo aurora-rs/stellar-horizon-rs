@@ -163,3 +163,16 @@ macro_rules! impl_page_request {
         }
     };
 }
+
+macro_rules! impl_include_failed {
+    () => {
+        pub fn with_include_failed(mut self, include_failed: bool) -> Self {
+            self.include_failed = Some(include_failed);
+            self
+        }
+
+        pub fn include_failed(&self) -> &Option<bool> {
+            &self.include_failed
+        }
+    };
+}
