@@ -5870,7 +5870,89 @@
         "starting_balance": "100974.9999640",
         "funder": "GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD",
         "account": "GDLO7LSQ3XHKDYRASBRWHIZ34QD5ZLQFCTWSHRAID7SLMUOT5ATEZVFW"
-      }
+      },
+	{
+	"type": "manage_buy_offer",
+	"_links": {
+	    "self": {
+	    "href": "https://horizon-testnet.stellar.org/operations/5867002635759652"
+	    },
+	    "transaction": {
+	    "href": "https://horizon-testnet.stellar.org/transactions/8b467e82bf893174bac3b2e8bc2e543ba40bc8e8cbd89685fe80818a29899c84"
+	    },
+	    "effects": {
+	    "href": "https://horizon-testnet.stellar.org/operations/5867002635759652/effects"
+	    },
+	    "succeeds": {
+	    "href": "https://horizon-testnet.stellar.org/effects?order=desc&cursor=5867002635759652"
+	    },
+	    "precedes": {
+	    "href": "https://horizon-testnet.stellar.org/effects?order=asc&cursor=5867002635759652"
+	    }
+	},
+	"id": "5867002635759652",
+	"paging_token": "5867002635759652",
+	"transaction_successful": true,
+	"source_account": "GBEL5ZFRQ5CJSOJ4COBC6RDRE73PPY3NXBMKGLBKZ2QWTJLCHVAIAJGF",
+	"type_i": 12,
+	"created_at": "2020-07-24T14:52:27Z",
+	"transaction_hash": "8b467e82bf893174bac3b2e8bc2e543ba40bc8e8cbd89685fe80818a29899c84",
+	"transaction": null,
+	"amount": "5.2993845",
+	"price": "0.9220128",
+	"price_r": {
+	    "n": 288129,
+	    "d": 312500
+	},
+	"buying_asset_type": "credit_alphanum4",
+	"buying_asset_code": "EUR",
+	"buying_asset_issuer": "GCZ4N6QHS2XH62CDMDIOQRFL2X3NJWJNMU2OXEKE7SC2UEAENCPL65J3",
+	"selling_asset_type": "credit_alphanum4",
+	"selling_asset_code": "USD",
+	"selling_asset_issuer": "GA5SOJFG3YVIWEEJECQW32M44M5VRH6GN236PC4TUKATISLF5TCR7DJS",
+	"offer_id": "0"
+	},
+	{
+	"type": "manage_sell_offer",
+	"_links": {
+	    "self": {
+	    "href": "https://horizon-testnet.stellar.org/operations/5867062765310002"
+	    },
+	    "transaction": {
+	    "href": "https://horizon-testnet.stellar.org/transactions/42bf40ef822caf50199caf6d2758ebe1309d9350872c9c06c2dfba33d7871aa7"
+	    },
+	    "effects": {
+	    "href": "https://horizon-testnet.stellar.org/operations/5867062765310002/effects"
+	    },
+	    "succeeds": {
+	    "href": "https://horizon-testnet.stellar.org/effects?order=desc&cursor=5867062765310002"
+	    },
+	    "precedes": {
+	    "href": "https://horizon-testnet.stellar.org/effects?order=asc&cursor=5867062765310002"
+	    }
+	},
+	"id": "5867062765310002",
+	"paging_token": "5867062765310002",
+	"transaction_successful": true,
+	"source_account": "GA3HLYIIWMRXOHWCHAJMHEBF6IEJTV7T7S5XENXWD7DAGFXBFNUF7Z47",
+	"type_i": 3,
+	"created_at": "2020-07-24T14:53:42Z",
+	"transaction_hash": "42bf40ef822caf50199caf6d2758ebe1309d9350872c9c06c2dfba33d7871aa7",
+	"transaction": null,
+	"amount": "0.0000000",
+	"price": "2279.9817601",
+	"price_r": {
+	    "n": 656623347,
+	    "d": 287995
+	},
+	"buying_asset_type": "credit_alphanum12",
+	"buying_asset_code": "SSNLF",
+	"buying_asset_issuer": "GA5SOJFG3YVIWEEJECQW32M44M5VRH6GN236PC4TUKATISLF5TCR7DJS",
+	"selling_asset_type": "credit_alphanum4",
+	"selling_asset_code": "EUR",
+	"selling_asset_issuer": "GCZ4N6QHS2XH62CDMDIOQRFL2X3NJWJNMU2OXEKE7SC2UEAENCPL65J3",
+	"offer_id": "19991448"
+	}
     ]
   }
 }
