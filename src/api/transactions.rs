@@ -154,6 +154,10 @@ impl Request for TransactionsForAccountRequest {
 
 impl_page_request!(TransactionsForAccountRequest);
 
+impl StreamRequest for TransactionsForAccountRequest {
+    type Resource = resources::Transaction;
+}
+
 impl TransactionsForLedgerRequest {
     impl_include_failed!();
 }
@@ -171,3 +175,7 @@ impl Request for TransactionsForLedgerRequest {
 }
 
 impl_page_request!(TransactionsForLedgerRequest);
+
+impl StreamRequest for TransactionsForLedgerRequest {
+    type Resource = resources::Transaction;
+}
