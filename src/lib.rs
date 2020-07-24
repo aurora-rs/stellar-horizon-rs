@@ -99,4 +99,4 @@ pub mod page;
 pub mod resources;
 
 /// The crate version.
-pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");

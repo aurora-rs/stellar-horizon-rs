@@ -289,7 +289,7 @@ impl Request for FeeStatsRequest {
     }
 }
 
-fn serialize_assets_to_query_value(assets: &Vec<CreditAsset>) -> String {
+fn serialize_assets_to_query_value(assets: &[CreditAsset]) -> String {
     let assets: Vec<_> = assets.iter().map(credit_asset_to_string).collect();
     assets.join(",")
 }
