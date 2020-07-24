@@ -1,0 +1,85 @@
+{
+  "_embedded": {
+    "records": [
+      {
+        "source_asset_type": "native",
+        "source_amount": "1.0000000",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "EURT",
+        "destination_asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S",
+        "destination_amount": "0.0824833",
+        "path": []
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "1.0000000",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "EURT",
+        "destination_asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S",
+        "destination_amount": "0.0823472",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "USDT",
+            "asset_issuer": "GCQTGZQQ5G4PTM2GL7CDIFKUBIPEC52BROAQIAPW53XBRJVN6ZJVTG6V"
+          },
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "USD",
+            "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+          }
+        ]
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "1.0000000",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "EURT",
+        "destination_asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S",
+        "destination_amount": "0.0821746",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "USD",
+            "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+          }
+        ]
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "1.0000000",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "EURT",
+        "destination_asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S",
+        "destination_amount": "0.0817635",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "NGNT",
+            "asset_issuer": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD"
+          }
+        ]
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "1.0000000",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "EURT",
+        "destination_asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S",
+        "destination_amount": "0.0815987",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "GOLD",
+            "asset_issuer": "GAJSVHNJ7WNU3M2URGC76NJLL6FDEC5Z2DUJZO24J6MVWLZGE6XIV4PF"
+          },
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "USD",
+            "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap as Map;
 
 /// User accounts on the network.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Account {
     /// Account links.
     #[serde(rename = "_links")]
@@ -41,7 +41,7 @@ pub struct Account {
 }
 
 /// Links for an Account.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountLinks {
     /// This account.
     #[serde(rename = "self")]
@@ -69,7 +69,7 @@ pub struct AccountLinks {
 ///      buy offer, manage sell offer, create passive sell offer, change
 ///      trust, inflation, manage data
 ///  * High Threshold: account merge, set options
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountThresholds {
     /// The weight for a low threshold transaction.
     pub low_threshold: u8,
@@ -81,7 +81,7 @@ pub struct AccountThresholds {
 }
 
 /// Enabling/disabling of certain asset issuet privilege.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountFlags {
     /// If `true`, none of the following flags can be changed.
     pub auth_required: bool,
@@ -93,7 +93,7 @@ pub struct AccountFlags {
 }
 
 /// Asset balance.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Balance {
     /// The number of units the account holds.
     pub balance: String,
@@ -112,7 +112,7 @@ pub struct Balance {
 }
 
 /// A valid signer for the account.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountSigner {
     /// Account signer links.
     #[serde(rename = "_links")]
@@ -128,21 +128,21 @@ pub struct AccountSigner {
 }
 
 /// Account data.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountData {
     /// Account data encoded as base64.
     pub value: String,
 }
 
 /// Account signer links.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountSignerLinks {
     /// Link to the account.
     pub account: Link,
 }
 
 /// Account signer
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Signer {
     /// Signer weight.
     pub weight: i32,

@@ -3,7 +3,7 @@ use crate::resources::{Asset, Price, SourceAsset, Transaction};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum Operation {
@@ -23,7 +23,7 @@ pub enum Operation {
     Inflation(InflationOperation),
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum Payment {
@@ -34,7 +34,7 @@ pub enum Payment {
     AccountMerge(AccountMergeOperation),
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OperationBase {
     #[serde(rename = "_links")]
     pub links: OperationLinks,
@@ -48,14 +48,14 @@ pub struct OperationBase {
     pub transaction: Option<Transaction>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct BumpSequenceOperation {
     #[serde(flatten)]
     pub base: OperationBase,
     pub bump_to: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct CreateAccountOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -64,7 +64,7 @@ pub struct CreateAccountOperation {
     pub account: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct PaymentOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -73,7 +73,7 @@ pub struct PaymentOperation {
     pub amount: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct PathPaymentStrictReceiveOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -87,7 +87,7 @@ pub struct PathPaymentStrictReceiveOperation {
     pub source_asset: Asset,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct PathPaymentStrictSendOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -101,7 +101,7 @@ pub struct PathPaymentStrictSendOperation {
     pub source_asset: Asset,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ManageDataOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -109,7 +109,7 @@ pub struct ManageDataOperation {
     pub value: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct CreatePassiveSellOfferOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -123,7 +123,7 @@ pub struct CreatePassiveSellOfferOperation {
     pub selling: Asset,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ManageSellOfferOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -138,7 +138,7 @@ pub struct ManageSellOfferOperation {
     pub offer_id: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ManageBuyOfferOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -153,7 +153,7 @@ pub struct ManageBuyOfferOperation {
     pub offer_id: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct SetOptionsOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -177,7 +177,7 @@ pub struct SetOptionsOperation {
     pub high_threshold: Option<i32>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ChangeTrustOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -188,7 +188,7 @@ pub struct ChangeTrustOperation {
     pub trustor: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AllowTrustOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -200,7 +200,7 @@ pub struct AllowTrustOperation {
     pub authorize_to_maintain_liabilities: bool,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountMergeOperation {
     #[serde(flatten)]
     pub base: OperationBase,
@@ -208,13 +208,13 @@ pub struct AccountMergeOperation {
     pub into: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct InflationOperation {
     #[serde(flatten)]
     pub base: OperationBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OperationLinks {
     #[serde(rename = "self")]
     pub self_: Link,

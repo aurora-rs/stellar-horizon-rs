@@ -3,7 +3,7 @@ use crate::resources::account::AccountFlags;
 use crate::resources::Asset;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AssetStat {
     #[serde(rename = "_links")]
     pub links: AssetStatLinks,
@@ -15,7 +15,7 @@ pub struct AssetStat {
     pub flags: AccountFlags,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AssetStatLinks {
     pub toml: Link,
 }

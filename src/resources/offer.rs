@@ -3,7 +3,7 @@ use crate::resources::{Asset, Price};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Offer {
     #[serde(rename = "_links")]
     pub links: OfferLinks,
@@ -20,7 +20,7 @@ pub struct Offer {
     pub last_modified_time: Option<DateTime<Utc>>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OfferLinks {
     #[serde(rename = "self")]
     pub self_: Link,

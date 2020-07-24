@@ -1659,6 +1659,7 @@ dependencies = [
  "http-types",
  "hyper",
  "hyper-tls",
+ "json",
  "serde",
  "serde_derive",
  "serde_json",

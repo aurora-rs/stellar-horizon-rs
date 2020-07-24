@@ -3,7 +3,7 @@ use crate::link::Link;
 use serde::de::{Deserialize, DeserializeOwned, Deserializer};
 use serde::ser::{Serialize, Serializer};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Page<T>
 where
     T: DeserializeOwned + Serialize + Clone,
@@ -12,7 +12,7 @@ where
     pub records: Vec<T>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PageLinks {
     #[serde(rename = "self")]
     pub self_: Link,

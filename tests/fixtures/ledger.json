@@ -1,0 +1,40 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://horizon.stellar.org/ledgers/7"
+    },
+    "transactions": {
+      "href": "https://horizon.stellar.org/ledgers/7/transactions{?cursor,limit,order}",
+      "templated": true
+    },
+    "operations": {
+      "href": "https://horizon.stellar.org/ledgers/7/operations{?cursor,limit,order}",
+      "templated": true
+    },
+    "payments": {
+      "href": "https://horizon.stellar.org/ledgers/7/payments{?cursor,limit,order}",
+      "templated": true
+    },
+    "effects": {
+      "href": "https://horizon.stellar.org/ledgers/7/effects{?cursor,limit,order}",
+      "templated": true
+    }
+  },
+  "id": "faaa141d8e87db7c641e10ac976326e91985adc57dd9524de884aa011935c0b7",
+  "paging_token": "30064771072",
+  "hash": "faaa141d8e87db7c641e10ac976326e91985adc57dd9524de884aa011935c0b7",
+  "prev_hash": "05c133511ee5ff103313a03aab03b2c74eebfdb0c3016b9ee64e336b514c8641",
+  "sequence": 7,
+  "successful_transaction_count": 0,
+  "failed_transaction_count": null,
+  "operation_count": 0,
+  "tx_set_operation_count": null,
+  "closed_at": "2015-09-30T17:16:14Z",
+  "total_coins": "100000000000.0000000",
+  "fee_pool": "0.0000300",
+  "base_fee_in_stroops": 100,
+  "base_reserve_in_stroops": 100000000,
+  "max_tx_set_size": 500,
+  "protocol_version": 1,
+  "header_xdr": "AAAAAQXBM1Ee5f8QMxOgOqsDssdO6/2wwwFrnuZOM2tRTIZBKw9WUActsj+HAAioUwJkT8dynGfHyNgDy+MY0WFeEzoAAAAAVgwY3gAAAAAAAAAA3z9hmASpL9tAVxktxD3XSOp3itxSvEmM6AUkwBS4ERlFlPh+229XbzJWEmkF0cTxI8K86GdTlsUoTEdaNoUYhAAAAAcN4Lazp2QAAAAAAAAAAAEsAAAAAAAAAAAAAAAAAAAAZAX14QAAAAH0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+}

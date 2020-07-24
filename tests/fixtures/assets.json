@@ -1,0 +1,197 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://horizon.stellar.org/assets?cursor=&limit=10&order=asc"
+    },
+    "next": {
+      "href": "https://horizon.stellar.org/assets?cursor=101_GBIBNMZYLJ5P4B2YKFWWMJYEF4RP77HUGBZWQBRML74ZYEL5FKDQOOQI_credit_alphanum4&limit=10&order=asc"
+    },
+    "prev": {
+      "href": "https://horizon.stellar.org/assets?cursor=0001_GAKZHAWTNE4VCHQX5B7N6ZSMQIF7DP7VGHIDFKVQWP4KLKI4RDBGLAEM_credit_alphanum4&limit=10&order=desc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "_links": {
+          "toml": {
+            "href": "https://glaem.com/.well-known/stellar.toml"
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "0001",
+        "asset_issuer": "GAKZHAWTNE4VCHQX5B7N6ZSMQIF7DP7VGHIDFKVQWP4KLKI4RDBGLAEM",
+        "paging_token": "0001_GAKZHAWTNE4VCHQX5B7N6ZSMQIF7DP7VGHIDFKVQWP4KLKI4RDBGLAEM_credit_alphanum4",
+        "amount": "9.9699000",
+        "num_accounts": 2,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": true
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": "https://glaem.com/.well-known/stellar.toml"
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "0002",
+        "asset_issuer": "GAKZHAWTNE4VCHQX5B7N6ZSMQIF7DP7VGHIDFKVQWP4KLKI4RDBGLAEM",
+        "paging_token": "0002_GAKZHAWTNE4VCHQX5B7N6ZSMQIF7DP7VGHIDFKVQWP4KLKI4RDBGLAEM_credit_alphanum4",
+        "amount": "100.0000000",
+        "num_accounts": 2,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": true
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": ""
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "00XX",
+        "asset_issuer": "GDQ7YQ6PFNJDG2TBACLKVMR53TFPT36XKEF7E4YR5J3EMT5IF5LTPI56",
+        "paging_token": "00XX_GDQ7YQ6PFNJDG2TBACLKVMR53TFPT36XKEF7E4YR5J3EMT5IF5LTPI56_credit_alphanum4",
+        "amount": "0.0000000",
+        "num_accounts": 1,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": "https://www.vinnyboregonducks.com/.well-known/stellar.toml"
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "0211",
+        "asset_issuer": "GA6GUKHRBS2KF35TKVMZ4RLH5MYQL4GKZT6SLFEUHEO6Q564CP7VRI3B",
+        "paging_token": "0211_GA6GUKHRBS2KF35TKVMZ4RLH5MYQL4GKZT6SLFEUHEO6Q564CP7VRI3B_credit_alphanum4",
+        "amount": "10000.0000000",
+        "num_accounts": 3,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": "https://btcard.info/.well-known/stellar.toml"
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "0801",
+        "asset_issuer": "GBIBNMZYLJ5P4B2YKFWWMJYEF4RP77HUGBZWQBRML74ZYEL5FKDQOOQI",
+        "paging_token": "0801_GBIBNMZYLJ5P4B2YKFWWMJYEF4RP77HUGBZWQBRML74ZYEL5FKDQOOQI_credit_alphanum4",
+        "amount": "0.0000000",
+        "num_accounts": 1,
+        "flags": {
+          "auth_required": true,
+          "auth_revocable": true,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": ""
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "0815",
+        "asset_issuer": "GCF3TQXKZJNFJK7HMCNE2O2CUNKCJH2Y2ROISTBPLC7C5EIA5NNG2XZB",
+        "paging_token": "0815_GCF3TQXKZJNFJK7HMCNE2O2CUNKCJH2Y2ROISTBPLC7C5EIA5NNG2XZB_credit_alphanum4",
+        "amount": "300.0000000",
+        "num_accounts": 5,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": ""
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "0FUK",
+        "asset_issuer": "GDJ6U4HJ6GUCYBM5XGNE6WYZZBIHDBZVBSG37B4NOSTHUFWILGU7ZFUK",
+        "paging_token": "0FUK_GDJ6U4HJ6GUCYBM5XGNE6WYZZBIHDBZVBSG37B4NOSTHUFWILGU7ZFUK_credit_alphanum4",
+        "amount": "10000000.0000000",
+        "num_accounts": 1,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": ""
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "1",
+        "asset_issuer": "GBEAE3Z5SLMNX4N56XSKEFRWTULU6WIRKWZBCRUO6BZLVTUOFZIWBSFL",
+        "paging_token": "1_GBEAE3Z5SLMNX4N56XSKEFRWTULU6WIRKWZBCRUO6BZLVTUOFZIWBSFL_credit_alphanum4",
+        "amount": "0.0000000",
+        "num_accounts": 1,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": ""
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "1000",
+        "asset_issuer": "GDDT4J52WL2MLEPZHMVRVMLMSCVA3UZRPNBWNNMHNSTGJ5LZUZ2RMQMB",
+        "paging_token": "1000_GDDT4J52WL2MLEPZHMVRVMLMSCVA3UZRPNBWNNMHNSTGJ5LZUZ2RMQMB_credit_alphanum4",
+        "amount": "0.0000000",
+        "num_accounts": 1,
+        "flags": {
+          "auth_required": false,
+          "auth_revocable": false,
+          "auth_immutable": false
+        }
+      },
+      {
+        "_links": {
+          "toml": {
+            "href": "https://btcard.info/.well-known/stellar.toml"
+          }
+        },
+        "asset_type": "credit_alphanum4",
+        "asset_code": "101",
+        "asset_issuer": "GBIBNMZYLJ5P4B2YKFWWMJYEF4RP77HUGBZWQBRML74ZYEL5FKDQOOQI",
+        "paging_token": "101_GBIBNMZYLJ5P4B2YKFWWMJYEF4RP77HUGBZWQBRML74ZYEL5FKDQOOQI_credit_alphanum4",
+        "amount": "10000.0000000",
+        "num_accounts": 5,
+        "flags": {
+          "auth_required": true,
+          "auth_revocable": true,
+          "auth_immutable": false
+        }
+      }
+    ]
+  }
+}

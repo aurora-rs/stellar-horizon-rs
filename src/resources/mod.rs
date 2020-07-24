@@ -27,7 +27,7 @@ pub use root::*;
 pub use trade::*;
 pub use transaction::*;
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Price {
     #[serde(rename = "n")]
     #[serde(alias = "N")]
@@ -37,14 +37,14 @@ pub struct Price {
     pub denominator: i32,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Asset {
     pub asset_type: String,
     pub asset_code: Option<String>,
     pub asset_issuer: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Path {
     #[serde(flatten, with = "SourceAsset")]
     pub source_asset: Asset,

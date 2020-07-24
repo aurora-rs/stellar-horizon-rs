@@ -4,7 +4,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 /// A trade on the distributed exchange.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Trade {
     /// Trade links.
     #[serde(rename = "_links")]
@@ -42,7 +42,7 @@ pub struct Trade {
 }
 
 /// Trade effect.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeEffect {
     /// Trade effect links.
     #[serde(rename = "_links")]
@@ -72,7 +72,7 @@ pub struct TradeEffect {
 }
 
 /// A trade aggregation represents aggregated statistics on an asset pair (base and counter) for a specific time period.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeAggregation {
     /// Start time for this trade aggregation. Represented as milliseconds since epoch.
     pub timestamp: String,
@@ -108,7 +108,7 @@ pub struct TradeAggregation {
 }
 
 /// Trade links.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeLinks {
     /// Link to this trade.
     #[serde(rename = "self")]
@@ -122,7 +122,7 @@ pub struct TradeLinks {
 }
 
 /// Trade effectt links.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeEffectLinks {
     /// Link to this trade effect.
     #[serde(rename = "self")]

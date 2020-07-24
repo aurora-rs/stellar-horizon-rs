@@ -1,7 +1,7 @@
 use crate::link::Link;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Root {
     #[serde(rename = "_links")]
     pub links: RootLinks,
@@ -16,7 +16,7 @@ pub struct Root {
     pub core_supported_protocol_version: i32,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct RootLinks {
     pub account: Link,
     pub accounts: Option<Link>,

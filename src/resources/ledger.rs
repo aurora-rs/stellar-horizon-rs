@@ -3,7 +3,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 /// Store the state of network at a point in time.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Ledger {
     /// HAL links.
     #[serde(rename = "_links")]
@@ -47,7 +47,7 @@ pub struct Ledger {
     pub header_xdr: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct FeeDistribution {
     /// Maximum fee charged over the last 5 ledger.
     pub max: String,
@@ -79,7 +79,7 @@ pub struct FeeDistribution {
     pub p99: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct FeeStats {
     /// The last ledger sequence number.
     pub last_ledger: String,
@@ -93,7 +93,7 @@ pub struct FeeStats {
     pub max_fee: FeeDistribution,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct LedgerLinks {
     /// Link to this ledger.
     #[serde(rename = "self")]

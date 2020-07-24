@@ -3,7 +3,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 /// Transactions are commands that modify the ledger state and consist of one or more operations.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Transaction {
     /// Transaction links.
     #[serde(rename = "_links")]
@@ -59,7 +59,7 @@ pub struct Transaction {
 }
 
 /// Fee bump transaction.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct FeeBumpTransaction {
     /// The transaction hash.
     pub hash: String,
@@ -68,7 +68,7 @@ pub struct FeeBumpTransaction {
 }
 
 /// Fee bump transaction inner transaction.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct InnerTransaction {
     /// The transaction hash.
     pub hash: String,
@@ -79,7 +79,7 @@ pub struct InnerTransaction {
 }
 
 /// Transaction result codes.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TransactionResultCodes {
     /// The transaction.
     pub transaction: String,
@@ -88,7 +88,7 @@ pub struct TransactionResultCodes {
 }
 
 /// Transaction links.
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TransactionLinks {
     /// This transaction.
     #[serde(rename = "self")]

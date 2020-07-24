@@ -1,0 +1,106 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC"
+    },
+    "transactions": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/transactions{?cursor,limit,order}",
+      "templated": true
+    },
+    "operations": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/operations{?cursor,limit,order}",
+      "templated": true
+    },
+    "payments": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/payments{?cursor,limit,order}",
+      "templated": true
+    },
+    "effects": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/effects{?cursor,limit,order}",
+      "templated": true
+    },
+    "offers": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/offers{?cursor,limit,order}",
+      "templated": true
+    },
+    "trades": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/trades{?cursor,limit,order}",
+      "templated": true
+    },
+    "data": {
+      "href": "https://horizon.stellar.org/accounts/GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC/data/{key}",
+      "templated": true
+    }
+  },
+  "id": "GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC",
+  "account_id": "GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC",
+  "sequence": "131787017028632645",
+  "subentry_count": 4,
+  "last_modified_ledger": 30765658,
+  "last_modified_time": "2020-07-24T12:14:11Z",
+  "thresholds": {
+    "low_threshold": 0,
+    "med_threshold": 0,
+    "high_threshold": 0
+  },
+  "flags": {
+    "auth_required": false,
+    "auth_revocable": false,
+    "auth_immutable": false
+  },
+  "balances": [
+    {
+      "balance": "0.3333331",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 30684084,
+      "is_authorized": true,
+      "is_authorized_to_maintain_liabilities": true,
+      "asset_type": "credit_alphanum12",
+      "asset_code": "BROWNIE",
+      "asset_issuer": "GDYQQLCJZJMNHLUC5L5QEVZAR4PHMZ6VDETWWG6MCL2WFVDKCAUOVSV2"
+    },
+    {
+      "balance": "0.0000000",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 30684152,
+      "is_authorized": true,
+      "is_authorized_to_maintain_liabilities": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "EURT",
+      "asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
+    },
+    {
+      "balance": "0.0100000",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 30696608,
+      "is_authorized": true,
+      "is_authorized_to_maintain_liabilities": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "USD",
+      "asset_issuer": "GB2O5PBQJDAFCNM2U2DIMVAEI7ISOYL4UJDTLN42JYYXAENKBWY6OBKZ"
+    },
+    {
+      "balance": "13.4560991",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "asset_type": "native"
+    }
+  ],
+  "signers": [
+    {
+      "weight": 1,
+      "key": "GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC",
+      "type": "ed25519_public_key"
+    }
+  ],
+  "data": {
+    "Test": "SGVsbG8="
+  },
+  "paging_token": "GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC"
+}

@@ -4,7 +4,7 @@ use crate::resources::Asset;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum Effect {
@@ -41,7 +41,7 @@ pub enum Effect {
     SequenceBumped(SequenceBumpedEffect),
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct EffectBase {
     #[serde(rename = "_links")]
     pub links: EffectLinks,
@@ -52,20 +52,20 @@ pub struct EffectBase {
     pub created_at: DateTime<Utc>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     pub starting_balance: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountCreditedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -74,7 +74,7 @@ pub struct AccountCreditedEffect {
     pub amount: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountDebitedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -83,7 +83,7 @@ pub struct AccountDebitedEffect {
     pub amount: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountThresholdsUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -93,14 +93,14 @@ pub struct AccountThresholdsUpdatedEffect {
     pub high_threshold: i32,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountHomeDomainUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     pub home_domain: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountFlagsUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -108,13 +108,13 @@ pub struct AccountFlagsUpdatedEffect {
     pub auth_revokable_flag: Option<bool>,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct AccountInflationDestinationUpdated {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct SequenceBumpedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -122,7 +122,7 @@ pub struct SequenceBumpedEffect {
     pub new_sequence: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct SignerCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -131,7 +131,7 @@ pub struct SignerCreatedEffect {
     pub key: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct SignerRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -140,7 +140,7 @@ pub struct SignerRemovedEffect {
     pub key: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct SignerUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -149,7 +149,7 @@ pub struct SignerUpdatedEffect {
     pub key: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -158,7 +158,7 @@ pub struct TrustLineCreatedEffect {
     pub limit: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -167,7 +167,7 @@ pub struct TrustLineRemovedEffect {
     pub limit: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -176,7 +176,7 @@ pub struct TrustLineUpdatedEffect {
     pub limit: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineAuthorizedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -185,7 +185,7 @@ pub struct TrustLineAuthorizedEffect {
     pub trustor: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineAuthorizedToMaintainLiabilitiesEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -194,7 +194,7 @@ pub struct TrustLineAuthorizedToMaintainLiabilitiesEffect {
     pub trustor: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineDeauthorizedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -203,43 +203,43 @@ pub struct TrustLineDeauthorizedEffect {
     pub trustor: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OfferCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OfferRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OfferUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct DataCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct DataRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct DataUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeEffect {
     #[serde(flatten)]
     pub base: EffectBase,
@@ -253,7 +253,7 @@ pub struct TradeEffect {
     pub bought_asset: Asset,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct EffectLinks {
     pub operation: Link,
     pub succeeds: Link,
