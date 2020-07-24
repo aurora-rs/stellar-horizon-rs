@@ -10,7 +10,7 @@ use stellar_base::{Asset, KeyPair, Network, Operation, PublicKey, Transaction};
 use stellar_horizon::api;
 use stellar_horizon::api::aggregations::Resolution;
 use stellar_horizon::client::{HorizonClient, HorizonHttpClient};
-use stellar_horizon::headers::rate_limit_limit;
+use stellar_horizon::headers::{rate_limit_limit, rate_limit_remaining, rate_limit_reset};
 use stellar_horizon::request::{Order, PageRequest};
 use tokio::stream::StreamExt;
 
@@ -50,7 +50,11 @@ async fn test_headers() {
     let client = new_client();
     let (headers, _) = client.request(api::root::root()).await.unwrap();
     let limit = rate_limit_limit(&headers).unwrap();
+    let remaining = rate_limit_remaining(&headers).unwrap();
+    let reset = rate_limit_reset(&headers).unwrap();
     assert!(limit > 0);
+    assert!(remaining > 0);
+    assert!(reset > 0);
 }
 
 #[tokio::test]
@@ -176,6 +180,14 @@ async fn test_data_for_account() {
 async fn test_all_assets() {
     let client = new_client();
     let req = api::assets::all().with_asset_code("BTC");
+    let (_, response) = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_all_assets_with_code_alphanum12() {
+    let client = new_client();
+    let req = api::assets::all().with_asset_code("LEVELG");
     let (_, response) = client.request(req).await.unwrap();
     assert!(!response.records.is_empty());
 }

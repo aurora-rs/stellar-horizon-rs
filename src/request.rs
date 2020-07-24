@@ -72,11 +72,8 @@ impl UrlPageRequestExt for Url {
             }
 
             if let Some(order) = req.order() {
-                let order = match order {
-                    Order::Ascending => "asc",
-                    Order::Descending => "desc",
-                };
-                query.append_pair("order", order);
+                let order = order.to_query_value();
+                query.append_pair("order", &order);
             }
         }
         self

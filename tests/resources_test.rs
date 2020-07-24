@@ -62,3 +62,23 @@ impl_serde_test!(
     Page<Transaction>,
     "./fixtures/all_transactions.json"
 );
+
+#[test]
+fn test_operations_base() {
+    let original_json_value = json::parse(include_str!("./fixtures/all_operations.json")).unwrap();
+    let original_json = original_json_value.dump();
+    let operations: Page<Operation> = serde_json::from_str(&original_json).unwrap();
+    for operation in operations.records {
+        assert!(!operation.base().paging_token.is_empty());
+    }
+}
+
+#[test]
+fn test_effects_base() {
+    let original_json_value = json::parse(include_str!("./fixtures/all_effects.json")).unwrap();
+    let original_json = original_json_value.dump();
+    let effects: Page<Effect> = serde_json::from_str(&original_json).unwrap();
+    for effect in effects.records {
+        assert!(!effect.base().paging_token.is_empty());
+    }
+}
