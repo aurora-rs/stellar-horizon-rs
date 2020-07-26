@@ -27,10 +27,20 @@ pub fn for_account(account: &PublicKey) -> TradesForAccountRequest {
     }
 }
 
+/// Creates a request to retrieve all trades for an offer.
+pub fn for_offer(offer_id: i32) -> TradesForOfferRequest {
+    TradesForOfferRequest {
+        offer_id,
+        limit: None,
+        cursor: None,
+        order: None,
+    }
+}
+
 /// Request all trades.
 #[derive(Debug, Clone)]
 pub struct AllTradesRequest {
-    offer_id: Option<String>,
+    offer_id: Option<i32>,
     base_asset: Option<Asset>,
     counter_asset: Option<Asset>,
     limit: Option<u64>,
@@ -47,10 +57,19 @@ pub struct TradesForAccountRequest {
     order: Option<Order>,
 }
 
+/// Request trades for an offer.
+#[derive(Debug, Clone)]
+pub struct TradesForOfferRequest {
+    offer_id: i32,
+    limit: Option<u64>,
+    cursor: Option<String>,
+    order: Option<Order>,
+}
+
 impl AllTradesRequest {
     /// Filter trades originating from `offer_id`.
-    pub fn with_offer_id(mut self, offer_id: &str) -> AllTradesRequest {
-        self.offer_id = Some(offer_id.to_string());
+    pub fn with_offer_id(mut self, offer_id: i32) -> AllTradesRequest {
+        self.offer_id = Some(offer_id);
         self
     }
 
@@ -73,13 +92,13 @@ impl Request for AllTradesRequest {
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/trades")?;
         if let Some(offer_id) = &self.offer_id {
-            url = url.append_query_param("offer_id", offer_id);
+            url = url.append_query_param("offer_id", &offer_id.to_string());
         }
         if let Some(asset) = &self.base_asset {
-            url = url.append_asset_params(&asset, Some("base_"));
+            url = url.append_asset_params(&asset, Some("base"));
         }
         if let Some(asset) = &self.counter_asset {
-            url = url.append_asset_params(&asset, Some("counter_"));
+            url = url.append_asset_params(&asset, Some("counter"));
         }
         Ok(url.append_pagination_params(self))
     }
@@ -104,4 +123,76 @@ impl_page_request!(TradesForAccountRequest);
 
 impl StreamRequest for TradesForAccountRequest {
     type Resource = resources::Trade;
+}
+
+impl Request for TradesForOfferRequest {
+    type Response = Page<resources::Trade>;
+
+    fn uri(&self, host: &Url) -> Result<Url> {
+        let url = host.join(&format!("/offers/{}/trades", self.offer_id))?;
+        Ok(url.append_pagination_params(self))
+    }
+}
+
+impl_page_request!(TradesForOfferRequest);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::request::Request;
+    use std::collections::HashMap;
+    use stellar_base::asset::Asset;
+    use stellar_base::crypto::PublicKey;
+    use url::Url;
+
+    fn host() -> Url {
+        "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    fn keypair0() -> PublicKey {
+        PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+            .unwrap()
+    }
+
+    fn credit_asset0() -> Asset {
+        let issuer = keypair0();
+        let code = "ABCD";
+        Asset::new_credit(code, issuer).unwrap()
+    }
+
+    #[test]
+    fn test_all_trades_request_uri() {
+        let req = all()
+            .with_offer_id(123)
+            .with_base_asset(Asset::new_native())
+            .with_counter_asset(credit_asset0());
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/trades?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"native".to_string()), query.get("base_asset_type"));
+        assert_eq!(
+            Some(&"credit_alphanum4".to_string()),
+            query.get("counter_asset_type")
+        );
+    }
+
+    #[test]
+    fn test_trades_for_account_request_uri() {
+        let req = for_account(&keypair0());
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/trades?"));
+    }
+
+    #[test]
+    fn test_trades_for_offer_request_uri() {
+        let req = for_offer(888);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/offers/888/trades?"));
+    }
 }

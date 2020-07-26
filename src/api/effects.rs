@@ -11,9 +11,12 @@ pub fn all() -> AllEffectsRequest {
 }
 
 /// Create a request to retrieve effects for a transaction.
-pub fn for_transaction(tx_hash: String) -> EffectsForTransactionRequest {
+pub fn for_transaction<S>(tx_hash: S) -> EffectsForTransactionRequest
+where
+    S: Into<String>,
+{
     EffectsForTransactionRequest {
-        tx_hash,
+        tx_hash: tx_hash.into(),
         limit: None,
         cursor: None,
         order: None,
@@ -21,9 +24,12 @@ pub fn for_transaction(tx_hash: String) -> EffectsForTransactionRequest {
 }
 
 /// Create a request to retrieve effects for an operation.
-pub fn for_operation(operation_id: String) -> EffectsForOperationRequest {
+pub fn for_operation<S>(operation_id: S) -> EffectsForOperationRequest
+where
+    S: Into<String>,
+{
     EffectsForOperationRequest {
-        operation_id,
+        operation_id: operation_id.into(),
         limit: None,
         cursor: None,
         order: None,
@@ -159,4 +165,70 @@ impl_page_request!(EffectsForAccountRequest);
 
 impl StreamRequest for EffectsForAccountRequest {
     type Resource = resources::Effect;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{all, for_account, for_ledger, for_operation, for_transaction};
+    use crate::request::{Order, PageRequest, Request};
+    use std::collections::HashMap;
+    use stellar_base::crypto::PublicKey;
+    use url::Url;
+
+    fn host() -> Url {
+        "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    #[test]
+    fn test_all_effects_request_uri() {
+        let req = all().with_cursor("now");
+        let uri = req.uri(&host()).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/effects?"));
+        assert_eq!(Some(&"now".to_string()), query.get("cursor"));
+    }
+
+    #[test]
+    fn test_effects_for_account_request_uri() {
+        let pk =
+            PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+                .unwrap();
+        let req = for_account(&pk).with_order(&Order::Ascending);
+        let uri = req.uri(&host()).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/effects?"));
+        assert_eq!(Some(&"asc".to_string()), query.get("order"));
+    }
+
+    #[test]
+    fn test_effects_for_ledger_request_uri() {
+        let req = for_ledger(123).with_order(&Order::Ascending);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/ledgers/123/effects?"));
+    }
+
+    #[test]
+    fn test_effects_for_operation_request_uri() {
+        let req = for_operation("12345");
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/operations/12345/effects?"));
+    }
+
+    #[test]
+    fn test_effects_for_transaction_request_uri() {
+        let req =
+            for_transaction("23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e");
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/transactions/23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e/effects?"));
+    }
 }

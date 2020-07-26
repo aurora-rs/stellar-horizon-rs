@@ -1,4 +1,5 @@
 //! Request traits.
+use crate::api::Join;
 use crate::error::Result;
 use serde::de::DeserializeOwned;
 use stellar_base::asset::{Asset, CreditAssetType};
@@ -57,6 +58,8 @@ pub(crate) trait UrlPageRequestExt: Sized {
     fn append_pagination_params<R: PageRequest>(self, req: &R) -> Self;
     fn append_asset_params(self, asset: &Asset, prefix: Option<&str>) -> Self;
     fn append_query_param(self, key: &str, value: &str) -> Self;
+    fn append_include_failed(self, include_failed: &Option<bool>) -> Self;
+    fn appen_join(self, join: &Option<Join>) -> Self;
 }
 
 impl UrlPageRequestExt for Url {
@@ -119,6 +122,22 @@ impl UrlPageRequestExt for Url {
         }
         self
     }
+
+    fn append_include_failed(self, include_failed: &Option<bool>) -> Self {
+        if let Some(include_failed) = include_failed {
+            self.append_query_param("include_failed", &include_failed.to_string())
+        } else {
+            self
+        }
+    }
+
+    fn appen_join(self, join: &Option<Join>) -> Self {
+        if let Some(join) = join {
+            self.append_query_param("join", &join.to_query_value())
+        } else {
+            self
+        }
+    }
 }
 
 impl Order {
@@ -173,6 +192,19 @@ macro_rules! impl_include_failed {
 
         pub fn include_failed(&self) -> &Option<bool> {
             &self.include_failed
+        }
+    };
+}
+
+macro_rules! impl_join {
+    () => {
+        pub fn with_join(mut self, join: Join) -> Self {
+            self.join = Some(join);
+            self
+        }
+
+        pub fn join(&self) -> &Option<Join> {
+            &self.join
         }
     };
 }

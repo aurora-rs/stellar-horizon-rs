@@ -2,7 +2,7 @@ use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, UrlPageRequestExt};
 use crate::resources;
-use stellar_base::asset::CreditAsset;
+use stellar_base::asset::{Asset, CreditAsset};
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
@@ -68,4 +68,53 @@ pub(crate) fn credit_asset_to_string(asset: &CreditAsset) -> String {
     let code = asset.code();
     let issuer = asset.issuer().account_id();
     format!("{}:{}", code, issuer)
+}
+
+pub(crate) fn asset_to_string(asset: &Asset) -> String {
+    match asset {
+        Asset::Native => "native".to_string(),
+        Asset::Credit(credit) => credit_asset_to_string(&credit),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::all;
+    use crate::request::{Order, PageRequest, Request};
+    use std::collections::HashMap;
+    use stellar_base::crypto::PublicKey;
+    use url::Url;
+
+    #[test]
+    fn test_all_assets_request_uri() {
+        let pk =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let host: Url = "https://horizon.stellar.org".parse().unwrap();
+        let req = all().with_asset_code("CODE").with_asset_issuer(&pk);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/assets?"));
+        assert_eq!(Some(&"CODE".to_string()), query.get("asset_code"));
+        assert_eq!(Some(&pk.account_id()), query.get("asset_issuer"));
+    }
+
+    #[test]
+    fn test_all_assets_request_uri_with_page() {
+        let host: Url = "https://horizon.stellar.org".parse().unwrap();
+        let req = all()
+            .with_cursor("now")
+            .with_order(&Order::Descending)
+            .with_limit(100);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/assets?"));
+        assert_eq!(Some(&"100".to_string()), query.get("limit"));
+        assert_eq!(Some(&"now".to_string()), query.get("cursor"));
+        assert_eq!(Some(&"desc".to_string()), query.get("order"));
+    }
 }

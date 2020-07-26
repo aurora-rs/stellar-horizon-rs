@@ -12,9 +12,12 @@ pub fn all() -> AllOperationsRequest {
 }
 
 /// Creates a request to retrieve a single operation.
-pub fn single(operation_id: String) -> SingleOperationRequest {
+pub fn single<S>(operation_id: S) -> SingleOperationRequest
+where
+    S: Into<String>,
+{
     SingleOperationRequest {
-        operation_id,
+        operation_id: operation_id.into(),
         join: None,
     }
 }
@@ -43,41 +46,43 @@ pub fn for_ledger(ledger: i32) -> OperationsForLedgerRequest {
     }
 }
 
-impl AllOperationsRequest {
-    pub fn with_include_failed(mut self, include_failed: bool) -> Self {
-        self.include_failed = Some(include_failed);
-        self
-    }
-
-    pub fn with_join(mut self, join: Join) -> Self {
-        self.join = Some(join);
-        self
+/// Creates a request to retrieve a transaction's operations.
+pub fn for_transaction<S>(tx_id: S) -> OperationsForTransactionRequest
+where
+    S: Into<String>,
+{
+    OperationsForTransactionRequest {
+        tx_id: tx_id.into(),
+        include_failed: None,
+        join: None,
+        limit: None,
+        cursor: None,
+        order: None,
     }
 }
 
+impl AllOperationsRequest {
+    impl_include_failed!();
+    impl_join!();
+}
+
 impl SingleOperationRequest {
-    pub fn with_join(mut self, join: Join) -> Self {
-        self.join = Some(join);
-        self
-    }
+    impl_join!();
 }
 
 impl OperationsForAccountRequest {
     impl_include_failed!();
-
-    pub fn with_join(mut self, join: Join) -> Self {
-        self.join = Some(join);
-        self
-    }
+    impl_join!();
 }
 
 impl OperationsForLedgerRequest {
     impl_include_failed!();
+    impl_join!();
+}
 
-    pub fn with_join(mut self, join: Join) -> Self {
-        self.join = Some(join);
-        self
-    }
+impl OperationsForTransactionRequest {
+    impl_include_failed!();
+    impl_join!();
 }
 
 /// Request all operations.
@@ -119,17 +124,24 @@ pub struct OperationsForLedgerRequest {
     order: Option<Order>,
 }
 
+/// Request a transaction operations.
+#[derive(Debug, Clone)]
+pub struct OperationsForTransactionRequest {
+    tx_id: String,
+    include_failed: Option<bool>,
+    join: Option<Join>,
+    limit: Option<u64>,
+    cursor: Option<String>,
+    order: Option<Order>,
+}
+
 impl Request for AllOperationsRequest {
     type Response = Page<resources::Operation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/operations")?;
-        if let Some(include_failed) = self.include_failed {
-            url = url.append_query_param("include_failed", &include_failed.to_string());
-        }
-        if let Some(join) = self.join {
-            url = url.append_query_param("join", &join.to_query_value());
-        }
+        url = url.append_include_failed(&self.include_failed);
+        url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
     }
 }
@@ -145,9 +157,7 @@ impl Request for SingleOperationRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!("/operations/{}", self.operation_id))?;
-        if let Some(join) = self.join {
-            url = url.append_query_param("join", &join.to_query_value());
-        }
+        url = url.appen_join(&self.join);
         Ok(url)
     }
 }
@@ -157,12 +167,8 @@ impl Request for OperationsForAccountRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!("/accounts/{}/operations", self.account_id))?;
-        if let Some(include_failed) = self.include_failed {
-            url = url.append_query_param("include_failed", &include_failed.to_string());
-        }
-        if let Some(join) = self.join {
-            url = url.append_query_param("join", &join.to_query_value());
-        }
+        url = url.append_include_failed(&self.include_failed);
+        url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
     }
 }
@@ -178,12 +184,8 @@ impl Request for OperationsForLedgerRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!("/ledgers/{}/operations", self.ledger))?;
-        if let Some(include_failed) = self.include_failed {
-            url = url.append_query_param("include_failed", &include_failed.to_string());
-        }
-        if let Some(join) = self.join {
-            url = url.append_query_param("join", &join.to_query_value());
-        }
+        url = url.append_include_failed(&self.include_failed);
+        url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
     }
 }
@@ -192,4 +194,93 @@ impl_page_request!(OperationsForLedgerRequest);
 
 impl StreamRequest for OperationsForLedgerRequest {
     type Resource = resources::Operation;
+}
+
+impl Request for OperationsForTransactionRequest {
+    type Response = Page<resources::Operation>;
+
+    fn uri(&self, host: &Url) -> Result<Url> {
+        let mut url = host.join(&format!("/transactions/{}/operations", self.tx_id))?;
+        url = url.append_include_failed(&self.include_failed);
+        url = url.appen_join(&self.join);
+        Ok(url.append_pagination_params(self))
+    }
+}
+
+impl_page_request!(OperationsForTransactionRequest);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::api::Join;
+    use crate::request::Request;
+    use std::collections::HashMap;
+    use stellar_base::crypto::PublicKey;
+    use url::Url;
+
+    fn host() -> Url {
+        "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    #[test]
+    fn test_all_operations_request_uri() {
+        let req = all()
+            .with_include_failed(true)
+            .with_join(Join::Transactions);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/operations?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"true".to_string()), query.get("include_failed"));
+    }
+
+    #[test]
+    fn test_single_operation_request_uri() {
+        let req = single("8181").with_join(Join::Transactions);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/operations/8181?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"transactions".to_string()), query.get("join"));
+    }
+
+    #[test]
+    fn test_operation_for_account_request_uri() {
+        let pk =
+            PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+                .unwrap();
+        let req = for_account(&pk)
+            .with_cursor("now")
+            .with_join(Join::Transactions)
+            .with_include_failed(true);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/operations?"));
+    }
+
+    #[test]
+    fn test_operation_for_ledger_request_uri() {
+        let req = for_ledger(888)
+            .with_include_failed(true)
+            .with_join(Join::Transactions);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/ledgers/888/operations?"));
+    }
+
+    #[test]
+    fn test_operation_for_transaction_request_uri() {
+        let req =
+            for_transaction("715ffb63673a4ee9b84d4b60924b3e141b34fe3777697f35bad6d4b990524ca2")
+                .with_include_failed(true)
+                .with_join(Join::Transactions);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/transactions/715ffb63673a4ee9b84d4b60924b3e141b34fe3777697f35bad6d4b990524ca2/operations?"));
+    }
 }

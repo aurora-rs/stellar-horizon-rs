@@ -1,3 +1,4 @@
+use crate::api::assets::asset_to_string;
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, UrlPageRequestExt};
@@ -83,7 +84,17 @@ impl Request for AllOffersRequest {
     type Response = Page<resources::Offer>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join("/offers")?)
+        let mut url = host.join("/offers")?;
+        if let Some(seller) = self.seller.as_ref() {
+            url = url.append_query_param("seller", seller);
+        }
+        if let Some(selling) = self.selling.as_ref() {
+            url = url.append_query_param("selling", &asset_to_string(selling));
+        }
+        if let Some(buying) = self.buying.as_ref() {
+            url = url.append_query_param("buying", &asset_to_string(buying));
+        }
+        Ok(url.append_pagination_params(self))
     }
 }
 
@@ -105,5 +116,72 @@ impl Request for OffersForAccountRequest {
     fn uri(&self, host: &Url) -> Result<Url> {
         let url = host.join(&format!("/accounts/{}/offers", self.account_id))?;
         Ok(url.append_pagination_params(self))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::request::Request;
+    use std::collections::HashMap;
+    use stellar_base::asset::Asset;
+    use stellar_base::crypto::PublicKey;
+    use url::Url;
+
+    fn host() -> Url {
+        "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    fn keypair0() -> PublicKey {
+        PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+            .unwrap()
+    }
+
+    fn credit_asset0() -> Asset {
+        let issuer = keypair0();
+        let code = "ABCD";
+        Asset::new_credit(code, issuer).unwrap()
+    }
+
+    #[test]
+    fn test_all_offers_request_uri() {
+        let req = all()
+            .with_seller(&keypair0())
+            .with_selling(Asset::new_native())
+            .with_buying(credit_asset0())
+            .with_limit(10);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/offers?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"10".to_string()), query.get("limit"));
+        assert_eq!(
+            Some(&"GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623".to_string()),
+            query.get("seller")
+        );
+        assert_eq!(Some(&"native".to_string()), query.get("selling"));
+        assert_eq!(
+            Some(&"ABCD:GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623".to_string()),
+            query.get("buying")
+        );
+    }
+
+    #[test]
+    fn test_single_offer_request_uri() {
+        let req = single(123);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/offers/123"));
+    }
+
+    #[test]
+    fn test_offer_for_account_request_uri() {
+        let req = for_account(&keypair0()).with_cursor("now");
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/offers?"));
     }
 }

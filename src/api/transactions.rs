@@ -39,7 +39,7 @@ pub fn for_account(account: &PublicKey) -> TransactionsForAccountRequest {
     }
 }
 
-/// Creates a request to retrieve a ledger's request.
+/// Creates a request to retrieve a ledger's transactions.
 pub fn for_ledger(ledger: u32) -> TransactionsForLedgerRequest {
     TransactionsForLedgerRequest {
         ledger,
@@ -100,9 +100,7 @@ impl Request for AllTransactionsRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/transactions")?;
-        if let Some(include_failed) = self.include_failed {
-            url = url.append_query_param("include_failed", &include_failed.to_string());
-        }
+        url = url.append_include_failed(&self.include_failed);
         Ok(url.append_pagination_params(self))
     }
 }
@@ -145,9 +143,7 @@ impl Request for TransactionsForAccountRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!("/accounts/{}/transactions", self.account_id))?;
-        if let Some(include_failed) = self.include_failed {
-            url = url.append_query_param("include_failed", &include_failed.to_string());
-        }
+        url = url.append_include_failed(&self.include_failed);
         Ok(url.append_pagination_params(self))
     }
 }
@@ -167,9 +163,7 @@ impl Request for TransactionsForLedgerRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!("/ledgers/{}/transactions", self.ledger))?;
-        if let Some(include_failed) = self.include_failed {
-            url = url.append_query_param("include_failed", &include_failed.to_string());
-        }
+        url = url.append_include_failed(&self.include_failed);
         Ok(url.append_pagination_params(self))
     }
 }
@@ -178,4 +172,55 @@ impl_page_request!(TransactionsForLedgerRequest);
 
 impl StreamRequest for TransactionsForLedgerRequest {
     type Resource = resources::Transaction;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::request::Request;
+    use stellar_base::crypto::PublicKey;
+    use url::Url;
+
+    fn host() -> Url {
+        "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    #[test]
+    fn test_all_transactions_request_uri() {
+        let req = all().with_include_failed(true);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/transactions?"));
+    }
+
+    #[test]
+    fn test_single_transaction_request_uri() {
+        let req = single("23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e");
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/transactions/23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e"));
+    }
+
+    #[test]
+    fn test_transactions_for_account_request_uri() {
+        let pk =
+            PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+                .unwrap();
+        let req = for_account(&pk).with_include_failed(true);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/transactions?"));
+    }
+
+    #[test]
+    fn test_transactions_for_ledger_request_uri() {
+        let req = for_ledger(888).with_include_failed(true);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/ledgers/888/transactions?"));
+    }
 }

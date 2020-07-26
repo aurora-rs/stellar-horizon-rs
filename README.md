@@ -42,12 +42,12 @@ implemented as separate crates when possible.
  - [x] Request single resources
  - [x] Request paginated resources
  - [x] Stream resources
- - [ ] Cleanup API, e.g. turn `String` into `Into<String>`
+ - [x] Cleanup API, e.g. turn `String` into `Into<String>`
  - [x] Submit transactions
  - [x] Expose rate limit headers
  - [ ] Lazily parse resources fields
  - [ ] Navigation support, follow links
- - [ ] Improve documentation
+ - [x] Improve documentation
  - [ ] Link to example applications
 
 ## Changelog
