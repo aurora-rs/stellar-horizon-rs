@@ -2,6 +2,7 @@ use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, UrlPageRequestExt};
 use crate::resources;
+use stellar_base::asset::CreditAsset;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
@@ -62,3 +63,9 @@ impl Request for AllAssetsRequest {
 }
 
 impl_page_request!(AllAssetsRequest);
+
+pub(crate) fn credit_asset_to_string(asset: &CreditAsset) -> String {
+    let code = asset.code();
+    let issuer = asset.issuer().account_id();
+    format!("{}:{}", code, issuer)
+}

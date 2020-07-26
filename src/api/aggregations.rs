@@ -1,3 +1,4 @@
+use crate::api::assets::credit_asset_to_string;
 use crate::error::{Error, Result};
 use crate::page::Page;
 use crate::request::{Order, Request, StreamRequest, UrlPageRequestExt};
@@ -292,12 +293,6 @@ impl Request for FeeStatsRequest {
 fn serialize_assets_to_query_value(assets: &[CreditAsset]) -> String {
     let assets: Vec<_> = assets.iter().map(credit_asset_to_string).collect();
     assets.join(",")
-}
-
-fn credit_asset_to_string(asset: &CreditAsset) -> String {
-    let code = asset.code();
-    let issuer = asset.issuer().account_id();
-    format!("{}:{}", code, issuer)
 }
 
 fn resolution_to_milliseconds(resolution: &Resolution) -> u64 {

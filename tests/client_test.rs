@@ -98,6 +98,26 @@ async fn test_single_account() {
 }
 
 #[tokio::test]
+async fn test_all_accounts_by_signer() {
+    let client = new_client();
+    let key = new_project_public_key();
+    let req = api::accounts::all().with_signer(&key);
+    let (_, response) = client.request(req).await.unwrap();
+    assert_eq!(1, response.records.len());
+}
+
+#[tokio::test]
+async fn test_all_accounts_by_asset() {
+    let client = new_client();
+    let asset = new_credit_asset().as_credit().unwrap().clone();
+    let req = api::accounts::all()
+        .with_trusted_asset(asset)
+        .with_limit(30);
+    let (_, response) = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
 async fn test_all_transactions() {
     let client = new_client();
     let req = api::transactions::all()
