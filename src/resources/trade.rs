@@ -2,6 +2,7 @@ use crate::link::Link;
 use crate::resources::{Asset, Price};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use serde_with::rust::display_fromstr;
 
 /// A trade on the distributed exchange.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -75,9 +76,11 @@ pub struct TradeEffect {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeAggregation {
     /// Start time for this trade aggregation. Represented as milliseconds since epoch.
-    pub timestamp: String,
+    #[serde(with = "display_fromstr")]
+    pub timestamp: i64,
     /// Total number of trades aggregated.
-    pub trade_count: String,
+    #[serde(with = "display_fromstr")]
+    pub trade_count: i64,
     /// Total volume of base asset.
     pub base_volume: String,
     /// Total volume of counter asset.

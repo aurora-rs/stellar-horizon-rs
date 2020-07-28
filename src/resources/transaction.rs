@@ -1,6 +1,7 @@
 use crate::link::Link;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use serde_with::rust::display_fromstr;
 
 /// Transactions are commands that modify the ledger state and consist of one or more operations.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -27,9 +28,11 @@ pub struct Transaction {
     /// The account that paid this transaction fee.
     pub fee_account: String,
     /// The fee (in stroops) paid by the source account to apply this transaction to the ledger.
-    pub fee_charged: String,
+    #[serde(with = "display_fromstr")]
+    pub fee_charged: i64,
     /// The maximum fee (in stroops) that the source account was willing to pay.
-    pub max_fee: String,
+    #[serde(with = "display_fromstr")]
+    pub max_fee: i64,
     /// The number of operations contained within this transaction.
     pub operation_count: i32,
     /// A base64 encoded string of the raw `TransactionEnvelope` XDR struct for this transaction.
@@ -75,7 +78,8 @@ pub struct InnerTransaction {
     /// An array of signatures used to sign this transaction.
     pub signatures: Vec<String>,
     /// The transaction max fee.
-    pub max_fee: String,
+    #[serde(with = "display_fromstr")]
+    pub max_fee: i64,
 }
 
 /// Transaction result codes.

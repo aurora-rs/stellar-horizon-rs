@@ -1,7 +1,7 @@
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
-use crate::resources;
+use crate::resources::{self, LedgerId};
 use stellar_base::PublicKey;
 use url::Url;
 
@@ -37,7 +37,7 @@ where
 }
 
 /// Create a request to retrieve effects for a ledger.
-pub fn for_ledger(ledger: i32) -> EffectsForLedgerRequest {
+pub fn for_ledger(ledger: LedgerId) -> EffectsForLedgerRequest {
     EffectsForLedgerRequest {
         ledger,
         limit: None,
@@ -67,7 +67,7 @@ pub struct AllEffectsRequest {
 /// Request effects for a ledger.
 #[derive(Debug, Clone)]
 pub struct EffectsForLedgerRequest {
-    ledger: i32,
+    ledger: LedgerId,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,

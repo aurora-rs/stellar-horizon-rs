@@ -2,7 +2,7 @@ use crate::api::assets::asset_to_string;
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, UrlPageRequestExt};
-use crate::resources;
+use crate::resources::{self, OfferId};
 use stellar_base::asset::Asset;
 use stellar_base::crypto::PublicKey;
 use url::Url;
@@ -20,7 +20,7 @@ pub fn all() -> AllOffersRequest {
 }
 
 /// Creates a request to retrieve a single offer.
-pub fn single(offer_id: i64) -> SingleOfferRequest {
+pub fn single(offer_id: OfferId) -> SingleOfferRequest {
     SingleOfferRequest { offer_id }
 }
 
@@ -68,7 +68,7 @@ pub struct AllOffersRequest {
 /// Request a single offer.
 #[derive(Debug, Clone)]
 pub struct SingleOfferRequest {
-    offer_id: i64,
+    offer_id: OfferId,
 }
 
 /// Request offers for an account.

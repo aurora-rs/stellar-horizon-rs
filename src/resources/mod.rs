@@ -27,6 +27,13 @@ pub use root::*;
 pub use trade::*;
 pub use transaction::*;
 
+/// Alias type for offer's id.
+pub type OfferId = i64;
+
+/// Alias type for ledger's id.
+pub type LedgerId = i32;
+
+/// Price as rational number.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Price {
     #[serde(rename = "n")]
@@ -37,6 +44,7 @@ pub struct Price {
     pub denominator: i32,
 }
 
+/// An asset, either the native asset or a credit asset.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Asset {
     pub asset_type: String,
@@ -44,6 +52,7 @@ pub struct Asset {
     pub asset_issuer: Option<String>,
 }
 
+/// Represent
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Path {
     #[serde(flatten, with = "SourceAsset")]

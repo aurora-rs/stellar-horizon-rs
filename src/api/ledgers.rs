@@ -1,11 +1,11 @@
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
-use crate::resources;
+use crate::resources::{self, LedgerId};
 use url::Url;
 
 /// Creates a request to retrieve a single ledger.
-pub fn single(ledger_sequence: i32) -> SingleLedgerRequest {
+pub fn single(ledger_sequence: LedgerId) -> SingleLedgerRequest {
     SingleLedgerRequest { ledger_sequence }
 }
 
@@ -21,7 +21,7 @@ pub fn all() -> AllLedgersRequest {
 /// Request a single ledger.
 #[derive(Debug, Clone)]
 pub struct SingleLedgerRequest {
-    ledger_sequence: i32,
+    ledger_sequence: LedgerId,
 }
 
 /// Request all ledgers.

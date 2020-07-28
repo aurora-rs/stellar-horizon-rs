@@ -1,6 +1,8 @@
 use crate::link::Link;
+use crate::resources::LedgerId;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use serde_with::rust::display_fromstr;
 
 /// Store the state of network at a point in time.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -50,43 +52,60 @@ pub struct Ledger {
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct FeeDistribution {
     /// Maximum fee charged over the last 5 ledger.
-    pub max: String,
+    #[serde(with = "display_fromstr")]
+    pub max: i64,
     /// Minimum fee charged over the last 5 ledger.
-    pub min: String,
+    #[serde(with = "display_fromstr")]
+    pub min: i64,
     /// Mode fee charged over the last 5 ledger.
-    pub mode: String,
+    #[serde(with = "display_fromstr")]
+    pub mode: i64,
     /// 10th percentile fee charged over the last 5 ledger.
-    pub p10: String,
+    #[serde(with = "display_fromstr")]
+    pub p10: i64,
     /// 20th percentile fee charged over the last 5 ledger.
-    pub p20: String,
+    #[serde(with = "display_fromstr")]
+    pub p20: i64,
     /// 30th percentile fee charged over the last 5 ledger.
-    pub p30: String,
+    #[serde(with = "display_fromstr")]
+    pub p30: i64,
     /// 40th percentile fee charged over the last 5 ledger.
-    pub p40: String,
+    #[serde(with = "display_fromstr")]
+    pub p40: i64,
     /// 50th percentile fee charged over the last 5 ledger.
-    pub p50: String,
+    #[serde(with = "display_fromstr")]
+    pub p50: i64,
     /// 60th percentile fee charged over the last 5 ledger.
-    pub p60: String,
+    #[serde(with = "display_fromstr")]
+    pub p60: i64,
     /// 70th percentile fee charged over the last 5 ledger.
-    pub p70: String,
+    #[serde(with = "display_fromstr")]
+    pub p70: i64,
     /// 80th percentile fee charged over the last 5 ledger.
-    pub p80: String,
+    #[serde(with = "display_fromstr")]
+    pub p80: i64,
     /// 90th percentile fee charged over the last 5 ledger.
-    pub p90: String,
+    #[serde(with = "display_fromstr")]
+    pub p90: i64,
     /// 95th percentile fee charged over the last 5 ledger.
-    pub p95: String,
+    #[serde(with = "display_fromstr")]
+    pub p95: i64,
     /// 99th percentile fee charged over the last 5 ledger.
-    pub p99: String,
+    #[serde(with = "display_fromstr")]
+    pub p99: i64,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct FeeStats {
     /// The last ledger sequence number.
-    pub last_ledger: String,
+    #[serde(with = "display_fromstr")]
+    pub last_ledger: LedgerId,
     /// The last ledger base fee.
-    pub last_ledger_base_fee: String,
+    #[serde(with = "display_fromstr")]
+    pub last_ledger_base_fee: i64,
     /// The average capacity usage over the last 5 ledgers (0 is no usage, 1 is complete usage).
-    pub ledger_capacity_usage: String,
+    #[serde(with = "display_fromstr")]
+    pub ledger_capacity_usage: f64,
     /// Information about the fee charged.
     pub fee_charged: FeeDistribution,
     /// Information about the max fee bid.

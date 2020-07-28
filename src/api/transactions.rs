@@ -1,7 +1,7 @@
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
-use crate::resources;
+use crate::resources::{self, LedgerId};
 use stellar_base::crypto::PublicKey;
 use stellar_base::transaction::TransactionEnvelope;
 use stellar_base::xdr::XDRSerialize;
@@ -40,7 +40,7 @@ pub fn for_account(account: &PublicKey) -> TransactionsForAccountRequest {
 }
 
 /// Creates a request to retrieve a ledger's transactions.
-pub fn for_ledger(ledger: u32) -> TransactionsForLedgerRequest {
+pub fn for_ledger(ledger: LedgerId) -> TransactionsForLedgerRequest {
     TransactionsForLedgerRequest {
         ledger,
         include_failed: None,
@@ -85,7 +85,7 @@ pub struct TransactionsForAccountRequest {
 #[derive(Debug, Clone)]
 pub struct TransactionsForLedgerRequest {
     include_failed: Option<bool>,
-    ledger: u32,
+    ledger: LedgerId,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,

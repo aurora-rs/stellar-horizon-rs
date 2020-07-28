@@ -1,7 +1,7 @@
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
-use crate::resources;
+use crate::resources::{self, OfferId};
 use stellar_base::{Asset, PublicKey};
 use url::Url;
 
@@ -28,7 +28,7 @@ pub fn for_account(account: &PublicKey) -> TradesForAccountRequest {
 }
 
 /// Creates a request to retrieve all trades for an offer.
-pub fn for_offer(offer_id: i32) -> TradesForOfferRequest {
+pub fn for_offer(offer_id: OfferId) -> TradesForOfferRequest {
     TradesForOfferRequest {
         offer_id,
         limit: None,
@@ -40,7 +40,7 @@ pub fn for_offer(offer_id: i32) -> TradesForOfferRequest {
 /// Request all trades.
 #[derive(Debug, Clone)]
 pub struct AllTradesRequest {
-    offer_id: Option<i32>,
+    offer_id: Option<OfferId>,
     base_asset: Option<Asset>,
     counter_asset: Option<Asset>,
     limit: Option<u64>,
@@ -60,7 +60,7 @@ pub struct TradesForAccountRequest {
 /// Request trades for an offer.
 #[derive(Debug, Clone)]
 pub struct TradesForOfferRequest {
-    offer_id: i32,
+    offer_id: OfferId,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -68,7 +68,7 @@ pub struct TradesForOfferRequest {
 
 impl AllTradesRequest {
     /// Filter trades originating from `offer_id`.
-    pub fn with_offer_id(mut self, offer_id: i32) -> AllTradesRequest {
+    pub fn with_offer_id(mut self, offer_id: OfferId) -> AllTradesRequest {
         self.offer_id = Some(offer_id);
         self
     }

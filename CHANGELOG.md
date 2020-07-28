@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
  - Api now accepts `S: Into<String>`
+ - Parse offers and ledgers ids
+ - Standardise ledger id type
 
 
 ## [0.4.3] - 2020-07-24

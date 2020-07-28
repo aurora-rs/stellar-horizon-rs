@@ -165,7 +165,7 @@ async fn test_stream_transactions_for_account() {
 async fn test_transactions_for_ledger() {
     let client = new_client();
     let (_, root) = client.request(api::root::root()).await.unwrap();
-    let req = api::transactions::for_ledger(root.history_latest_ledger as u32);
+    let req = api::transactions::for_ledger(root.history_latest_ledger);
     let _response = client.request(req).await.unwrap();
 }
 
@@ -173,7 +173,7 @@ async fn test_transactions_for_ledger() {
 async fn test_stream_transactions_for_ledger() {
     let client = new_client();
     let (_, root) = client.request(api::root::root()).await.unwrap();
-    let req = api::transactions::for_ledger(root.history_latest_ledger as u32);
+    let req = api::transactions::for_ledger(root.history_latest_ledger);
     let mut stream = client.stream(req).unwrap().take(1);
     while let Some(event) = stream.next().await {
         assert!(!event.unwrap().paging_token.is_empty());
@@ -314,8 +314,7 @@ async fn test_fee_stats() {
     let client = new_client();
     let req = api::aggregations::fee_stats();
     let (_, response) = client.request(req).await.unwrap();
-    let base_fee = response.last_ledger_base_fee.parse::<u64>().unwrap();
-    assert!(base_fee >= 100);
+    assert!(response.last_ledger_base_fee >= 100);
 }
 
 #[tokio::test]
@@ -354,9 +353,8 @@ async fn test_single_offer() {
 
     let (_, response) = client.request(req).await.unwrap();
     let offer = response.records.iter().next().unwrap();
-    let offer_id = offer.id.parse::<i64>().unwrap();
 
-    let req = api::offers::single(offer_id);
+    let req = api::offers::single(offer.id);
     let (_, response) = client.request(req).await.unwrap();
     assert_eq!(offer.id, response.id);
 }

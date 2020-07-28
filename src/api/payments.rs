@@ -2,7 +2,7 @@ use crate::api::Join;
 use crate::error::Result;
 use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestExt};
-use crate::resources;
+use crate::resources::{self, LedgerId};
 use stellar_base::PublicKey;
 use url::Url;
 
@@ -24,7 +24,7 @@ pub fn for_account(account: &PublicKey) -> PaymentsForAccountRequest {
 }
 
 /// Creates a request to retrieve a ledger's payments.
-pub fn for_ledger(ledger_id: i32) -> PaymentsForLedgerRequest {
+pub fn for_ledger(ledger_id: LedgerId) -> PaymentsForLedgerRequest {
     PaymentsForLedgerRequest {
         ledger_id,
         include_failed: None,
@@ -94,7 +94,7 @@ pub struct PaymentsForAccountRequest {
 /// Request payments for a ledger.
 #[derive(Debug, Clone)]
 pub struct PaymentsForLedgerRequest {
-    ledger_id: i32,
+    ledger_id: LedgerId,
     include_failed: Option<bool>,
     join: Option<Join>,
     limit: Option<u64>,
