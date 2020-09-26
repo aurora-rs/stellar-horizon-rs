@@ -1,0 +1,47 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://horizon-protocol14.stellar.org/accounts/GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB/offers?cursor=\u0026limit=10\u0026order=asc"
+    },
+    "next": {
+      "href": "https://horizon-protocol14.stellar.org/accounts/GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB/offers?cursor=1\u0026limit=10\u0026order=asc"
+    },
+    "prev": {
+      "href": "https://horizon-protocol14.stellar.org/accounts/GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB/offers?cursor=1\u0026limit=10\u0026order=desc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/offers/1"
+          },
+          "offer_maker": {
+            "href": "https://horizon-protocol14.stellar.org/accounts/GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB"
+          }
+        },
+        "id": "1",
+        "paging_token": "1",
+        "seller": "GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB",
+        "selling": {
+          "asset_type": "native"
+        },
+        "buying": {
+          "asset_type": "credit_alphanum4",
+          "asset_code": "ABC",
+          "asset_issuer": "GD2I2F7SWUHBAD7XBIZTF7MBMWQYWJVEFMWTXK76NSYVOY52OJRYNTIY"
+        },
+        "amount": "1.2000000",
+        "price_r": {
+          "n": 10,
+          "d": 3
+        },
+        "price": "3.3333333",
+        "last_modified_ledger": 66735,
+        "last_modified_time": "2020-09-25T19:11:31Z",
+        "sponsor": "GB5N4275ETC6A77K4DTDL3EFAQMN66PC7UITDUZUBM7Y6LDJP7EYSGOB"
+      }
+    ]
+  }
+}

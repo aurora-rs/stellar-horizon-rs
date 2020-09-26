@@ -8,4 +8,6 @@ pub struct HorizonError {
     pub title: String,
     /// A longer description of the error.
     pub detail: String,
+    /// The status code.
+    pub status: i64,
 }

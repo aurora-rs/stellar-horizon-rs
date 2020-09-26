@@ -38,6 +38,14 @@ pub struct Account {
     pub data: Map<String, String>,
     /// Paging token for this account.
     pub paging_token: String,
+    /// The account sponsoring this account base reserve.
+    pub sponsor: Option<String>,
+    /// The number of reserves sponsored by this account.
+    #[serde(default)]
+    pub num_sponsoring: i64,
+    /// The number of reserves sponsored for this account.
+    #[serde(default)]
+    pub num_sponsored: i64,
 }
 
 /// Links for an Account.
@@ -103,9 +111,14 @@ pub struct Balance {
     pub buying_liabilities: String,
     /// The sum of all sell offers owned by this account for this asset.
     pub selling_liabilities: String,
+    /// Ledger when the balance was last changed.
     pub last_modified_ledger: Option<u32>,
+    /// Flag to indicate if the account is authorized to hold asset.
     pub is_authorized: Option<bool>,
+    /// Flag to indicate if the account is authorized to maintain liabilities.
     pub is_authorized_to_maintain_liabilities: Option<bool>,
+    /// The account sponsoring this trustline.
+    pub sponsor: Option<String>,
     /// The asset.
     #[serde(flatten)]
     pub asset: Asset,
@@ -132,6 +145,8 @@ pub struct AccountSigner {
 pub struct AccountData {
     /// Account data encoded as base64.
     pub value: String,
+    /// Account sponsoring this data base reserve.
+    pub sponsor: Option<String>,
 }
 
 /// Account signer links.
@@ -151,4 +166,6 @@ pub struct Signer {
     /// The signer type.
     #[serde(rename = "type")]
     pub type_: String,
+    /// The account sponsoring this signer base reserve.
+    pub sponsor: Option<String>,
 }

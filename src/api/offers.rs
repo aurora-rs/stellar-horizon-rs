@@ -9,14 +9,7 @@ use url::Url;
 
 /// Creates a request to retrieve all open offers.
 pub fn all() -> AllOffersRequest {
-    AllOffersRequest {
-        seller: None,
-        selling: None,
-        buying: None,
-        limit: None,
-        cursor: None,
-        order: None,
-    }
+    Default::default()
 }
 
 /// Creates a request to retrieve a single offer.
@@ -52,14 +45,21 @@ impl AllOffersRequest {
         self.buying = Some(buying);
         self
     }
+
+    /// Filter by the account id of the offer sponsor.
+    pub fn with_sponsor(mut self, pk: &PublicKey) -> AllOffersRequest {
+        self.sponsor = Some(pk.account_id());
+        self
+    }
 }
 
 /// Request all open offers.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct AllOffersRequest {
     seller: Option<String>,
     selling: Option<Asset>,
     buying: Option<Asset>,
+    sponsor: Option<String>,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -93,6 +93,9 @@ impl Request for AllOffersRequest {
         }
         if let Some(buying) = self.buying.as_ref() {
             url = url.append_query_param("buying", &asset_to_string(buying));
+        }
+        if let Some(sponsor) = self.sponsor.as_ref() {
+            url = url.append_query_param("sponsor", sponsor);
         }
         Ok(url.append_pagination_params(self))
     }
@@ -165,6 +168,25 @@ mod tests {
             Some(&"ABCD:GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623".to_string()),
             query.get("buying")
         );
+    }
+
+    #[test]
+    fn test_all_offers_with_sponsor_request_uri() {
+        let sponsor =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let req = all()
+            .with_seller(&keypair0())
+            .with_selling(Asset::new_native())
+            .with_buying(credit_asset0())
+            .with_limit(10)
+            .with_sponsor(&sponsor);
+        let uri = req.uri(&host()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/offers?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&sponsor.account_id()), query.get("sponsor"));
     }
 
     #[test]

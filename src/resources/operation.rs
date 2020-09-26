@@ -1,5 +1,5 @@
 use crate::link::Link;
-use crate::resources::{Asset, Price, SourceAsset, Transaction};
+use crate::resources::{Asset, Claimant, Price, SourceAsset, Transaction};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
@@ -21,6 +21,11 @@ pub enum Operation {
     AllowTrust(AllowTrustOperation),
     AccountMerge(AccountMergeOperation),
     Inflation(InflationOperation),
+    CreateClaimableBalance(CreateClaimableBalanceOperation),
+    ClaimClaimableBalance(ClaimClaimableBalanceOperation),
+    BeginSponsoringFutureReserves(BeginSponsoringFutureReservesOperation),
+    EndSponsoringFutureReserves(EndSponsoringFutureReservesOperation),
+    RevokeSponsorship(RevokeSponsorshipOperation),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -215,6 +220,52 @@ pub struct InflationOperation {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct CreateClaimableBalanceOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub asset: String,
+    pub amount: String,
+    pub claimants: Vec<Claimant>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimClaimableBalanceOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub balance_id: String,
+    pub claimant: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct BeginSponsoringFutureReservesOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub sponsored_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct EndSponsoringFutureReservesOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub begin_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct RevokeSponsorshipOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub account_id: Option<String>,
+    pub claimable_balance_id: Option<String>,
+    pub data_account_id: Option<String>,
+    pub data_name: Option<String>,
+    pub offer_id: Option<String>,
+    pub trustline_account_id: Option<String>,
+    pub trustline_asset: Option<String>,
+    pub signer_account_id: Option<String>,
+    pub signer_key: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OperationLinks {
     #[serde(rename = "self")]
     pub self_: Link,
@@ -241,6 +292,11 @@ impl Operation {
             Operation::AllowTrust(op) => &op.base,
             Operation::AccountMerge(op) => &op.base,
             Operation::Inflation(op) => &op.base,
+            Operation::CreateClaimableBalance(op) => &op.base,
+            Operation::ClaimClaimableBalance(op) => &op.base,
+            Operation::BeginSponsoringFutureReserves(op) => &op.base,
+            Operation::EndSponsoringFutureReserves(op) => &op.base,
+            Operation::RevokeSponsorship(op) => &op.base,
         }
     }
 }

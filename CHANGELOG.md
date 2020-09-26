@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+ - Add claimable balances endpoints
+ - Add `CreateClaimableBalanceOperation`
+ - Add `ClaimClaimableBalanceOperation`
+ - Add `BeginSponsoringFutureReserversOperation`
+ - Add `EndSponsoringFutureReserversOperation`
+ - Add `RevokeSponsorshipOperation`
+ - Add `ClaimableBalanceCreatedEffect`
+ - Add `ClaimableBalanceClaimantCreatedEffect`
+ - Add `ClaimableBalanceClaimedEffect`
+ - Add `AccountSponsorshipCreatedEffect`
+ - Add `AccountSponsorshipUpdatedEffect`
+ - Add `AccountSponsorshipRemovedEffect`
+ - Add `TrustLineSponsorshipCreatedEffect`
+ - Add `TrustLineSponsorshipUpdatedEffect`
+ - Add `TrustLineSponsorshipRemovedEffect`
+ - Add `ClaimableBalanceSponsorshipCreatedEffect`
+ - Add `ClaimableBalanceSponsorshipUpdatedEffect`
+ - Add `ClaimableBalanceSponsorshipRemovedEffect`
+ - Add `SignerSponsorshipCreatedEffect`
+ - Add `SignerSponsorshipUpdatedEffect`
+ - Add `SignerSponsorshipRemovedEffect`
+ - Add `ClaimableBalance`, `Claimant`, and `Predicate` resources
+
+### Changed
+ - Update `stellar-base` dependency
+ - Add sponsor filter to the accounts endpoint
+ - Add sponsor filter to the offers endpoint
+ - Update `Account` resource with sponsor
+ - Update `Balance` resource with sponsor
+ - Update `Signer` resource with sponsor
+ - Update `AccountData` resource with sponsor
 
 
 ## [0.5.0] - 2020-07-30

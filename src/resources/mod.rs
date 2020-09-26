@@ -8,6 +8,7 @@
 pub mod account;
 pub mod asset;
 pub mod book;
+pub mod claimable_balance;
 pub mod effect;
 pub mod ledger;
 pub mod offer;
@@ -19,6 +20,7 @@ pub mod transaction;
 pub use account::*;
 pub use asset::*;
 pub use book::*;
+pub use claimable_balance::*;
 pub use effect::*;
 pub use ledger::*;
 pub use offer::*;
@@ -32,6 +34,9 @@ pub type OfferId = i64;
 
 /// Alias type for ledger's id.
 pub type LedgerId = i32;
+
+/// Alias type for claimable balance id.
+pub type ClaimableBalanceId = String;
 
 /// Price as rational number.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]

@@ -57,6 +57,7 @@ pub trait StreamRequest: Request + Unpin {
 pub(crate) trait UrlPageRequestExt: Sized {
     fn append_pagination_params<R: PageRequest>(self, req: &R) -> Self;
     fn append_asset_params(self, asset: &Asset, prefix: Option<&str>) -> Self;
+    fn append_canonical_asset_params(self, key: &str, asset: &Asset) -> Self;
     fn append_query_param(self, key: &str, value: &str) -> Self;
     fn append_include_failed(self, include_failed: &Option<bool>) -> Self;
     fn appen_join(self, join: &Option<Join>) -> Self;
@@ -111,6 +112,20 @@ impl UrlPageRequestExt for Url {
                     query.append_pair("asset_ssuer", &asset_issuer);
                 }
             }
+        }
+        self
+    }
+
+    fn append_canonical_asset_params(mut self, key: &str, asset: &Asset) -> Self {
+        {
+            let mut query = self.query_pairs_mut();
+            let canonical = match asset {
+                Asset::Native => "native".to_string(),
+                Asset::Credit(credit) => {
+                    format!("{}:{}", credit.code(), credit.issuer().account_id())
+                }
+            };
+            query.append_pair(key, &canonical);
         }
         self
     }

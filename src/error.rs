@@ -23,4 +23,6 @@ pub enum Error {
     InvalidUrl(#[from] url::ParseError),
     #[error("invalid host")]
     InvalidHost,
+    #[error("invalid predicate")]
+    InvalidPredicate,
 }

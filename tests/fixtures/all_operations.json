@@ -1,13 +1,13 @@
 {
   "_links": {
     "self": {
-      "href": "https://horizon.stellar.org/operations?cursor=\u0026include_failed=true\u0026limit=200\u0026order=asc"
+      "href": "https://horizon.stellar.org/operations?cursor=&include_failed=true&limit=200&order=asc"
     },
     "next": {
-      "href": "https://horizon.stellar.org/operations?cursor=2388006111547393\u0026include_failed=true\u0026limit=200\u0026order=asc"
+      "href": "https://horizon.stellar.org/operations?cursor=2388006111547393&include_failed=true&limit=200&order=asc"
     },
     "prev": {
-      "href": "https://horizon.stellar.org/operations?cursor=12884905985\u0026include_failed=true\u0026limit=200\u0026order=desc"
+      "href": "https://horizon.stellar.org/operations?cursor=12884905985&include_failed=true&limit=200&order=desc"
     }
   },
   "_embedded": {
@@ -24,10 +24,10 @@
             "href": "https://horizon.stellar.org/operations/12884905985/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=12884905985"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=12884905985"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=12884905985"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=12884905985"
           }
         },
         "id": "12884905985",
@@ -54,10 +54,10 @@
             "href": "https://horizon.stellar.org/operations/12884905986/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=12884905986"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=12884905986"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=12884905986"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=12884905986"
           }
         },
         "id": "12884905986",
@@ -85,10 +85,10 @@
             "href": "https://horizon.stellar.org/operations/12884905987/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=12884905987"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=12884905987"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=12884905987"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=12884905987"
           }
         },
         "id": "12884905987",
@@ -113,10 +113,10 @@
             "href": "https://horizon.stellar.org/operations/33676838572033/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33676838572033"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33676838572033"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33676838572033"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33676838572033"
           }
         },
         "id": "33676838572033",
@@ -143,10 +143,10 @@
             "href": "https://horizon.stellar.org/operations/33676838572034/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33676838572034"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33676838572034"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33676838572034"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33676838572034"
           }
         },
         "id": "33676838572034",
@@ -173,10 +173,10 @@
             "href": "https://horizon.stellar.org/operations/33676838572035/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33676838572035"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33676838572035"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33676838572035"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33676838572035"
           }
         },
         "id": "33676838572035",
@@ -203,10 +203,10 @@
             "href": "https://horizon.stellar.org/operations/33736968114177/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33736968114177"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33736968114177"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33736968114177"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33736968114177"
           }
         },
         "id": "33736968114177",
@@ -231,10 +231,10 @@
             "href": "https://horizon.stellar.org/operations/33771327852545/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33771327852545"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33771327852545"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33771327852545"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33771327852545"
           }
         },
         "id": "33771327852545",
@@ -258,10 +258,10 @@
             "href": "https://horizon.stellar.org/operations/33805687590913/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33805687590913"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33805687590913"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33805687590913"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33805687590913"
           }
         },
         "id": "33805687590913",
@@ -285,10 +285,10 @@
             "href": "https://horizon.stellar.org/operations/33818572492801/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=33818572492801"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=33818572492801"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=33818572492801"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=33818572492801"
           }
         },
         "id": "33818572492801",
@@ -312,10 +312,10 @@
             "href": "https://horizon.stellar.org/operations/34316788699137/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=34316788699137"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=34316788699137"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=34316788699137"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=34316788699137"
           }
         },
         "id": "34316788699137",
@@ -343,10 +343,10 @@
             "href": "https://horizon.stellar.org/operations/37288906067969/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=37288906067969"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=37288906067969"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=37288906067969"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=37288906067969"
           }
         },
         "id": "37288906067969",
@@ -373,10 +373,10 @@
             "href": "https://horizon.stellar.org/operations/37288906067970/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=37288906067970"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=37288906067970"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=37288906067970"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=37288906067970"
           }
         },
         "id": "37288906067970",
@@ -404,10 +404,10 @@
             "href": "https://horizon.stellar.org/operations/80607946215425/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=80607946215425"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=80607946215425"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=80607946215425"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=80607946215425"
           }
         },
         "id": "80607946215425",
@@ -432,10 +432,10 @@
             "href": "https://horizon.stellar.org/operations/81058917781505/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=81058917781505"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=81058917781505"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=81058917781505"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=81058917781505"
           }
         },
         "id": "81058917781505",
@@ -460,10 +460,10 @@
             "href": "https://horizon.stellar.org/operations/81827716927489/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=81827716927489"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=81827716927489"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=81827716927489"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=81827716927489"
           }
         },
         "id": "81827716927489",
@@ -489,10 +489,10 @@
             "href": "https://horizon.stellar.org/operations/82132659605505/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82132659605505"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82132659605505"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82132659605505"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82132659605505"
           }
         },
         "id": "82132659605505",
@@ -518,10 +518,10 @@
             "href": "https://horizon.stellar.org/operations/82274393526273/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82274393526273"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82274393526273"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82274393526273"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82274393526273"
           }
         },
         "id": "82274393526273",
@@ -547,10 +547,10 @@
             "href": "https://horizon.stellar.org/operations/82274393526274/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82274393526274"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82274393526274"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82274393526274"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82274393526274"
           }
         },
         "id": "82274393526274",
@@ -576,10 +576,10 @@
             "href": "https://horizon.stellar.org/operations/82274393526275/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82274393526275"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82274393526275"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82274393526275"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82274393526275"
           }
         },
         "id": "82274393526275",
@@ -606,10 +606,10 @@
             "href": "https://horizon.stellar.org/operations/82398947577857/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82398947577857"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82398947577857"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82398947577857"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82398947577857"
           }
         },
         "id": "82398947577857",
@@ -635,10 +635,10 @@
             "href": "https://horizon.stellar.org/operations/82398947577858/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82398947577858"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82398947577858"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82398947577858"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82398947577858"
           }
         },
         "id": "82398947577858",
@@ -664,10 +664,10 @@
             "href": "https://horizon.stellar.org/operations/82398947577859/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82398947577859"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82398947577859"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82398947577859"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82398947577859"
           }
         },
         "id": "82398947577859",
@@ -693,10 +693,10 @@
             "href": "https://horizon.stellar.org/operations/82398947577860/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82398947577860"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82398947577860"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82398947577860"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82398947577860"
           }
         },
         "id": "82398947577860",
@@ -722,10 +722,10 @@
             "href": "https://horizon.stellar.org/operations/82398947577861/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=82398947577861"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=82398947577861"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=82398947577861"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=82398947577861"
           }
         },
         "id": "82398947577861",
@@ -752,10 +752,10 @@
             "href": "https://horizon.stellar.org/operations/84340272795649/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=84340272795649"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=84340272795649"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=84340272795649"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=84340272795649"
           }
         },
         "id": "84340272795649",
@@ -782,10 +782,10 @@
             "href": "https://horizon.stellar.org/operations/85164906516481/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=85164906516481"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=85164906516481"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=85164906516481"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=85164906516481"
           }
         },
         "id": "85164906516481",
@@ -812,10 +812,10 @@
             "href": "https://horizon.stellar.org/operations/85285165600769/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=85285165600769"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=85285165600769"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=85285165600769"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=85285165600769"
           }
         },
         "id": "85285165600769",
@@ -840,10 +840,10 @@
             "href": "https://horizon.stellar.org/operations/85345295142913/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=85345295142913"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=85345295142913"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=85345295142913"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=85345295142913"
           }
         },
         "id": "85345295142913",
@@ -868,10 +868,10 @@
             "href": "https://horizon.stellar.org/operations/85718957297665/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=85718957297665"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=85718957297665"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=85718957297665"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=85718957297665"
           }
         },
         "id": "85718957297665",
@@ -898,10 +898,10 @@
             "href": "https://horizon.stellar.org/operations/86861418598401/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=86861418598401"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=86861418598401"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=86861418598401"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=86861418598401"
           }
         },
         "id": "86861418598401",
@@ -928,10 +928,10 @@
             "href": "https://horizon.stellar.org/operations/90065464201217/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=90065464201217"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=90065464201217"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=90065464201217"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=90065464201217"
           }
         },
         "id": "90065464201217",
@@ -958,10 +958,10 @@
             "href": "https://horizon.stellar.org/operations/93205085294593/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=93205085294593"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=93205085294593"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=93205085294593"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=93205085294593"
           }
         },
         "id": "93205085294593",
@@ -988,10 +988,10 @@
             "href": "https://horizon.stellar.org/operations/95567317307393/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=95567317307393"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=95567317307393"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=95567317307393"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=95567317307393"
           }
         },
         "id": "95567317307393",
@@ -1017,10 +1017,10 @@
             "href": "https://horizon.stellar.org/operations/95567317307394/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=95567317307394"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=95567317307394"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=95567317307394"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=95567317307394"
           }
         },
         "id": "95567317307394",
@@ -1046,10 +1046,10 @@
             "href": "https://horizon.stellar.org/operations/95567317307395/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=95567317307395"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=95567317307395"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=95567317307395"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=95567317307395"
           }
         },
         "id": "95567317307395",
@@ -1075,10 +1075,10 @@
             "href": "https://horizon.stellar.org/operations/96409130897409/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=96409130897409"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=96409130897409"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=96409130897409"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=96409130897409"
           }
         },
         "id": "96409130897409",
@@ -1105,10 +1105,10 @@
             "href": "https://horizon.stellar.org/operations/96714073575425/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=96714073575425"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=96714073575425"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=96714073575425"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=96714073575425"
           }
         },
         "id": "96714073575425",
@@ -1135,10 +1135,10 @@
             "href": "https://horizon.stellar.org/operations/97418448211969/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=97418448211969"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=97418448211969"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=97418448211969"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=97418448211969"
           }
         },
         "id": "97418448211969",
@@ -1163,10 +1163,10 @@
             "href": "https://horizon.stellar.org/operations/98852967288833/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=98852967288833"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=98852967288833"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=98852967288833"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=98852967288833"
           }
         },
         "id": "98852967288833",
@@ -1194,10 +1194,10 @@
             "href": "https://horizon.stellar.org/operations/100729867997185/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=100729867997185"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=100729867997185"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=100729867997185"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=100729867997185"
           }
         },
         "id": "100729867997185",
@@ -1227,10 +1227,10 @@
             "href": "https://horizon.stellar.org/operations/100798587473921/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=100798587473921"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=100798587473921"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=100798587473921"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=100798587473921"
           }
         },
         "id": "100798587473921",
@@ -1260,10 +1260,10 @@
             "href": "https://horizon.stellar.org/operations/101288213745665/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=101288213745665"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=101288213745665"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=101288213745665"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=101288213745665"
           }
         },
         "id": "101288213745665",
@@ -1290,10 +1290,10 @@
             "href": "https://horizon.stellar.org/operations/109272557948929/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=109272557948929"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=109272557948929"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=109272557948929"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=109272557948929"
           }
         },
         "id": "109272557948929",
@@ -1323,10 +1323,10 @@
             "href": "https://horizon.stellar.org/operations/109521666052097/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=109521666052097"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=109521666052097"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=109521666052097"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=109521666052097"
           }
         },
         "id": "109521666052097",
@@ -1363,10 +1363,10 @@
             "href": "https://horizon.stellar.org/operations/111278307676161/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111278307676161"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111278307676161"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111278307676161"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111278307676161"
           }
         },
         "id": "111278307676161",
@@ -1394,10 +1394,10 @@
             "href": "https://horizon.stellar.org/operations/111299782512641/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111299782512641"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111299782512641"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111299782512641"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111299782512641"
           }
         },
         "id": "111299782512641",
@@ -1427,10 +1427,10 @@
             "href": "https://horizon.stellar.org/operations/111308372447233/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111308372447233"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111308372447233"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111308372447233"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111308372447233"
           }
         },
         "id": "111308372447233",
@@ -1460,10 +1460,10 @@
             "href": "https://horizon.stellar.org/operations/111475876171777/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111475876171777"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111475876171777"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111475876171777"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111475876171777"
           }
         },
         "id": "111475876171777",
@@ -1500,10 +1500,10 @@
             "href": "https://horizon.stellar.org/operations/111501645975553/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111501645975553"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111501645975553"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111501645975553"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111501645975553"
           }
         },
         "id": "111501645975553",
@@ -1533,10 +1533,10 @@
             "href": "https://horizon.stellar.org/operations/111518825844737/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111518825844737"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111518825844737"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111518825844737"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111518825844737"
           }
         },
         "id": "111518825844737",
@@ -1573,10 +1573,10 @@
             "href": "https://horizon.stellar.org/operations/111750754078721/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111750754078721"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111750754078721"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111750754078721"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111750754078721"
           }
         },
         "id": "111750754078721",
@@ -1604,10 +1604,10 @@
             "href": "https://horizon.stellar.org/operations/111767933947905/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=111767933947905"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=111767933947905"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=111767933947905"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=111767933947905"
           }
         },
         "id": "111767933947905",
@@ -1637,10 +1637,10 @@
             "href": "https://horizon.stellar.org/operations/112871740542977/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=112871740542977"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=112871740542977"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=112871740542977"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=112871740542977"
           }
         },
         "id": "112871740542977",
@@ -1668,10 +1668,10 @@
             "href": "https://horizon.stellar.org/operations/112901805314049/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=112901805314049"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=112901805314049"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=112901805314049"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=112901805314049"
           }
         },
         "id": "112901805314049",
@@ -1708,10 +1708,10 @@
             "href": "https://horizon.stellar.org/operations/113670604460033/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=113670604460033"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=113670604460033"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=113670604460033"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=113670604460033"
           }
         },
         "id": "113670604460033",
@@ -1736,10 +1736,10 @@
             "href": "https://horizon.stellar.org/operations/126005750534145/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=126005750534145"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=126005750534145"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=126005750534145"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=126005750534145"
           }
         },
         "id": "126005750534145",
@@ -1766,10 +1766,10 @@
             "href": "https://horizon.stellar.org/operations/126078764978177/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=126078764978177"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=126078764978177"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=126078764978177"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=126078764978177"
           }
         },
         "id": "126078764978177",
@@ -1796,10 +1796,10 @@
             "href": "https://horizon.stellar.org/operations/594857265467393/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=594857265467393"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=594857265467393"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=594857265467393"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=594857265467393"
           }
         },
         "id": "594857265467393",
@@ -1829,10 +1829,10 @@
             "href": "https://horizon.stellar.org/operations/599886672171009/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=599886672171009"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=599886672171009"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=599886672171009"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=599886672171009"
           }
         },
         "id": "599886672171009",
@@ -1862,10 +1862,10 @@
             "href": "https://horizon.stellar.org/operations/601776457781249/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=601776457781249"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=601776457781249"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=601776457781249"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=601776457781249"
           }
         },
         "id": "601776457781249",
@@ -1902,10 +1902,10 @@
             "href": "https://horizon.stellar.org/operations/601793637650433/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=601793637650433"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=601793637650433"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=601793637650433"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=601793637650433"
           }
         },
         "id": "601793637650433",
@@ -1942,10 +1942,10 @@
             "href": "https://horizon.stellar.org/operations/1046404357165057/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1046404357165057"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1046404357165057"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1046404357165057"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1046404357165057"
           }
         },
         "id": "1046404357165057",
@@ -1975,10 +1975,10 @@
             "href": "https://horizon.stellar.org/operations/1201173503676417/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1201173503676417"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1201173503676417"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1201173503676417"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1201173503676417"
           }
         },
         "id": "1201173503676417",
@@ -2005,10 +2005,10 @@
             "href": "https://horizon.stellar.org/operations/1201710374588417/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1201710374588417"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1201710374588417"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1201710374588417"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1201710374588417"
           }
         },
         "id": "1201710374588417",
@@ -2035,10 +2035,10 @@
             "href": "https://horizon.stellar.org/operations/1202079741775873/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202079741775873"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202079741775873"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202079741775873"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202079741775873"
           }
         },
         "id": "1202079741775873",
@@ -2062,10 +2062,10 @@
             "href": "https://horizon.stellar.org/operations/1202242950533121/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202242950533121"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202242950533121"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202242950533121"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202242950533121"
           }
         },
         "id": "1202242950533121",
@@ -2089,10 +2089,10 @@
             "href": "https://horizon.stellar.org/operations/1202260130402305/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202260130402305"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202260130402305"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202260130402305"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202260130402305"
           }
         },
         "id": "1202260130402305",
@@ -2116,10 +2116,10 @@
             "href": "https://horizon.stellar.org/operations/1202277310271489/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202277310271489"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202277310271489"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202277310271489"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202277310271489"
           }
         },
         "id": "1202277310271489",
@@ -2143,10 +2143,10 @@
             "href": "https://horizon.stellar.org/operations/1202285900206081/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202285900206081"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202285900206081"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202285900206081"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202285900206081"
           }
         },
         "id": "1202285900206081",
@@ -2170,10 +2170,10 @@
             "href": "https://horizon.stellar.org/operations/1202294490140673/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202294490140673"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202294490140673"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202294490140673"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202294490140673"
           }
         },
         "id": "1202294490140673",
@@ -2197,10 +2197,10 @@
             "href": "https://horizon.stellar.org/operations/1202303080075265/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202303080075265"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202303080075265"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202303080075265"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202303080075265"
           }
         },
         "id": "1202303080075265",
@@ -2224,10 +2224,10 @@
             "href": "https://horizon.stellar.org/operations/1202311670009857/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202311670009857"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202311670009857"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202311670009857"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202311670009857"
           }
         },
         "id": "1202311670009857",
@@ -2251,10 +2251,10 @@
             "href": "https://horizon.stellar.org/operations/1202328849879041/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202328849879041"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202328849879041"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202328849879041"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202328849879041"
           }
         },
         "id": "1202328849879041",
@@ -2278,10 +2278,10 @@
             "href": "https://horizon.stellar.org/operations/1202354619682817/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202354619682817"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202354619682817"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202354619682817"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202354619682817"
           }
         },
         "id": "1202354619682817",
@@ -2305,10 +2305,10 @@
             "href": "https://horizon.stellar.org/operations/1202380389486593/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202380389486593"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202380389486593"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202380389486593"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202380389486593"
           }
         },
         "id": "1202380389486593",
@@ -2332,10 +2332,10 @@
             "href": "https://horizon.stellar.org/operations/1202393274388481/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202393274388481"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202393274388481"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202393274388481"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202393274388481"
           }
         },
         "id": "1202393274388481",
@@ -2359,10 +2359,10 @@
             "href": "https://horizon.stellar.org/operations/1202410454257665/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202410454257665"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202410454257665"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202410454257665"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202410454257665"
           }
         },
         "id": "1202410454257665",
@@ -2386,10 +2386,10 @@
             "href": "https://horizon.stellar.org/operations/1202427634126849/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202427634126849"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202427634126849"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202427634126849"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202427634126849"
           }
         },
         "id": "1202427634126849",
@@ -2413,10 +2413,10 @@
             "href": "https://horizon.stellar.org/operations/1202453403930625/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202453403930625"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202453403930625"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202453403930625"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202453403930625"
           }
         },
         "id": "1202453403930625",
@@ -2440,10 +2440,10 @@
             "href": "https://horizon.stellar.org/operations/1202457698897921/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202457698897921"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202457698897921"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202457698897921"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202457698897921"
           }
         },
         "id": "1202457698897921",
@@ -2467,10 +2467,10 @@
             "href": "https://horizon.stellar.org/operations/1202470583799809/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202470583799809"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202470583799809"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202470583799809"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202470583799809"
           }
         },
         "id": "1202470583799809",
@@ -2494,10 +2494,10 @@
             "href": "https://horizon.stellar.org/operations/1202479173734401/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202479173734401"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202479173734401"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202479173734401"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202479173734401"
           }
         },
         "id": "1202479173734401",
@@ -2521,10 +2521,10 @@
             "href": "https://horizon.stellar.org/operations/1202487763668993/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202487763668993"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202487763668993"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202487763668993"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202487763668993"
           }
         },
         "id": "1202487763668993",
@@ -2548,10 +2548,10 @@
             "href": "https://horizon.stellar.org/operations/1202492058636289/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202492058636289"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202492058636289"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202492058636289"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202492058636289"
           }
         },
         "id": "1202492058636289",
@@ -2575,10 +2575,10 @@
             "href": "https://horizon.stellar.org/operations/1202530713341953/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202530713341953"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202530713341953"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202530713341953"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202530713341953"
           }
         },
         "id": "1202530713341953",
@@ -2602,10 +2602,10 @@
             "href": "https://horizon.stellar.org/operations/1202539303276545/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202539303276545"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202539303276545"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202539303276545"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202539303276545"
           }
         },
         "id": "1202539303276545",
@@ -2629,10 +2629,10 @@
             "href": "https://horizon.stellar.org/operations/1202552188178433/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202552188178433"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202552188178433"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202552188178433"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202552188178433"
           }
         },
         "id": "1202552188178433",
@@ -2656,10 +2656,10 @@
             "href": "https://horizon.stellar.org/operations/1202573663014913/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202573663014913"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202573663014913"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202573663014913"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202573663014913"
           }
         },
         "id": "1202573663014913",
@@ -2683,10 +2683,10 @@
             "href": "https://horizon.stellar.org/operations/1202586547916801/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202586547916801"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202586547916801"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202586547916801"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202586547916801"
           }
         },
         "id": "1202586547916801",
@@ -2710,10 +2710,10 @@
             "href": "https://horizon.stellar.org/operations/1202629497589761/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202629497589761"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202629497589761"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202629497589761"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202629497589761"
           }
         },
         "id": "1202629497589761",
@@ -2737,10 +2737,10 @@
             "href": "https://horizon.stellar.org/operations/1202672447262721/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1202672447262721"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1202672447262721"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1202672447262721"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1202672447262721"
           }
         },
         "id": "1202672447262721",
@@ -2764,10 +2764,10 @@
             "href": "https://horizon.stellar.org/operations/1203587275296769/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203587275296769"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203587275296769"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203587275296769"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203587275296769"
           }
         },
         "id": "1203587275296769",
@@ -2791,10 +2791,10 @@
             "href": "https://horizon.stellar.org/operations/1203600160198657/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203600160198657"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203600160198657"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203600160198657"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203600160198657"
           }
         },
         "id": "1203600160198657",
@@ -2818,10 +2818,10 @@
             "href": "https://horizon.stellar.org/operations/1203608750133249/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203608750133249"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203608750133249"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203608750133249"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203608750133249"
           }
         },
         "id": "1203608750133249",
@@ -2845,10 +2845,10 @@
             "href": "https://horizon.stellar.org/operations/1203617340067841/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203617340067841"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203617340067841"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203617340067841"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203617340067841"
           }
         },
         "id": "1203617340067841",
@@ -2872,10 +2872,10 @@
             "href": "https://horizon.stellar.org/operations/1203643109871617/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203643109871617"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203643109871617"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203643109871617"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203643109871617"
           }
         },
         "id": "1203643109871617",
@@ -2899,10 +2899,10 @@
             "href": "https://horizon.stellar.org/operations/1203840678367233/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203840678367233"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203840678367233"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203840678367233"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203840678367233"
           }
         },
         "id": "1203840678367233",
@@ -2926,10 +2926,10 @@
             "href": "https://horizon.stellar.org/operations/1203844973334529/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203844973334529"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203844973334529"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203844973334529"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203844973334529"
           }
         },
         "id": "1203844973334529",
@@ -2953,10 +2953,10 @@
             "href": "https://horizon.stellar.org/operations/1203849268301825/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203849268301825"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203849268301825"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203849268301825"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203849268301825"
           }
         },
         "id": "1203849268301825",
@@ -2980,10 +2980,10 @@
             "href": "https://horizon.stellar.org/operations/1203857858236417/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203857858236417"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203857858236417"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203857858236417"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203857858236417"
           }
         },
         "id": "1203857858236417",
@@ -3007,10 +3007,10 @@
             "href": "https://horizon.stellar.org/operations/1203870743138305/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203870743138305"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203870743138305"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203870743138305"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203870743138305"
           }
         },
         "id": "1203870743138305",
@@ -3034,10 +3034,10 @@
             "href": "https://horizon.stellar.org/operations/1203896512942081/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203896512942081"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203896512942081"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203896512942081"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203896512942081"
           }
         },
         "id": "1203896512942081",
@@ -3061,10 +3061,10 @@
             "href": "https://horizon.stellar.org/operations/1203909397843969/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203909397843969"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203909397843969"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203909397843969"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203909397843969"
           }
         },
         "id": "1203909397843969",
@@ -3088,10 +3088,10 @@
             "href": "https://horizon.stellar.org/operations/1203917987778561/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203917987778561"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203917987778561"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203917987778561"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203917987778561"
           }
         },
         "id": "1203917987778561",
@@ -3115,10 +3115,10 @@
             "href": "https://horizon.stellar.org/operations/1203922282745857/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203922282745857"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203922282745857"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203922282745857"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203922282745857"
           }
         },
         "id": "1203922282745857",
@@ -3142,10 +3142,10 @@
             "href": "https://horizon.stellar.org/operations/1203930872680449/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203930872680449"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203930872680449"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203930872680449"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203930872680449"
           }
         },
         "id": "1203930872680449",
@@ -3169,10 +3169,10 @@
             "href": "https://horizon.stellar.org/operations/1203939462615041/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203939462615041"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203939462615041"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203939462615041"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203939462615041"
           }
         },
         "id": "1203939462615041",
@@ -3196,10 +3196,10 @@
             "href": "https://horizon.stellar.org/operations/1203948052549633/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203948052549633"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203948052549633"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203948052549633"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203948052549633"
           }
         },
         "id": "1203948052549633",
@@ -3223,10 +3223,10 @@
             "href": "https://horizon.stellar.org/operations/1203952347516929/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203952347516929"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203952347516929"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203952347516929"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203952347516929"
           }
         },
         "id": "1203952347516929",
@@ -3250,10 +3250,10 @@
             "href": "https://horizon.stellar.org/operations/1203960937451521/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203960937451521"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203960937451521"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203960937451521"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203960937451521"
           }
         },
         "id": "1203960937451521",
@@ -3277,10 +3277,10 @@
             "href": "https://horizon.stellar.org/operations/1203965232418817/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203965232418817"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203965232418817"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203965232418817"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203965232418817"
           }
         },
         "id": "1203965232418817",
@@ -3304,10 +3304,10 @@
             "href": "https://horizon.stellar.org/operations/1203969527386113/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203969527386113"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203969527386113"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203969527386113"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203969527386113"
           }
         },
         "id": "1203969527386113",
@@ -3331,10 +3331,10 @@
             "href": "https://horizon.stellar.org/operations/1203982412288001/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203982412288001"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203982412288001"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203982412288001"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203982412288001"
           }
         },
         "id": "1203982412288001",
@@ -3358,10 +3358,10 @@
             "href": "https://horizon.stellar.org/operations/1203991002222593/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203991002222593"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203991002222593"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203991002222593"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203991002222593"
           }
         },
         "id": "1203991002222593",
@@ -3385,10 +3385,10 @@
             "href": "https://horizon.stellar.org/operations/1203999592157185/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1203999592157185"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1203999592157185"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1203999592157185"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1203999592157185"
           }
         },
         "id": "1203999592157185",
@@ -3412,10 +3412,10 @@
             "href": "https://horizon.stellar.org/operations/1204012477059073/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204012477059073"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204012477059073"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204012477059073"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204012477059073"
           }
         },
         "id": "1204012477059073",
@@ -3439,10 +3439,10 @@
             "href": "https://horizon.stellar.org/operations/1204021066993665/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204021066993665"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204021066993665"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204021066993665"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204021066993665"
           }
         },
         "id": "1204021066993665",
@@ -3466,10 +3466,10 @@
             "href": "https://horizon.stellar.org/operations/1204029656928257/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204029656928257"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204029656928257"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204029656928257"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204029656928257"
           }
         },
         "id": "1204029656928257",
@@ -3493,10 +3493,10 @@
             "href": "https://horizon.stellar.org/operations/1204042541830145/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204042541830145"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204042541830145"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204042541830145"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204042541830145"
           }
         },
         "id": "1204042541830145",
@@ -3520,10 +3520,10 @@
             "href": "https://horizon.stellar.org/operations/1204046836797441/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204046836797441"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204046836797441"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204046836797441"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204046836797441"
           }
         },
         "id": "1204046836797441",
@@ -3547,10 +3547,10 @@
             "href": "https://horizon.stellar.org/operations/1204055426732033/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204055426732033"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204055426732033"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204055426732033"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204055426732033"
           }
         },
         "id": "1204055426732033",
@@ -3574,10 +3574,10 @@
             "href": "https://horizon.stellar.org/operations/1204064016666625/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204064016666625"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204064016666625"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204064016666625"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204064016666625"
           }
         },
         "id": "1204064016666625",
@@ -3601,10 +3601,10 @@
             "href": "https://horizon.stellar.org/operations/1204072606601217/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204072606601217"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204072606601217"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204072606601217"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204072606601217"
           }
         },
         "id": "1204072606601217",
@@ -3628,10 +3628,10 @@
             "href": "https://horizon.stellar.org/operations/1204081196535809/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204081196535809"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204081196535809"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204081196535809"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204081196535809"
           }
         },
         "id": "1204081196535809",
@@ -3655,10 +3655,10 @@
             "href": "https://horizon.stellar.org/operations/1204089786470401/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204089786470401"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204089786470401"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204089786470401"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204089786470401"
           }
         },
         "id": "1204089786470401",
@@ -3682,10 +3682,10 @@
             "href": "https://horizon.stellar.org/operations/1204102671372289/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204102671372289"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204102671372289"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204102671372289"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204102671372289"
           }
         },
         "id": "1204102671372289",
@@ -3709,10 +3709,10 @@
             "href": "https://horizon.stellar.org/operations/1204639542284289/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204639542284289"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204639542284289"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204639542284289"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204639542284289"
           }
         },
         "id": "1204639542284289",
@@ -3736,10 +3736,10 @@
             "href": "https://horizon.stellar.org/operations/1204648132218881/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204648132218881"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204648132218881"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204648132218881"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204648132218881"
           }
         },
         "id": "1204648132218881",
@@ -3763,10 +3763,10 @@
             "href": "https://horizon.stellar.org/operations/1204656722153473/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1204656722153473"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1204656722153473"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1204656722153473"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1204656722153473"
           }
         },
         "id": "1204656722153473",
@@ -3790,10 +3790,10 @@
             "href": "https://horizon.stellar.org/operations/1234390780743681/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1234390780743681"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1234390780743681"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1234390780743681"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1234390780743681"
           }
         },
         "id": "1234390780743681",
@@ -3823,10 +3823,10 @@
             "href": "https://horizon.stellar.org/operations/1234468090155009/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1234468090155009"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1234468090155009"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1234468090155009"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1234468090155009"
           }
         },
         "id": "1234468090155009",
@@ -3851,10 +3851,10 @@
             "href": "https://horizon.stellar.org/operations/1234476680089601/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1234476680089601"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1234476680089601"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1234476680089601"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1234476680089601"
           }
         },
         "id": "1234476680089601",
@@ -3879,10 +3879,10 @@
             "href": "https://horizon.stellar.org/operations/1249320087064577/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1249320087064577"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1249320087064577"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1249320087064577"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1249320087064577"
           }
         },
         "id": "1249320087064577",
@@ -3909,10 +3909,10 @@
             "href": "https://horizon.stellar.org/operations/1263553608683521/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1263553608683521"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1263553608683521"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1263553608683521"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1263553608683521"
           }
         },
         "id": "1263553608683521",
@@ -3939,10 +3939,10 @@
             "href": "https://horizon.stellar.org/operations/1263648097964033/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1263648097964033"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1263648097964033"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1263648097964033"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1263648097964033"
           }
         },
         "id": "1263648097964033",
@@ -3970,10 +3970,10 @@
             "href": "https://horizon.stellar.org/operations/1263691047636993/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1263691047636993"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1263691047636993"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1263691047636993"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1263691047636993"
           }
         },
         "id": "1263691047636993",
@@ -3999,10 +3999,10 @@
             "href": "https://horizon.stellar.org/operations/1564768255086593/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1564768255086593"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1564768255086593"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1564768255086593"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1564768255086593"
           }
         },
         "id": "1564768255086593",
@@ -4029,10 +4029,10 @@
             "href": "https://horizon.stellar.org/operations/1757320228900865/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=1757320228900865"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=1757320228900865"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=1757320228900865"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=1757320228900865"
           }
         },
         "id": "1757320228900865",
@@ -4059,10 +4059,10 @@
             "href": "https://horizon.stellar.org/operations/2029801544093697/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2029801544093697"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2029801544093697"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2029801544093697"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2029801544093697"
           }
         },
         "id": "2029801544093697",
@@ -4089,10 +4089,10 @@
             "href": "https://horizon.stellar.org/operations/2307900676509697/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2307900676509697"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2307900676509697"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2307900676509697"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2307900676509697"
           }
         },
         "id": "2307900676509697",
@@ -4116,10 +4116,10 @@
             "href": "https://horizon.stellar.org/operations/2307917856378881/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2307917856378881"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2307917856378881"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2307917856378881"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2307917856378881"
           }
         },
         "id": "2307917856378881",
@@ -4143,10 +4143,10 @@
             "href": "https://horizon.stellar.org/operations/2319149195857921/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2319149195857921"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2319149195857921"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2319149195857921"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2319149195857921"
           }
         },
         "id": "2319149195857921",
@@ -4173,10 +4173,10 @@
             "href": "https://horizon.stellar.org/operations/2322056888717313/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322056888717313"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322056888717313"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322056888717313"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322056888717313"
           }
         },
         "id": "2322056888717313",
@@ -4202,10 +4202,10 @@
             "href": "https://horizon.stellar.org/operations/2322078363553793/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322078363553793"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322078363553793"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322078363553793"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322078363553793"
           }
         },
         "id": "2322078363553793",
@@ -4231,10 +4231,10 @@
             "href": "https://horizon.stellar.org/operations/2322091248455681/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322091248455681"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322091248455681"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322091248455681"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322091248455681"
           }
         },
         "id": "2322091248455681",
@@ -4260,10 +4260,10 @@
             "href": "https://horizon.stellar.org/operations/2322099838390273/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322099838390273"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322099838390273"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322099838390273"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322099838390273"
           }
         },
         "id": "2322099838390273",
@@ -4289,10 +4289,10 @@
             "href": "https://horizon.stellar.org/operations/2322112723292161/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322112723292161"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322112723292161"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322112723292161"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322112723292161"
           }
         },
         "id": "2322112723292161",
@@ -4318,10 +4318,10 @@
             "href": "https://horizon.stellar.org/operations/2322121313226753/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322121313226753"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322121313226753"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322121313226753"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322121313226753"
           }
         },
         "id": "2322121313226753",
@@ -4347,10 +4347,10 @@
             "href": "https://horizon.stellar.org/operations/2322129903161345/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322129903161345"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322129903161345"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322129903161345"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322129903161345"
           }
         },
         "id": "2322129903161345",
@@ -4376,10 +4376,10 @@
             "href": "https://horizon.stellar.org/operations/2322138493095937/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322138493095937"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322138493095937"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322138493095937"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322138493095937"
           }
         },
         "id": "2322138493095937",
@@ -4405,10 +4405,10 @@
             "href": "https://horizon.stellar.org/operations/2322147083030529/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322147083030529"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322147083030529"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322147083030529"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322147083030529"
           }
         },
         "id": "2322147083030529",
@@ -4434,10 +4434,10 @@
             "href": "https://horizon.stellar.org/operations/2322155672965121/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2322155672965121"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2322155672965121"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2322155672965121"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2322155672965121"
           }
         },
         "id": "2322155672965121",
@@ -4463,10 +4463,10 @@
             "href": "https://horizon.stellar.org/operations/2326313201307649/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2326313201307649"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2326313201307649"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2326313201307649"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2326313201307649"
           }
         },
         "id": "2326313201307649",
@@ -4493,10 +4493,10 @@
             "href": "https://horizon.stellar.org/operations/2326691158429697/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2326691158429697"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2326691158429697"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2326691158429697"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2326691158429697"
           }
         },
         "id": "2326691158429697",
@@ -4524,10 +4524,10 @@
             "href": "https://horizon.stellar.org/operations/2327605986463745/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2327605986463745"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2327605986463745"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2327605986463745"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2327605986463745"
           }
         },
         "id": "2327605986463745",
@@ -4555,10 +4555,10 @@
             "href": "https://horizon.stellar.org/operations/2327992533520385/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2327992533520385"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2327992533520385"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2327992533520385"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2327992533520385"
           }
         },
         "id": "2327992533520385",
@@ -4584,10 +4584,10 @@
             "href": "https://horizon.stellar.org/operations/2327992533520386/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2327992533520386"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2327992533520386"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2327992533520386"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2327992533520386"
           }
         },
         "id": "2327992533520386",
@@ -4613,10 +4613,10 @@
             "href": "https://horizon.stellar.org/operations/2327992533520387/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2327992533520387"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2327992533520387"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2327992533520387"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2327992533520387"
           }
         },
         "id": "2327992533520387",
@@ -4642,10 +4642,10 @@
             "href": "https://horizon.stellar.org/operations/2327992533520388/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2327992533520388"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2327992533520388"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2327992533520388"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2327992533520388"
           }
         },
         "id": "2327992533520388",
@@ -4671,10 +4671,10 @@
             "href": "https://horizon.stellar.org/operations/2327992533520389/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2327992533520389"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2327992533520389"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2327992533520389"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2327992533520389"
           }
         },
         "id": "2327992533520389",
@@ -4701,10 +4701,10 @@
             "href": "https://horizon.stellar.org/operations/2369769680408577/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2369769680408577"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2369769680408577"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2369769680408577"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2369769680408577"
           }
         },
         "id": "2369769680408577",
@@ -4732,10 +4732,10 @@
             "href": "https://horizon.stellar.org/operations/2372879236730881/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2372879236730881"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2372879236730881"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2372879236730881"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2372879236730881"
           }
         },
         "id": "2372879236730881",
@@ -4762,10 +4762,10 @@
             "href": "https://horizon.stellar.org/operations/2372995200847873/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2372995200847873"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2372995200847873"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2372995200847873"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2372995200847873"
           }
         },
         "id": "2372995200847873",
@@ -4792,10 +4792,10 @@
             "href": "https://horizon.stellar.org/operations/2373008085749761/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373008085749761"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373008085749761"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373008085749761"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373008085749761"
           }
         },
         "id": "2373008085749761",
@@ -4822,10 +4822,10 @@
             "href": "https://horizon.stellar.org/operations/2373025265618945/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373025265618945"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373025265618945"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373025265618945"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373025265618945"
           }
         },
         "id": "2373025265618945",
@@ -4852,10 +4852,10 @@
             "href": "https://horizon.stellar.org/operations/2373038150520833/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373038150520833"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373038150520833"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373038150520833"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373038150520833"
           }
         },
         "id": "2373038150520833",
@@ -4882,10 +4882,10 @@
             "href": "https://horizon.stellar.org/operations/2373051035422721/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373051035422721"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373051035422721"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373051035422721"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373051035422721"
           }
         },
         "id": "2373051035422721",
@@ -4912,10 +4912,10 @@
             "href": "https://horizon.stellar.org/operations/2373063920324609/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373063920324609"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373063920324609"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373063920324609"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373063920324609"
           }
         },
         "id": "2373063920324609",
@@ -4942,10 +4942,10 @@
             "href": "https://horizon.stellar.org/operations/2373072510259201/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373072510259201"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373072510259201"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373072510259201"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373072510259201"
           }
         },
         "id": "2373072510259201",
@@ -4972,10 +4972,10 @@
             "href": "https://horizon.stellar.org/operations/2373085395161089/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373085395161089"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373085395161089"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373085395161089"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373085395161089"
           }
         },
         "id": "2373085395161089",
@@ -5002,10 +5002,10 @@
             "href": "https://horizon.stellar.org/operations/2373098280062977/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2373098280062977"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2373098280062977"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2373098280062977"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2373098280062977"
           }
         },
         "id": "2373098280062977",
@@ -5032,10 +5032,10 @@
             "href": "https://horizon.stellar.org/operations/2377354592653313/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2377354592653313"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2377354592653313"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2377354592653313"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2377354592653313"
           }
         },
         "id": "2377354592653313",
@@ -5060,10 +5060,10 @@
             "href": "https://horizon.stellar.org/operations/2380232220741633/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380232220741633"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380232220741633"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380232220741633"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380232220741633"
           }
         },
         "id": "2380232220741633",
@@ -5091,10 +5091,10 @@
             "href": "https://horizon.stellar.org/operations/2380283760349185/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380283760349185"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380283760349185"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380283760349185"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380283760349185"
           }
         },
         "id": "2380283760349185",
@@ -5122,10 +5122,10 @@
             "href": "https://horizon.stellar.org/operations/2380296645251073/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380296645251073"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380296645251073"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380296645251073"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380296645251073"
           }
         },
         "id": "2380296645251073",
@@ -5153,10 +5153,10 @@
             "href": "https://horizon.stellar.org/operations/2380309530152961/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380309530152961"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380309530152961"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380309530152961"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380309530152961"
           }
         },
         "id": "2380309530152961",
@@ -5184,10 +5184,10 @@
             "href": "https://horizon.stellar.org/operations/2380322415054849/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380322415054849"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380322415054849"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380322415054849"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380322415054849"
           }
         },
         "id": "2380322415054849",
@@ -5215,10 +5215,10 @@
             "href": "https://horizon.stellar.org/operations/2380335299956737/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380335299956737"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380335299956737"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380335299956737"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380335299956737"
           }
         },
         "id": "2380335299956737",
@@ -5246,10 +5246,10 @@
             "href": "https://horizon.stellar.org/operations/2380352479825921/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380352479825921"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380352479825921"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380352479825921"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380352479825921"
           }
         },
         "id": "2380352479825921",
@@ -5277,10 +5277,10 @@
             "href": "https://horizon.stellar.org/operations/2380365364727809/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380365364727809"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380365364727809"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380365364727809"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380365364727809"
           }
         },
         "id": "2380365364727809",
@@ -5308,10 +5308,10 @@
             "href": "https://horizon.stellar.org/operations/2380373954662401/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380373954662401"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380373954662401"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380373954662401"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380373954662401"
           }
         },
         "id": "2380373954662401",
@@ -5339,10 +5339,10 @@
             "href": "https://horizon.stellar.org/operations/2380386839564289/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2380386839564289"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2380386839564289"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2380386839564289"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2380386839564289"
           }
         },
         "id": "2380386839564289",
@@ -5370,10 +5370,10 @@
             "href": "https://horizon.stellar.org/operations/2381168523612161/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2381168523612161"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2381168523612161"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2381168523612161"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2381168523612161"
           }
         },
         "id": "2381168523612161",
@@ -5400,10 +5400,10 @@
             "href": "https://horizon.stellar.org/operations/2382590157787137/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2382590157787137"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2382590157787137"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2382590157787137"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2382590157787137"
           }
         },
         "id": "2382590157787137",
@@ -5431,10 +5431,10 @@
             "href": "https://horizon.stellar.org/operations/2382706121904129/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2382706121904129"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2382706121904129"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2382706121904129"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2382706121904129"
           }
         },
         "id": "2382706121904129",
@@ -5462,10 +5462,10 @@
             "href": "https://horizon.stellar.org/operations/2384883670323201/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2384883670323201"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2384883670323201"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2384883670323201"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2384883670323201"
           }
         },
         "id": "2384883670323201",
@@ -5492,10 +5492,10 @@
             "href": "https://horizon.stellar.org/operations/2385673944305665/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2385673944305665"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2385673944305665"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2385673944305665"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2385673944305665"
           }
         },
         "id": "2385673944305665",
@@ -5522,10 +5522,10 @@
             "href": "https://horizon.stellar.org/operations/2386051901427713/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2386051901427713"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2386051901427713"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2386051901427713"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2386051901427713"
           }
         },
         "id": "2386051901427713",
@@ -5552,10 +5552,10 @@
             "href": "https://horizon.stellar.org/operations/2386683261620225/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2386683261620225"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2386683261620225"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2386683261620225"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2386683261620225"
           }
         },
         "id": "2386683261620225",
@@ -5582,10 +5582,10 @@
             "href": "https://horizon.stellar.org/operations/2386786340835329/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2386786340835329"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2386786340835329"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2386786340835329"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2386786340835329"
           }
         },
         "id": "2386786340835329",
@@ -5613,10 +5613,10 @@
             "href": "https://horizon.stellar.org/operations/2386992499265537/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2386992499265537"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2386992499265537"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2386992499265537"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2386992499265537"
           }
         },
         "id": "2386992499265537",
@@ -5643,10 +5643,10 @@
             "href": "https://horizon.stellar.org/operations/2387121348284417/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387121348284417"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387121348284417"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387121348284417"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387121348284417"
           }
         },
         "id": "2387121348284417",
@@ -5673,10 +5673,10 @@
             "href": "https://horizon.stellar.org/operations/2387215837564929/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387215837564929"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387215837564929"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387215837564929"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387215837564929"
           }
         },
         "id": "2387215837564929",
@@ -5703,10 +5703,10 @@
             "href": "https://horizon.stellar.org/operations/2387318916780033/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387318916780033"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387318916780033"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387318916780033"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387318916780033"
           }
         },
         "id": "2387318916780033",
@@ -5733,10 +5733,10 @@
             "href": "https://horizon.stellar.org/operations/2387473535602689/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387473535602689"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387473535602689"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387473535602689"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387473535602689"
           }
         },
         "id": "2387473535602689",
@@ -5763,10 +5763,10 @@
             "href": "https://horizon.stellar.org/operations/2387499305406465/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387499305406465"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387499305406465"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387499305406465"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387499305406465"
           }
         },
         "id": "2387499305406465",
@@ -5793,10 +5793,10 @@
             "href": "https://horizon.stellar.org/operations/2387752708476929/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387752708476929"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387752708476929"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387752708476929"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387752708476929"
           }
         },
         "id": "2387752708476929",
@@ -5823,10 +5823,10 @@
             "href": "https://horizon.stellar.org/operations/2387984636710913/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2387984636710913"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2387984636710913"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2387984636710913"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2387984636710913"
           }
         },
         "id": "2387984636710913",
@@ -5853,10 +5853,10 @@
             "href": "https://horizon.stellar.org/operations/2388006111547393/effects"
           },
           "succeeds": {
-            "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=2388006111547393"
+            "href": "https://horizon.stellar.org/effects?order=desc&cursor=2388006111547393"
           },
           "precedes": {
-            "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=2388006111547393"
+            "href": "https://horizon.stellar.org/effects?order=asc&cursor=2388006111547393"
           }
         },
         "id": "2388006111547393",
@@ -5871,88 +5871,356 @@
         "funder": "GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD",
         "account": "GDLO7LSQ3XHKDYRASBRWHIZ34QD5ZLQFCTWSHRAID7SLMUOT5ATEZVFW"
       },
-	{
-	"type": "manage_buy_offer",
-	"_links": {
-	    "self": {
-	    "href": "https://horizon-testnet.stellar.org/operations/5867002635759652"
-	    },
-	    "transaction": {
-	    "href": "https://horizon-testnet.stellar.org/transactions/8b467e82bf893174bac3b2e8bc2e543ba40bc8e8cbd89685fe80818a29899c84"
-	    },
-	    "effects": {
-	    "href": "https://horizon-testnet.stellar.org/operations/5867002635759652/effects"
-	    },
-	    "succeeds": {
-	    "href": "https://horizon-testnet.stellar.org/effects?order=desc&cursor=5867002635759652"
-	    },
-	    "precedes": {
-	    "href": "https://horizon-testnet.stellar.org/effects?order=asc&cursor=5867002635759652"
-	    }
-	},
-	"id": "5867002635759652",
-	"paging_token": "5867002635759652",
-	"transaction_successful": true,
-	"source_account": "GBEL5ZFRQ5CJSOJ4COBC6RDRE73PPY3NXBMKGLBKZ2QWTJLCHVAIAJGF",
-	"type_i": 12,
-	"created_at": "2020-07-24T14:52:27Z",
-	"transaction_hash": "8b467e82bf893174bac3b2e8bc2e543ba40bc8e8cbd89685fe80818a29899c84",
-	"transaction": null,
-	"amount": "5.2993845",
-	"price": "0.9220128",
-	"price_r": {
-	    "n": 288129,
-	    "d": 312500
-	},
-	"buying_asset_type": "credit_alphanum4",
-	"buying_asset_code": "EUR",
-	"buying_asset_issuer": "GCZ4N6QHS2XH62CDMDIOQRFL2X3NJWJNMU2OXEKE7SC2UEAENCPL65J3",
-	"selling_asset_type": "credit_alphanum4",
-	"selling_asset_code": "USD",
-	"selling_asset_issuer": "GA5SOJFG3YVIWEEJECQW32M44M5VRH6GN236PC4TUKATISLF5TCR7DJS",
-	"offer_id": "0"
-	},
-	{
-	"type": "manage_sell_offer",
-	"_links": {
-	    "self": {
-	    "href": "https://horizon-testnet.stellar.org/operations/5867062765310002"
-	    },
-	    "transaction": {
-	    "href": "https://horizon-testnet.stellar.org/transactions/42bf40ef822caf50199caf6d2758ebe1309d9350872c9c06c2dfba33d7871aa7"
-	    },
-	    "effects": {
-	    "href": "https://horizon-testnet.stellar.org/operations/5867062765310002/effects"
-	    },
-	    "succeeds": {
-	    "href": "https://horizon-testnet.stellar.org/effects?order=desc&cursor=5867062765310002"
-	    },
-	    "precedes": {
-	    "href": "https://horizon-testnet.stellar.org/effects?order=asc&cursor=5867062765310002"
-	    }
-	},
-	"id": "5867062765310002",
-	"paging_token": "5867062765310002",
-	"transaction_successful": true,
-	"source_account": "GA3HLYIIWMRXOHWCHAJMHEBF6IEJTV7T7S5XENXWD7DAGFXBFNUF7Z47",
-	"type_i": 3,
-	"created_at": "2020-07-24T14:53:42Z",
-	"transaction_hash": "42bf40ef822caf50199caf6d2758ebe1309d9350872c9c06c2dfba33d7871aa7",
-	"transaction": null,
-	"amount": "0.0000000",
-	"price": "2279.9817601",
-	"price_r": {
-	    "n": 656623347,
-	    "d": 287995
-	},
-	"buying_asset_type": "credit_alphanum12",
-	"buying_asset_code": "SSNLF",
-	"buying_asset_issuer": "GA5SOJFG3YVIWEEJECQW32M44M5VRH6GN236PC4TUKATISLF5TCR7DJS",
-	"selling_asset_type": "credit_alphanum4",
-	"selling_asset_code": "EUR",
-	"selling_asset_issuer": "GCZ4N6QHS2XH62CDMDIOQRFL2X3NJWJNMU2OXEKE7SC2UEAENCPL65J3",
-	"offer_id": "19991448"
-	}
+      {
+        "type": "manage_buy_offer",
+        "_links": {
+          "self": {
+            "href": "https://horizon-testnet.stellar.org/operations/5867002635759652"
+          },
+          "transaction": {
+            "href": "https://horizon-testnet.stellar.org/transactions/8b467e82bf893174bac3b2e8bc2e543ba40bc8e8cbd89685fe80818a29899c84"
+          },
+          "effects": {
+            "href": "https://horizon-testnet.stellar.org/operations/5867002635759652/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-testnet.stellar.org/effects?order=desc&cursor=5867002635759652"
+          },
+          "precedes": {
+            "href": "https://horizon-testnet.stellar.org/effects?order=asc&cursor=5867002635759652"
+          }
+        },
+        "id": "5867002635759652",
+        "paging_token": "5867002635759652",
+        "transaction_successful": true,
+        "source_account": "GBEL5ZFRQ5CJSOJ4COBC6RDRE73PPY3NXBMKGLBKZ2QWTJLCHVAIAJGF",
+        "type_i": 12,
+        "created_at": "2020-07-24T14:52:27Z",
+        "transaction_hash": "8b467e82bf893174bac3b2e8bc2e543ba40bc8e8cbd89685fe80818a29899c84",
+        "transaction": null,
+        "amount": "5.2993845",
+        "price": "0.9220128",
+        "price_r": {
+          "n": 288129,
+          "d": 312500
+        },
+        "buying_asset_type": "credit_alphanum4",
+        "buying_asset_code": "EUR",
+        "buying_asset_issuer": "GCZ4N6QHS2XH62CDMDIOQRFL2X3NJWJNMU2OXEKE7SC2UEAENCPL65J3",
+        "selling_asset_type": "credit_alphanum4",
+        "selling_asset_code": "USD",
+        "selling_asset_issuer": "GA5SOJFG3YVIWEEJECQW32M44M5VRH6GN236PC4TUKATISLF5TCR7DJS",
+        "offer_id": "0"
+      },
+      {
+        "type": "manage_sell_offer",
+        "_links": {
+          "self": {
+            "href": "https://horizon-testnet.stellar.org/operations/5867062765310002"
+          },
+          "transaction": {
+            "href": "https://horizon-testnet.stellar.org/transactions/42bf40ef822caf50199caf6d2758ebe1309d9350872c9c06c2dfba33d7871aa7"
+          },
+          "effects": {
+            "href": "https://horizon-testnet.stellar.org/operations/5867062765310002/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-testnet.stellar.org/effects?order=desc&cursor=5867062765310002"
+          },
+          "precedes": {
+            "href": "https://horizon-testnet.stellar.org/effects?order=asc&cursor=5867062765310002"
+          }
+        },
+        "id": "5867062765310002",
+        "paging_token": "5867062765310002",
+        "transaction_successful": true,
+        "source_account": "GA3HLYIIWMRXOHWCHAJMHEBF6IEJTV7T7S5XENXWD7DAGFXBFNUF7Z47",
+        "type_i": 3,
+        "created_at": "2020-07-24T14:53:42Z",
+        "transaction_hash": "42bf40ef822caf50199caf6d2758ebe1309d9350872c9c06c2dfba33d7871aa7",
+        "transaction": null,
+        "amount": "0.0000000",
+        "price": "2279.9817601",
+        "price_r": {
+          "n": 656623347,
+          "d": 287995
+        },
+        "buying_asset_type": "credit_alphanum12",
+        "buying_asset_code": "SSNLF",
+        "buying_asset_issuer": "GA5SOJFG3YVIWEEJECQW32M44M5VRH6GN236PC4TUKATISLF5TCR7DJS",
+        "selling_asset_type": "credit_alphanum4",
+        "selling_asset_code": "EUR",
+        "selling_asset_issuer": "GCZ4N6QHS2XH62CDMDIOQRFL2X3NJWJNMU2OXEKE7SC2UEAENCPL65J3",
+        "offer_id": "19991448"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/213223651414017"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/d922fc6d11de591ad914e9b6bffe5442c96f5564e0a502cdb466906480f32222"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/213223651414017/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=213223651414017"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=213223651414017"
+          }
+        },
+        "id": "213223651414017",
+        "paging_token": "213223651414017",
+        "transaction_successful": true,
+        "source_account": "GD2I2F7SWUHBAD7XBIZTF7MBMWQYWJVEFMWTXK76NSYVOY52OJRYNTIY",
+        "type": "create_claimable_balance",
+        "type_i": 14,
+        "created_at": "2020-09-24T19:27:10Z",
+        "transaction_hash": "d922fc6d11de591ad914e9b6bffe5442c96f5564e0a502cdb466906480f32222",
+        "sponsor": "GD2I2F7SWUHBAD7XBIZTF7MBMWQYWJVEFMWTXK76NSYVOY52OJRYNTIY",
+        "asset": "native",
+        "amount": "1.0000000",
+        "claimants": [
+          {
+            "destination": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+            "predicate": {
+              "not": {
+                "relBefore": 604800
+              }
+            }
+          }
+        ]
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/214525026504705"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/3105f6eeae78091ee5bb0e1b74f354cb19e558bbb862d4ff2cf8576a2621dd1b"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/214525026504705/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=214525026504705"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=214525026504705"
+          }
+        },
+        "id": "214525026504705",
+        "paging_token": "214525026504705",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "claim_claimable_balance",
+        "type_i": 15,
+        "created_at": "2020-09-24T19:52:26Z",
+        "transaction_hash": "3105f6eeae78091ee5bb0e1b74f354cb19e558bbb862d4ff2cf8576a2621dd1b",
+        "balance_id": "00000000526674017c3cf392614b3f2f500230affd58c7c364625c350c61058fbeacbdf7",
+        "claimant": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/215542933753857"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/cdb0dc784abcb59f8d868c33a08f8476e35999b10374cbc376ccfb653bd1c76f"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/215542933753857/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=215542933753857"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=215542933753857"
+          }
+        },
+        "id": "215542933753857",
+        "paging_token": "215542933753857",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "begin_sponsoring_future_reserves",
+        "type_i": 16,
+        "created_at": "2020-09-24T20:12:11Z",
+        "transaction_hash": "cdb0dc784abcb59f8d868c33a08f8476e35999b10374cbc376ccfb653bd1c76f",
+        "sponsored_id": "GAXHU2XHSMTZYAKFCVTULAYUL34BFPPLRVJYZMEOHP7IWPZJKSVY67RJ"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/215542933753859"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/cdb0dc784abcb59f8d868c33a08f8476e35999b10374cbc376ccfb653bd1c76f"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/215542933753859/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=215542933753859"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=215542933753859"
+          }
+        },
+        "id": "215542933753859",
+        "paging_token": "215542933753859",
+        "transaction_successful": true,
+        "source_account": "GAXHU2XHSMTZYAKFCVTULAYUL34BFPPLRVJYZMEOHP7IWPZJKSVY67RJ",
+        "type": "end_sponsoring_future_reserves",
+        "type_i": 17,
+        "created_at": "2020-09-24T20:12:11Z",
+        "transaction_hash": "cdb0dc784abcb59f8d868c33a08f8476e35999b10374cbc376ccfb653bd1c76f",
+        "begin_sponsor": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/286156491067394"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/7a15060e2de0ca15c754f159c4db7b88c23e649f1604275a5438e7e998502a9d"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/286156491067394/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=286156491067394"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=286156491067394"
+          }
+        },
+        "id": "286156491067394",
+        "paging_token": "286156491067394",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "revoke_sponsorship",
+        "type_i": 18,
+        "created_at": "2020-09-25T19:02:26Z",
+        "transaction_hash": "7a15060e2de0ca15c754f159c4db7b88c23e649f1604275a5438e7e998502a9d",
+        "account_id": "GCLHBHJAYWFT6JA27KEPUQCCGIHUB33HURYAKNWIY4FB7IY3K24PRXET"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/286500088451074"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/4b6d298f91cf3f2282c6f759bbce034ccd317ced2f78fd8edfc3966b09aa158f"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/286500088451074/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=286500088451074"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=286500088451074"
+          }
+        },
+        "id": "286500088451074",
+        "paging_token": "286500088451074",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "revoke_sponsorship",
+        "type_i": 18,
+        "created_at": "2020-09-25T19:09:06Z",
+        "transaction_hash": "4b6d298f91cf3f2282c6f759bbce034ccd317ced2f78fd8edfc3966b09aa158f",
+        "trustline_account_id": "GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB",
+        "trustline_asset": "XYZ:GD2I2F7SWUHBAD7XBIZTF7MBMWQYWJVEFMWTXK76NSYVOY52OJRYNTIY"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/286800736161794"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/902af03082facf944e10d7736e57d9daad7be5e5e1158077f664ee17eddbcdc7"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/286800736161794/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=286800736161794"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=286800736161794"
+          }
+        },
+        "id": "286800736161794",
+        "paging_token": "286800736161794",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "revoke_sponsorship",
+        "type_i": 18,
+        "created_at": "2020-09-25T19:14:56Z",
+        "transaction_hash": "902af03082facf944e10d7736e57d9daad7be5e5e1158077f664ee17eddbcdc7",
+        "data_account_id": "GDHSYF7V3DZRM7Q2HS5J6FHAHNWETMBFMG7DOSWU3GA7OM4KGOPZM3FB",
+        "data_name": "hello"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/287054139232258"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/bdb4c426c0132799c8072b1a0cf211b523b4ed7c0e14f70e6d4f0c3f96c4ceba"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/287054139232258/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=287054139232258"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=287054139232258"
+          }
+        },
+        "id": "287054139232258",
+        "paging_token": "287054139232258",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "revoke_sponsorship",
+        "type_i": 18,
+        "created_at": "2020-09-25T19:19:51Z",
+        "transaction_hash": "bdb4c426c0132799c8072b1a0cf211b523b4ed7c0e14f70e6d4f0c3f96c4ceba",
+        "claimable_balance_id": "00000000c582697b67cbec7f9ce64f4dc67bfb2bfd26318bb9f964f4d70e3f41f650b1e6"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://horizon-protocol14.stellar.org/operations/287363376877570"
+          },
+          "transaction": {
+            "href": "https://horizon-protocol14.stellar.org/transactions/9e197d00835c9d3cb8236112727bccc6a6a878e2d43a613df526e631fe90423c"
+          },
+          "effects": {
+            "href": "https://horizon-protocol14.stellar.org/operations/287363376877570/effects"
+          },
+          "succeeds": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=desc&cursor=287363376877570"
+          },
+          "precedes": {
+            "href": "https://horizon-protocol14.stellar.org/effects?order=asc&cursor=287363376877570"
+          }
+        },
+        "id": "287363376877570",
+        "paging_token": "287363376877570",
+        "transaction_successful": true,
+        "source_account": "GAEJ2UF46PKAPJYED6SQ45CKEHSXV63UQEYHVUZSVJU6PK5Y4ZVA4ELU",
+        "type": "revoke_sponsorship",
+        "type_i": 18,
+        "created_at": "2020-09-25T19:25:52Z",
+        "transaction_hash": "9e197d00835c9d3cb8236112727bccc6a6a878e2d43a613df526e631fe90423c",
+        "signer_account_id": "GAXHU2XHSMTZYAKFCVTULAYUL34BFPPLRVJYZMEOHP7IWPZJKSVY67RJ",
+        "signer_key": "XAMF7DNTEJY74JPVMGTPZE4LFYTEGBXMGBHNUUMAA7IXMSBGHAMWSND6"
+      }
     ]
   }
 }

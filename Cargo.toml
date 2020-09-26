@@ -11,7 +11,7 @@ readme = "README.md"
 keywords = ["stellar", "blockchain"]
 
 [dependencies]
-stellar-base = "0.4.0"
+stellar-base = "0.5.0-beta.1"
 async-sse = "3.0.0"
 base64 = "0.12.3"
 chrono = { version = "0.4.13", features = ["serde"] }
@@ -31,3 +31,4 @@ url = "2.1.1"
 [dev-dependencies]
 tokio = { version = "0.2.21", features = ["full"] }
 json = "0.12.4"
+hex = "0.4.2"

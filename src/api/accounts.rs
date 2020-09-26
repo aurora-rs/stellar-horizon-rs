@@ -30,6 +30,12 @@ impl AllAccountsRequest {
         self.asset = Some(asset);
         self
     }
+
+    /// Updates the request to filter results by sponsor.
+    pub fn with_sponsor(mut self, sponsor: &PublicKey) -> AllAccountsRequest {
+        self.sponsor = Some(sponsor.account_id());
+        self
+    }
 }
 
 /// Request a single account.
@@ -43,6 +49,7 @@ pub struct SingleAccountRequest {
 pub struct AllAccountsRequest {
     asset: Option<CreditAsset>,
     signer: Option<String>,
+    sponsor: Option<String>,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -67,6 +74,9 @@ impl Request for AllAccountsRequest {
         }
         if let Some(asset) = self.asset.as_ref() {
             url = url.append_query_param("asset", &credit_asset_to_string(asset));
+        }
+        if let Some(sponsor) = self.sponsor.as_ref() {
+            url = url.append_query_param("sponsor", sponsor);
         }
         Ok(url.append_pagination_params(self))
     }
@@ -109,5 +119,20 @@ mod tests {
             .to_string()
             .starts_with("https://horizon.stellar.org/accounts?"));
         assert_eq!(Some(&pk.account_id()), query.get("signer"));
+    }
+
+    #[test]
+    fn test_all_with_sponsor_request_uri() {
+        let pk =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let host: Url = "https://horizon.stellar.org".parse().unwrap();
+        let req = all().with_sponsor(&pk);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/accounts?"));
+        assert_eq!(Some(&pk.account_id()), query.get("sponsor"));
     }
 }

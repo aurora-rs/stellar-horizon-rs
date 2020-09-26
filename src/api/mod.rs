@@ -2,6 +2,7 @@
 pub mod accounts;
 pub mod aggregations;
 pub mod assets;
+pub mod claimable_balances;
 pub mod data;
 pub mod effects;
 pub mod ledgers;

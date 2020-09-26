@@ -1,6 +1,7 @@
 use crate::link::Link;
 use crate::resources::trade::{BoughtAsset, SoldAsset};
 use crate::resources::Asset;
+use crate::resources::Predicate;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
@@ -39,6 +40,24 @@ pub enum Effect {
     DataRemoved(DataRemovedEffect),
     DataUpdated(DataUpdatedEffect),
     SequenceBumped(SequenceBumpedEffect),
+    ClaimableBalanceCreated(ClaimableBalanceCreatedEffect),
+    ClaimableBalanceClaimantCreated(ClaimableBalanceClaimantCreatedEffect),
+    ClaimableBalanceClaimed(ClaimableBalanceClaimedEffect),
+    AccountSponsorshipCreated(AccountSponsorshipCreatedEffect),
+    AccountSponsorshipUpdated(AccountSponsorshipUpdatedEffect),
+    AccountSponsorshipRemoved(AccountSponsorshipRemovedEffect),
+    #[serde(rename = "trustline_sponsorship_created")]
+    TrustLineSponsorshipCreated(TrustLineSponsorshipCreatedEffect),
+    #[serde(rename = "trustline_sponsorship_updated")]
+    TrustLineSponsorshipUpdated(TrustLineSponsorshipUpdatedEffect),
+    #[serde(rename = "trustline_sponsorship_removed")]
+    TrustLineSponsorshipRemoved(TrustLineSponsorshipRemovedEffect),
+    ClaimableBalanceSponsorshipCreated(ClaimableBalanceSponsorshipCreatedEffect),
+    ClaimableBalanceSponsorshipUpdated(ClaimableBalanceSponsorshipUpdatedEffect),
+    ClaimableBalanceSponsorshipRemoved(ClaimableBalanceSponsorshipRemovedEffect),
+    SignerSponsorshipCreated(SignerSponsorshipCreatedEffect),
+    SignerSponsorshipUpdated(SignerSponsorshipUpdatedEffect),
+    SignerSponsorshipRemoved(SignerSponsorshipRemovedEffect),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -254,6 +273,124 @@ pub struct TradeEffect {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub balance_id: String,
+    pub asset: String,
+    pub amount: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceClaimantCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub balance_id: String,
+    pub asset: String,
+    pub amount: String,
+    pub predicate: Predicate,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceClaimedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub balance_id: String,
+    pub asset: String,
+    pub amount: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct AccountSponsorshipCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct AccountSponsorshipUpdatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub new_sponsor: String,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct AccountSponsorshipRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct TrustLineSponsorshipCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct TrustLineSponsorshipUpdatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub new_sponsor: String,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct TrustLineSponsorshipRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceSponsorshipCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceSponsorshipUpdatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub new_sponsor: String,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceSponsorshipRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct SignerSponsorshipCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub signer: String,
+    pub sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct SignerSponsorshipUpdatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub signer: String,
+    pub new_sponsor: String,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct SignerSponsorshipRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct EffectLinks {
     pub operation: Link,
     pub succeeds: Link,
@@ -288,6 +425,21 @@ impl Effect {
             Effect::DataRemoved(op) => &op.base,
             Effect::DataUpdated(op) => &op.base,
             Effect::SequenceBumped(op) => &op.base,
+            Effect::ClaimableBalanceCreated(op) => &op.base,
+            Effect::ClaimableBalanceClaimantCreated(op) => &op.base,
+            Effect::ClaimableBalanceClaimed(op) => &op.base,
+            Effect::AccountSponsorshipCreated(op) => &op.base,
+            Effect::AccountSponsorshipUpdated(op) => &op.base,
+            Effect::AccountSponsorshipRemoved(op) => &op.base,
+            Effect::TrustLineSponsorshipCreated(op) => &op.base,
+            Effect::TrustLineSponsorshipUpdated(op) => &op.base,
+            Effect::TrustLineSponsorshipRemoved(op) => &op.base,
+            Effect::ClaimableBalanceSponsorshipCreated(op) => &op.base,
+            Effect::ClaimableBalanceSponsorshipUpdated(op) => &op.base,
+            Effect::ClaimableBalanceSponsorshipRemoved(op) => &op.base,
+            Effect::SignerSponsorshipCreated(op) => &op.base,
+            Effect::SignerSponsorshipUpdated(op) => &op.base,
+            Effect::SignerSponsorshipRemoved(op) => &op.base,
         }
     }
 }

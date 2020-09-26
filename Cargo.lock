@@ -1686,9 +1686,9 @@ checksum = "213701ba3370744dcd1a12960caa4843b3d68b4d1c0a5d575e0d65b2ee9d16c0"
 
 [[package]]
 name = "stellar-base"
-version = "0.4.0"
+version = "0.5.0-beta.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf97b0486c8f291d86294c4a4b9a24fec6bc6dcfe70b41741efadf9e3d0ccc6f"
+checksum = "40138c9679743d341c969135e18775a54cfd9eb13cee790d5e6b8e23d19fe0d9"
 dependencies = [
  "base32",
  "base64 0.12.3",
@@ -1711,13 +1711,14 @@ dependencies = [
 
 [[package]]
 name = "stellar-horizon"
-version = "0.4.3"
+version = "0.5.0"
 dependencies = [
  "async-sse",
  "base64 0.12.3",
  "chrono",
  "eventsource",
  "futures",
+ "hex",
  "http",
  "http-types",
  "hyper",
@@ -2221,9 +2222,9 @@ dependencies = [
 
 [[package]]
 name = "xdr-rs-serialize"
-version = "0.2.3"
+version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87982228d726c5bf8d0452cb5711802ccfdca742f04417cc920d022fda4c942f"
+checksum = "f19f22ed1082f325eea7207be3b0c632860a939f254ee988a769339860f85b43"
 dependencies = [
  "base64 0.11.0",
  "hex",

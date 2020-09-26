@@ -16,15 +16,40 @@ macro_rules! impl_serde_test {
 }
 
 impl_serde_test!(test_account_serde, Account, "./fixtures/account.json");
+impl_serde_test!(
+    test_account_with_sponsor_serde,
+    Account,
+    "./fixtures/account_with_sponsor.json"
+);
+impl_serde_test!(
+    test_account_data_serde,
+    AccountData,
+    "./fixtures/account_data.json"
+);
 impl_serde_test!(test_assets_serde, Page<AssetStat>, "./fixtures/assets.json");
 impl_serde_test!(
     test_book_summary_serde,
     OrderBookSummary,
     "./fixtures/book_summary.json"
 );
+impl_serde_test!(
+    test_claimable_balance,
+    ClaimableBalance,
+    "./fixtures/claimable_balance.json"
+);
+impl_serde_test!(
+    test_claimable_balances,
+    Page<ClaimableBalance>,
+    "./fixtures/all_claimable_balances.json"
+);
 impl_serde_test!(test_ledger_serde, Ledger, "./fixtures/ledger.json");
 impl_serde_test!(test_fee_stats_serde, FeeStats, "./fixtures/fee_stats.json");
 impl_serde_test!(test_offers_serde, Page<Offer>, "./fixtures/all_offers.json");
+impl_serde_test!(
+    test_offers_with_sponsor_serde,
+    Page<Offer>,
+    "./fixtures/all_offers_with_sponsor.json"
+);
 impl_serde_test!(test_root_serde, Root, "./fixtures/root.json");
 impl_serde_test!(test_trades_serde, Page<Trade>, "./fixtures/all_trades.json");
 impl_serde_test!(
