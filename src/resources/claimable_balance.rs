@@ -21,7 +21,7 @@ pub struct Claimant {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "snake_case")]
 pub enum Predicate {
     And(Vec<Box<Predicate>>),
     Or(Vec<Box<Predicate>>),
@@ -84,7 +84,7 @@ mod tests {
 
     #[test]
     fn test_claim_predicate_serde() {
-        let json = r#"{"and":[{"or":[{"relBefore":12},{"absBefore":"2020-08-26T11:15:39Z"}]},{"not":{"unconditional":true}}]}"#;
+        let json = r#"{"and":[{"or":[{"rel_before":12},{"abs_before":"2020-08-26T11:15:39Z"}]},{"not":{"unconditional":true}}]}"#;
         let predicate: Predicate = serde_json::from_str(json).unwrap();
 
         let _claim_predicate = predicate.to_claim_predicate().unwrap();
