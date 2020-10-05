@@ -1,6 +1,6 @@
 [package]
 name = "stellar-horizon"
-version = "0.6.0-beta.1"
+version = "0.6.0-beta.2"
 authors = ["Francesco Ceccon <francesco@ceccon.me>"]
 edition = "2018"
 description = "Stellar Horizon client"
