@@ -1729,7 +1729,7 @@ dependencies = [
 
 [[package]]
 name = "stellar-horizon"
-version = "0.6.0-beta.2"
+version = "0.6.0-beta.3"
 dependencies = [
  "async-sse",
  "base64 0.12.3",

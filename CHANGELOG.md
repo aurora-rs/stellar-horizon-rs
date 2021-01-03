@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Update `Balance` resource with sponsor
  - Update `Signer` resource with sponsor
  - Update `AccountData` resource with sponsor
+ - Update `HorizonError` to handle all error responses
 
 
 ## [0.5.0] - 2020-07-30
