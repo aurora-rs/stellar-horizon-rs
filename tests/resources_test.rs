@@ -1,3 +1,4 @@
+use stellar_horizon::horizon_error::HorizonError;
 use stellar_horizon::page::Page;
 use stellar_horizon::resources::*;
 
@@ -107,3 +108,51 @@ fn test_effects_base() {
         assert!(!effect.base().paging_token.is_empty());
     }
 }
+
+impl_serde_test!(
+    test_horizon_error_bad_request,
+    HorizonError,
+    "./fixtures/error_bad_request.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_transaction_failed,
+    HorizonError,
+    "./fixtures/error_transaction_failed.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_transaction_malformed,
+    HorizonError,
+    "./fixtures/error_transaction_malformed.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_before_history,
+    HorizonError,
+    "./fixtures/error_before_history.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_stale_history,
+    HorizonError,
+    "./fixtures/error_stale_history.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_timeout,
+    HorizonError,
+    "./fixtures/error_timeout.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_invalid_accounts_params,
+    HorizonError,
+    "./fixtures/error_invalid_accounts_params.json"
+);
+
+impl_serde_test!(
+    test_horizon_error_invalid_order_book,
+    HorizonError,
+    "./fixtures/error_invalid_order_book.json"
+);

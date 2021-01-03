@@ -1,0 +1,6 @@
+{
+  "type": "https://stellar.org/horizon-errors/invalid_accounts_params",
+  "title": "Invalid Accounts Parameters",
+  "status": 400,
+  "detail": "Exactly one filter is required. Please ensure that you are including a signer, an asset, or a sponsor filter."
+}
