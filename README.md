@@ -15,7 +15,7 @@ If you are looking for a crate to build Stellar transactions, look at
 [stellar-base](https://github.com/aurora-rs/stellar-base-rs).
 
 
-## Need help? Do you want to provide feeback?
+## Need help? Have feeback?
 
 You can join the discussion on our mailing list at
 [`~aurora/stellar-sdk@lists.sr.ht`](https://lists.sr.ht/~aurora/stellar-sdk).
@@ -42,6 +42,7 @@ implemented as separate crates when possible.
  - [x] Request single resources
  - [x] Request paginated resources
  - [x] Stream resources
+ - [x] Parse error response
  - [x] Cleanup API, e.g. turn `String` into `Into<String>`
  - [x] Submit transactions
  - [x] Expose rate limit headers
