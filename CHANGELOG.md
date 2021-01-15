@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
  - Update `stellar-base` dependency
+ - Update tokio-related dependencies
  - Add sponsor filter to the accounts endpoint
  - Add sponsor filter to the offers endpoint
  - Update `Account` resource with sponsor
