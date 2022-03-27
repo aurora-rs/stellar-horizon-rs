@@ -1,4 +1,5 @@
 use crate::link::Link;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -9,6 +10,7 @@ pub struct Root {
     pub core_version: String,
     pub ingest_latest_ledger: u32,
     pub history_latest_ledger: i32,
+    pub history_latest_ledger_closed_at: DateTime<Utc>,
     pub history_elder_ledger: i32,
     pub core_latest_ledger: i32,
     pub network_passphrase: String,
@@ -21,12 +23,14 @@ pub struct RootLinks {
     pub account: Link,
     pub accounts: Option<Link>,
     pub account_transactions: Link,
+    pub claimable_balances: Option<Link>,
     pub assets: Link,
     pub effects: Link,
     pub fee_stats: Link,
     pub friendbot: Option<Link>,
     pub ledger: Link,
     pub ledgers: Link,
+    pub liquidity_pools: Option<Link>,
     pub offer: Option<Link>,
     pub offers: Option<Link>,
     pub operation: Link,
