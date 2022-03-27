@@ -181,6 +181,31 @@ async fn test_stream_transactions_for_ledger() {
 }
 
 #[tokio::test]
+async fn test_transactions_for_liquidity_pool() {
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let client = new_client();
+
+    let req = api::transactions::for_liquidity_pool(liquidity_pool_id);
+    let (_, response) = client.request(req).await.unwrap();
+
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_transactions_for_liquidity_pool() {
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let client = new_client();
+
+    let req = api::transactions::for_liquidity_pool(liquidity_pool_id);
+    let mut stream = client.stream(req).unwrap().take(1);
+    while let Some(event) = stream.next().await {
+        assert!(!event.unwrap().id.is_empty());
+    }
+}
+
+#[tokio::test]
 async fn test_all_trades() {
     let client = new_client();
     let req = api::trades::all()
@@ -209,6 +234,33 @@ async fn test_trades_for_account() {
         .with_limit(5);
     let (_, response) = client.request(req).await.unwrap();
     assert!(response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_trades_for_liquidity_pool() {
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let client = new_client();
+
+    let req = api::trades::for_liquidity_pool(liquidity_pool_id);
+    let (_, response) = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_trades_for_liquidity_pool() {
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let client = new_client();
+
+    let req = api::trades::for_liquidity_pool(liquidity_pool_id);
+
+    let mut stream = client.stream(req).unwrap().take(1);
+    let mut count = 0;
+    while let Some(_event) = stream.next().await {
+       count += 1;
+    }
+    assert_eq!(1, count);
 }
 
 #[tokio::test]
@@ -482,6 +534,30 @@ async fn test_stream_operations_for_ledger() {
 }
 
 #[tokio::test]
+async fn test_operations_for_liquidity_pool() {
+    let liquidity_pool_id = "6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c";
+    let client = new_client();
+
+    let req = api::operations::for_liquidity_pool(liquidity_pool_id);
+    let (_, response) = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_operations_for_liquidity_pool() {
+    let liquidity_pool_id = "6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c";
+    let client = new_client();
+
+    let req = api::operations::for_liquidity_pool(liquidity_pool_id);
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(_event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}
+
+#[tokio::test]
 async fn test_all_payments() {
     let client = new_client();
 
@@ -617,6 +693,52 @@ async fn test_stream_effects_for_account() {
         count += 1;
     }
     assert_eq!(3, count);
+}
+
+#[tokio::test]
+async fn test_effects_for_liquidity_pool() {
+    let client = new_client();
+
+    let liquidity_pool_id = "006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207";
+
+    let req = api::effects::for_liquidity_pool(liquidity_pool_id);
+    let (_, response) = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_stream_effects_for_liquidity_pool() {
+    let client = new_client();
+
+    let liquidity_pool_id = "006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207";
+
+    let req = api::effects::for_liquidity_pool(liquidity_pool_id);
+    let mut stream = client.stream(req).unwrap().take(3);
+    let mut count = 0;
+    while let Some(_event) = stream.try_next().await.unwrap() {
+        count += 1;
+    }
+    assert_eq!(3, count);
+}
+
+#[tokio::test]
+async fn test_all_liquidity_pools() {
+    let client = new_client();
+
+    let req = api::liquidity_pools::all();
+    let (_, response) = client.request(req).await.unwrap();
+    assert!(!response.records.is_empty());
+}
+
+#[tokio::test]
+async fn test_single_liquidity_pool() {
+    let client = new_client();
+
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let req = api::liquidity_pools::single(liquidity_pool_id.to_string());
+    let (_, response) = client.request(req).await.unwrap();
+    assert_eq!(liquidity_pool_id, response.id);
 }
 
 /*

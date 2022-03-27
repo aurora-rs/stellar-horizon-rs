@@ -35,7 +35,7 @@
   "id": "GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC",
   "account_id": "GA73S4WXZG7EONFCIFDSZ6VOJKFC2PMV5574YDJC4V4UBDGPAYN4SPAC",
   "sequence": "131787017028632645",
-  "subentry_count": 4,
+  "subentry_count": 5,
   "last_modified_ledger": 30765658,
   "last_modified_time": "2020-07-24T12:14:11Z",
   "thresholds": {
@@ -49,6 +49,15 @@
     "auth_immutable": false
   },
   "balances": [
+    {
+      "balance": "340.7096182",
+      "liquidity_pool_id": "4cd1f6defba237eecbc5fefe259f89ebc4b5edd49116beb5536c4034fc48d63f",
+      "limit": "922337203685.4775807",
+      "last_modified_ledger": 162285,
+      "is_authorized": false,
+      "is_authorized_to_maintain_liabilities": false,
+      "asset_type": "liquidity_pool_shares"
+    },
     {
       "balance": "0.3333331",
       "limit": "922337203685.4775807",

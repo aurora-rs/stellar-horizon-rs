@@ -1,5 +1,5 @@
 use crate::link::Link;
-use crate::resources::{Asset, Price};
+use crate::resources::{Asset};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_with::rust::display_fromstr;
@@ -17,29 +17,50 @@ pub struct Trade {
     /// When the ledger with this trade was closed.
     pub ledger_close_time: DateTime<Utc>,
     /// The sell offer ID.
-    pub offer_id: String,
-    /// The base offer ID. If this offer was immediately and fully consumed, this will be a synethic ID.
-    pub base_offer_id: String,
+    pub offer_id: Option<String>,
+    /// The type of trade that was executed.
+    pub trade_type: String,
+    /// The fee that was charged by the liquidity pool in basis points.
+    pub liquidity_pool_fee_bp: Option<u32>,
+    /// The ID for the liquidity pool that acted as the base party.
+    pub base_liquidity_pool_id: Option<String>,
+    /// The base offer ID. If this offer was immediately and fully consumed, this will be a synthetic ID.
+    pub base_offer_id: Option<String>,
     /// The account ID of the base party for this trade.
-    pub base_account: String,
+    pub base_account: Option<String>,
     /// The amount of the `base_asset` that was moved from `base_account` to `counter_account`.
     pub base_amount: String,
     /// The base asset.
     #[serde(flatten, with = "BaseAsset")]
     pub base_asset: Asset,
-    /// The counter offer ID. If this offer was immediately and fully consumed, this will be a synethic ID.
-    pub counter_offer_id: String,
+    /// The ID for the liquidity pool that acted as the counter party.
+    pub counter_liquidity_pool_id: Option<String>,
+    /// The counter offer ID. If this offer was immediately and fully consumed, this will be a synthetic ID.
+    pub counter_offer_id: Option<String>,
     /// The account ID of the counter party for this trade.
-    pub counter_account: String,
+    pub counter_account: Option<String>,
     /// The amount of the `counter_asset` that was moved from `counter_account` to `base_account`.
     pub counter_amount: String,
     /// The counter asset.
     #[serde(flatten, with = "CounterAsset")]
-    pub couter_asset: Asset,
+    pub counter_asset: Asset,
     /// Indicates with party is the seller.
     pub base_is_seller: bool,
     /// The original offer price.
-    pub price: Option<Price>,
+    pub price: Option<TradePrice>,
+}
+
+/// Price for a trade
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct TradePrice {
+    /// The numerator of the price
+    #[serde(with = "display_fromstr")]
+    #[serde(rename = "n")]
+    pub numerator: i64,
+    /// The denominator of the price
+    #[serde(with = "display_fromstr")]
+    #[serde(rename = "d")]
+    pub denominator: i32,
 }
 
 /// Trade effect.
@@ -90,22 +111,22 @@ pub struct TradeAggregation {
     pub average: String,
     /// The highest price for this time period.
     #[serde(rename = "high_r")]
-    pub high_ratio: Price,
+    pub high_ratio: TradePrice,
     /// The highest price for this time period.
     pub high: String,
     /// The lowest price for this time period.
     #[serde(rename = "low_r")]
-    pub low_ratio: Price,
+    pub low_ratio: TradePrice,
     /// The lowest price for this time period.
     pub low: String,
     /// The price as seen on first trade aggregated.
     #[serde(rename = "open_r")]
-    pub open_ratio: Price,
+    pub open_ratio: TradePrice,
     /// The price as seen on first trade aggregated.
     pub open: String,
     /// The price as seen on last trade aggregated.
     #[serde(rename = "close_r")]
-    pub close_ration: Price,
+    pub close_ration: TradePrice,
     /// The price as seen on last trade aggregated.
     pub close: String,
 }

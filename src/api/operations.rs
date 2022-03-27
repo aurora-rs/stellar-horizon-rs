@@ -61,6 +61,21 @@ where
     }
 }
 
+/// Creates a request to retrieve the operations associated with a liquidity pool.
+pub fn for_liquidity_pool<S>(liquidity_pool_id: S) -> OperationsForLiquidityPoolRequest
+    where
+        S: Into<String>,
+{
+    OperationsForLiquidityPoolRequest {
+        liquidity_pool_id: liquidity_pool_id.into(),
+        include_failed: None,
+        join: None,
+        limit: None,
+        cursor: None,
+        order: None,
+    }
+}
+
 impl AllOperationsRequest {
     impl_include_failed!();
     impl_join!();
@@ -128,6 +143,17 @@ pub struct OperationsForLedgerRequest {
 #[derive(Debug, Clone)]
 pub struct OperationsForTransactionRequest {
     tx_id: String,
+    include_failed: Option<bool>,
+    join: Option<Join>,
+    limit: Option<u64>,
+    cursor: Option<String>,
+    order: Option<Order>,
+}
+
+/// Request operations associated with a liquidity pool.
+#[derive(Debug, Clone)]
+pub struct OperationsForLiquidityPoolRequest {
+    liquidity_pool_id: String,
     include_failed: Option<bool>,
     join: Option<Join>,
     limit: Option<u64>,
@@ -209,6 +235,29 @@ impl Request for OperationsForTransactionRequest {
 
 impl_page_request!(OperationsForTransactionRequest);
 
+impl OperationsForLiquidityPoolRequest {
+    impl_include_failed!();
+    impl_join!();
+}
+
+impl Request for OperationsForLiquidityPoolRequest {
+    type Response = Page<resources::Operation>;
+
+    fn uri(&self, host: &Url) -> Result<Url> {
+        let mut url = host.join(&format!("/liquidity_pools/{}/operations", self.liquidity_pool_id))?;
+        url = url.append_include_failed(&self.include_failed)
+            .appen_join(&self.join)
+            .append_pagination_params(self);
+        Ok(url)
+    }
+}
+
+impl_page_request!(OperationsForLiquidityPoolRequest);
+
+impl StreamRequest for OperationsForLiquidityPoolRequest {
+    type Resource = resources::Operation;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -282,5 +331,15 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/transactions/715ffb63673a4ee9b84d4b60924b3e141b34fe3777697f35bad6d4b990524ca2/operations?"));
+    }
+
+    #[test]
+    fn test_operation_for_liquidity_pool_request_uri() {
+        let expected_uri = "https://horizon.stellar.org/liquidity_pools/6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c/operations?";
+        let liquidity_pool_id = "6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c";
+
+        let req = for_liquidity_pool(liquidity_pool_id);
+        let uri = req.uri(&host()).unwrap();
+        assert_eq!(expected_uri, uri.as_str());
     }
 }

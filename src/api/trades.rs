@@ -37,6 +37,16 @@ pub fn for_offer(offer_id: OfferId) -> TradesForOfferRequest {
     }
 }
 
+/// Creates a request to retrieve all trades associated with a liquidity pool.
+pub fn for_liquidity_pool<S: Into<String>>(liquidity_pool_id: S) -> TradesForLiquidityPoolRequest {
+    TradesForLiquidityPoolRequest {
+        liquidity_pool_id: liquidity_pool_id.into(),
+        limit: None,
+        cursor: None,
+        order: None,
+    }
+}
+
 /// Request all trades.
 #[derive(Debug, Clone)]
 pub struct AllTradesRequest {
@@ -61,6 +71,15 @@ pub struct TradesForAccountRequest {
 #[derive(Debug, Clone)]
 pub struct TradesForOfferRequest {
     offer_id: OfferId,
+    limit: Option<u64>,
+    cursor: Option<String>,
+    order: Option<Order>,
+}
+
+/// Request trades associated with a liquidity pool.
+#[derive(Debug, Clone)]
+pub struct TradesForLiquidityPoolRequest {
+    liquidity_pool_id: String,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -136,6 +155,21 @@ impl Request for TradesForOfferRequest {
 
 impl_page_request!(TradesForOfferRequest);
 
+impl Request for TradesForLiquidityPoolRequest {
+    type Response = Page<resources::Trade>;
+
+    fn uri(&self, host: &Url) -> Result<Url> {
+        let url = host.join(&format!("/liquidity_pools/{}/trades", self.liquidity_pool_id))?;
+        Ok(url.append_pagination_params(self))
+    }
+}
+
+impl_page_request!(TradesForLiquidityPoolRequest);
+
+impl StreamRequest for TradesForLiquidityPoolRequest {
+    type Resource = resources::Trade;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -194,5 +228,15 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/offers/888/trades?"));
+    }
+
+    #[test]
+    fn test_trades_for_liquidity_pool_request_uri() {
+        let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+        let expected_uri = "https://horizon.stellar.org/liquidity_pools/0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16/trades?";
+
+        let req = for_liquidity_pool(liquidity_pool_id);
+        let uri = req.uri(&host()).unwrap();
+        assert_eq!(expected_uri, uri.as_str());
     }
 }

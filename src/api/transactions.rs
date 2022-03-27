@@ -50,6 +50,17 @@ pub fn for_ledger(ledger: LedgerId) -> TransactionsForLedgerRequest {
     }
 }
 
+/// Creates a request to retrieve a transactions linked to liquidity pool.
+pub fn for_liquidity_pool<S: Into<String>>(liquidity_pool_id: S) -> TransactionsForLiquidityPoolRequest {
+    TransactionsForLiquidityPoolRequest {
+        liquidity_pool_id: liquidity_pool_id.into(),
+        include_failed: None,
+        limit: None,
+        cursor: None,
+        order: None,
+    }
+}
+
 /// Request all transactions.
 #[derive(Debug, Clone)]
 pub struct AllTransactionsRequest {
@@ -86,6 +97,16 @@ pub struct TransactionsForAccountRequest {
 pub struct TransactionsForLedgerRequest {
     include_failed: Option<bool>,
     ledger: LedgerId,
+    limit: Option<u64>,
+    cursor: Option<String>,
+    order: Option<Order>,
+}
+
+/// Request transaction linked to a liquidity pool.
+#[derive(Debug, Clone)]
+pub struct TransactionsForLiquidityPoolRequest {
+    liquidity_pool_id: String,
+    include_failed: Option<bool>,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -174,6 +195,28 @@ impl StreamRequest for TransactionsForLedgerRequest {
     type Resource = resources::Transaction;
 }
 
+impl TransactionsForLiquidityPoolRequest {
+    impl_include_failed!();
+}
+
+impl Request for TransactionsForLiquidityPoolRequest {
+    type Response = Page<resources::Transaction>;
+
+    fn uri(&self, host: &Url) -> Result<Url> {
+        let mut url = host.join(&format!("/liquidity_pools/{}/transactions", self.liquidity_pool_id))?;
+        url = url
+            .append_include_failed(&self.include_failed)
+            .append_pagination_params(self);
+        Ok(url)
+    }
+}
+
+impl_page_request!(TransactionsForLiquidityPoolRequest);
+
+impl StreamRequest for TransactionsForLiquidityPoolRequest {
+    type Resource = resources::Transaction;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -222,5 +265,16 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/ledgers/888/transactions?"));
+    }
+
+    #[test]
+    fn test_transactions_for_liquidity_pool_request_uri() {
+        let expected_uri = "https://horizon.stellar.org/liquidity_pools/006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207/transactions?";
+
+        let req =
+            for_liquidity_pool("006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207");
+        let uri = req.uri(&host()).unwrap();
+
+        assert_eq!(expected_uri, uri.as_str());
     }
 }

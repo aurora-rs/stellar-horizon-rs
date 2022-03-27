@@ -6,6 +6,7 @@ pub mod claimable_balances;
 pub mod data;
 pub mod effects;
 pub mod ledgers;
+pub mod liquidity_pools;
 pub mod offers;
 pub mod operations;
 pub mod payments;

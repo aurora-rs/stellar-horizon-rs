@@ -1,9 +1,10 @@
 use crate::link::Link;
 use crate::resources::trade::{BoughtAsset, SoldAsset};
-use crate::resources::Asset;
+use crate::resources::{Asset, AssetAmount};
 use crate::resources::Predicate;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use serde_with::rust::display_fromstr;
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
@@ -58,6 +59,12 @@ pub enum Effect {
     SignerSponsorshipCreated(SignerSponsorshipCreatedEffect),
     SignerSponsorshipUpdated(SignerSponsorshipUpdatedEffect),
     SignerSponsorshipRemoved(SignerSponsorshipRemovedEffect),
+    LiquidityPoolDeposited(LiquidityPoolDepositedEffect),
+    LiquidityPoolWithdrew(LiquidityPoolWithdrewEffect),
+    LiquidityPoolTrade(LiquidityPoolTradeEffect),
+    LiquidityPoolCreated(LiquidityPoolCreatedEffect),
+    LiquidityPoolRemoved(LiquidityPoolRemovedEffect),
+    LiquidityPoolRevoked(LiquidityPoolRevokedEffect)
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -391,6 +398,75 @@ pub struct SignerSponsorshipRemovedEffect {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolEffect {
+    pub id: String,
+    pub fee_bp: u32,
+    #[serde(rename = "type")]
+    pub pool_type: String,
+    #[serde(with = "display_fromstr")]
+    pub total_trustlines: u64,
+    pub total_shares: String,
+    pub reserves: Vec<AssetAmount>
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolDepositedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub reserves_deposited: Vec<AssetAmount>,
+    pub shares_received: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolWithdrewEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub reserves_received: Vec<AssetAmount>,
+    pub shares_redeemed: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolTradeEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub sold: AssetAmount,
+    pub bought: AssetAmount,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolClaimableAssetAmount {
+    pub asset: String,
+    pub amount: String,
+    pub claimable_balance_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolRevokedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub reserves_revoked: Vec<LiquidityPoolClaimableAssetAmount>,
+    pub shared_revoked: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct EffectLinks {
     pub operation: Link,
     pub succeeds: Link,
@@ -440,6 +516,12 @@ impl Effect {
             Effect::SignerSponsorshipCreated(op) => &op.base,
             Effect::SignerSponsorshipUpdated(op) => &op.base,
             Effect::SignerSponsorshipRemoved(op) => &op.base,
+            Effect::LiquidityPoolDeposited(op) => &op.base,
+            Effect::LiquidityPoolWithdrew(op) => &op.base,
+            Effect::LiquidityPoolTrade(op) => &op.base,
+            Effect::LiquidityPoolCreated(op) => &op.base,
+            Effect::LiquidityPoolRemoved(op) => &op.base,
+            Effect::LiquidityPoolRevoked(op) => &op.base,
         }
     }
 }

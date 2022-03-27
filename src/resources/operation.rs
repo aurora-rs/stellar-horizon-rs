@@ -1,5 +1,5 @@
 use crate::link::Link;
-use crate::resources::{Asset, Claimant, Price, SourceAsset, Transaction};
+use crate::resources::{Asset, AssetAmount, Claimant, LiquidityPoolOrAsset, Price, SourceAsset, Transaction};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
@@ -26,6 +26,9 @@ pub enum Operation {
     BeginSponsoringFutureReserves(BeginSponsoringFutureReservesOperation),
     EndSponsoringFutureReserves(EndSponsoringFutureReservesOperation),
     RevokeSponsorship(RevokeSponsorshipOperation),
+    LiquidityPoolDeposit(LiquidityPoolDepositOperation),
+    LiquidityPoolWithdraw(LiquidityPoolWithdrawOperation)
+
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -187,10 +190,12 @@ pub struct ChangeTrustOperation {
     #[serde(flatten)]
     pub base: OperationBase,
     #[serde(flatten)]
-    pub asset: Asset,
+    pub asset_or_pool: LiquidityPoolOrAsset,
     pub limit: String,
-    pub trustee: String,
+    pub trustee: Option<String>,
     pub trustor: String,
+    pub trustor_muxed: Option<String>,
+    pub trustor_muxed_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -266,6 +271,30 @@ pub struct RevokeSponsorshipOperation {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolDepositOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub liquidity_pool_id: String,
+    pub reserves_max: Vec<AssetAmount>,
+    pub min_price: String,
+    pub min_price_r: Price,
+    pub max_price: String,
+    pub max_price_r: Price,
+    pub reserves_deposited: Vec<AssetAmount>,
+    pub shares_received: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolWithdrawOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub liquidity_pool_id: String,
+    pub reserves_min: Vec<AssetAmount>,
+    pub shares: String,
+    pub reserves_received: Vec<AssetAmount>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OperationLinks {
     #[serde(rename = "self")]
     pub self_: Link,
@@ -297,6 +326,8 @@ impl Operation {
             Operation::BeginSponsoringFutureReserves(op) => &op.base,
             Operation::EndSponsoringFutureReserves(op) => &op.base,
             Operation::RevokeSponsorship(op) => &op.base,
+            Operation::LiquidityPoolDeposit(op) => &op.base,
+            Operation::LiquidityPoolWithdraw(op) => &op.base,
         }
     }
 }

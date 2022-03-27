@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add liquidity pool endpoints
+- Add `LiquidityPool`, `LiquidityPoolLinks`, `LiquidityPoolReserve`, `AssetAmount`, `TradePrice`
+and `LiquidityPoolOrAsset` resources.
+- Add `LiquidityPoolDepositedEffect`
+- Add `LiquidityPoolWithdrewEffect`
+- Add `LiquidityPoolTradeEffect`
+- Add `LiquidityPoolCreatedEffect`
+- Add `LiquidityPoolRemovedEffect`
+- Add `LiquidityPoolRevokedEffect`
+- Add `LiquidityPoolDepositOperation`
+- Add `LiquidityPoolWithdrawOperation`
+
+### Changed
+
+- Update `ChangeTrustOperation`
+- Update `Trade` resource
+- Update `Account` resource
+
 ## [0.6.0] - 2020-01-20
 ### Added
  - Add claimable balances endpoints

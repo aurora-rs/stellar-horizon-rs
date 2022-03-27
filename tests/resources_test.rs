@@ -88,6 +88,16 @@ impl_serde_test!(
     Page<Transaction>,
     "./fixtures/all_transactions.json"
 );
+impl_serde_test!(
+    test_liquidity_pools_serde,
+    Page<LiquidityPool>,
+    "./fixtures/all_liquidity_pools.json"
+);
+impl_serde_test!(
+    test_single_liquidity_pool_serde,
+    LiquidityPool,
+    "./fixtures/liquidity_pool.json"
+);
 
 #[test]
 fn test_operations_base() {
