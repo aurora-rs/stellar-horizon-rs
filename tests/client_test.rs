@@ -3,9 +3,10 @@ use std::env;
 use std::str::FromStr;
 use stellar_base::account::DataValue;
 use stellar_base::amount::Amount;
+use stellar_base::crypto::SodiumKeyPair;
 use stellar_base::time_bounds::TimeBounds;
 use stellar_base::transaction::MIN_BASE_FEE;
-use stellar_base::{Asset, KeyPair, Network, Operation, PublicKey, Transaction};
+use stellar_base::{Asset, Network, Operation, PublicKey, Transaction};
 use stellar_horizon::api;
 use stellar_horizon::api::aggregations::Resolution;
 use stellar_horizon::client::{HorizonClient, HorizonHttpClient};
@@ -21,13 +22,13 @@ fn new_client_public_node() -> HorizonHttpClient {
     HorizonHttpClient::new_from_str("https://horizon.publicnode.org").unwrap()
 }
 
-fn new_root_key() -> KeyPair {
-    KeyPair::from_network(&Network::new_public()).unwrap()
+fn new_root_key() -> SodiumKeyPair {
+    SodiumKeyPair::from_network(&Network::new_public()).unwrap()
 }
 
-fn new_project_key_pair() -> KeyPair {
+fn new_project_key_pair() -> SodiumKeyPair {
     let secret_seed = env::var("SECRET_SEED").unwrap();
-    KeyPair::from_secret_seed(&secret_seed).unwrap()
+    SodiumKeyPair::from_secret_seed(&secret_seed).unwrap()
 }
 
 fn new_project_public_key() -> PublicKey {
@@ -97,10 +98,10 @@ async fn test_stream_all_ledgers() {
 #[tokio::test]
 async fn test_single_account() {
     let client = new_client();
-    let root_key = new_root_key();
-    let req = api::accounts::single(root_key.public_key());
+    let root_key = new_root_key().public_key();
+    let req = api::accounts::single(&root_key);
     let (_, response) = client.request(req).await.unwrap();
-    assert_eq!(root_key.public_key().account_id(), response.paging_token);
+    assert_eq!(root_key.account_id(), response.paging_token);
 }
 
 #[tokio::test]
@@ -147,8 +148,8 @@ async fn test_stream_all_transactions() {
 #[tokio::test]
 async fn test_transactions_for_account() {
     let client = new_client();
-    let root_key = new_root_key();
-    let req = api::transactions::for_account(root_key.public_key())
+    let root_key = new_root_key().public_key();
+    let req = api::transactions::for_account(&root_key)
         .with_order(&Order::Descending)
         .with_include_failed(true)
         .with_limit(5);
@@ -159,8 +160,8 @@ async fn test_transactions_for_account() {
 #[tokio::test]
 async fn test_stream_transactions_for_account() {
     let client = new_client();
-    let root_key = new_root_key();
-    let req = api::transactions::for_account(root_key.public_key()).with_include_failed(true);
+    let root_key = new_root_key().public_key();
+    let req = api::transactions::for_account(&root_key).with_include_failed(true);
     let mut stream = client.stream(req).unwrap().take(2);
     while let Some(event) = stream.next().await {
         assert!(!event.unwrap().paging_token.is_empty());
@@ -266,8 +267,8 @@ async fn test_stream_all_trades() {
 #[tokio::test]
 async fn test_trades_for_account() {
     let client = new_client();
-    let root_key = new_root_key();
-    let req = api::trades::for_account(root_key.public_key())
+    let root_key = new_root_key().public_key();
+    let req = api::trades::for_account(&root_key)
         .with_order(&Order::Descending)
         .with_limit(5);
     let (_, response) = client.request(req).await.unwrap();
@@ -304,8 +305,8 @@ async fn test_stream_trades_for_liquidity_pool() {
 #[tokio::test]
 async fn test_data_for_account() {
     let client = new_client();
-    let root_key = new_root_key();
-    let req = api::data::for_account(root_key.public_key(), "FooBar");
+    let root_key = new_root_key().public_key();
+    let req = api::data::for_account(&root_key, "FooBar");
     let response = client.request(req).await;
     assert!(response.is_err());
 }
@@ -456,7 +457,7 @@ async fn test_submit_transaction() {
     let client = new_client();
     let key_pair = new_project_key_pair();
 
-    let account_req = api::accounts::single(key_pair.public_key());
+    let account_req = api::accounts::single(&key_pair.public_key());
     let (_, account) = client.request(account_req).await.unwrap();
     let sequence = account.sequence.parse::<i64>().unwrap();
 
@@ -475,7 +476,7 @@ async fn test_submit_transaction() {
         .unwrap()
         .into_envelope();
 
-    tx.sign(&key_pair, &Network::new_public()).unwrap();
+    tx.sign(key_pair.as_ref(), &Network::new_public()).unwrap();
 
     let (_, response) = client
         .request(api::transactions::submit(&tx).unwrap())
