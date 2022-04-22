@@ -1,8 +1,8 @@
 [package]
 name = "stellar-horizon"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Francesco Ceccon <francesco@ceccon.me>"]
-edition = "2018"
+edition = "2021"
 description = "Stellar Horizon client"
 license = "Apache-2.0"
 documentation = "https://docs.rs/stellar-horizon"
