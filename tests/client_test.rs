@@ -445,7 +445,7 @@ async fn test_single_offer() {
         .with_buying(new_credit_asset());
 
     let (_, response) = client.request(req).await.unwrap();
-    let offer = response.records.iter().next().unwrap();
+    let offer = response.records.first().unwrap();
 
     let req = api::offers::single(offer.id);
     let (_, response) = client.request(req).await.unwrap();
@@ -463,7 +463,7 @@ async fn test_submit_transaction() {
 
     let data_value = DataValue::from_slice("Hello".as_bytes()).unwrap();
     let time_bounds = TimeBounds::valid_for(ChronoDuration::minutes(5));
-    let mut tx = Transaction::builder(key_pair.public_key().clone(), sequence + 1, MIN_BASE_FEE)
+    let mut tx = Transaction::builder(key_pair.public_key(), sequence + 1, MIN_BASE_FEE)
         .with_time_bounds(time_bounds)
         .add_operation(
             Operation::new_manage_data()
@@ -538,7 +538,7 @@ async fn test_single_operation() {
         .with_join(api::Join::Transactions)
         .with_limit(1);
     let (_, response) = client.request(req).await.unwrap();
-    let response_id = &response.records.iter().next().unwrap().base().id;
+    let response_id = &response.records.first().unwrap().base().id;
 
     let (_, response) = client
         .request(
@@ -721,7 +721,7 @@ async fn test_effects_for_transaction() {
 
     let tx_req = api::transactions::all().with_limit(1);
     let (_, tx_response) = client.request(tx_req).await.unwrap();
-    let tx_hash = &tx_response.records.iter().next().unwrap().id;
+    let tx_hash = &tx_response.records.first().unwrap().id;
 
     let req = api::effects::for_transaction(tx_hash.to_string());
     let (_, response) = client.request(req).await.unwrap();
@@ -734,7 +734,7 @@ async fn test_effects_for_operation() {
 
     let op_req = api::operations::all().with_limit(1);
     let (_, op_response) = client.request(op_req).await.unwrap();
-    let op_id = &op_response.records.iter().next().unwrap().base().id;
+    let op_id = &op_response.records.first().unwrap().base().id;
 
     let req = api::effects::for_operation(op_id.to_string());
     let (_, response) = client.request(req).await.unwrap();

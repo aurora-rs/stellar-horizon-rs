@@ -220,7 +220,7 @@ impl Request for PathsStrictReceiveRequest {
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/paths/strict-receive")?;
         if let Some(source_account) = &self.source_account {
-            url = url.append_query_param("source_account", &source_account);
+            url = url.append_query_param("source_account", source_account);
         }
         if !self.source_assets.is_empty() {
             let source_assets = serialize_assets_to_query_value(&self.source_assets);
@@ -239,7 +239,7 @@ impl Request for PathsStrictSendRequest {
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join("/paths/strict-send")?;
         if let Some(destination_account) = &self.destination_account {
-            url = url.append_query_param("destination_account", &destination_account);
+            url = url.append_query_param("destination_account", destination_account);
         }
         if !self.destination_assets.is_empty() {
             let destination_assets = serialize_assets_to_query_value(&self.destination_assets);

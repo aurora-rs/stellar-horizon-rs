@@ -87,7 +87,7 @@ impl Predicate {
             }
             Predicate::Unconditional(_) => Ok(ClaimPredicate::new_unconditional()),
             Predicate::AbsBefore(datetime) => {
-                Ok(ClaimPredicate::new_before_absolute_time(datetime.clone()))
+                Ok(ClaimPredicate::new_before_absolute_time(*datetime))
             }
             Predicate::RelBefore(seconds) => {
                 let duration = Duration::seconds(*seconds);

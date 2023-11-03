@@ -68,7 +68,7 @@ impl Request for AllLiquidityPoolsRequest {
             }
 
             if let Some(account_id) = self.account.as_ref() {
-                query.append_pair("account", &account_id);
+                query.append_pair("account", account_id);
             }
         }
 

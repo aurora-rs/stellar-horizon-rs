@@ -114,10 +114,10 @@ impl Request for AllTradesRequest {
             url = url.append_query_param("offer_id", &offer_id.to_string());
         }
         if let Some(asset) = &self.base_asset {
-            url = url.append_asset_params(&asset, Some("base"));
+            url = url.append_asset_params(asset, Some("base"));
         }
         if let Some(asset) = &self.counter_asset {
-            url = url.append_asset_params(&asset, Some("counter"));
+            url = url.append_asset_params(asset, Some("counter"));
         }
         Ok(url.append_pagination_params(self))
     }

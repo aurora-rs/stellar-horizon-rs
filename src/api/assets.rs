@@ -52,10 +52,10 @@ impl Request for AllAssetsRequest {
         {
             let mut query = url.query_pairs_mut();
             if let Some(asset_code) = &self.asset_code {
-                query.append_pair("asset_code", &asset_code);
+                query.append_pair("asset_code", asset_code);
             }
             if let Some(asset_issuer) = &self.asset_issuer {
-                query.append_pair("asset_issuer", &asset_issuer);
+                query.append_pair("asset_issuer", asset_issuer);
             }
         }
         Ok(url.append_pagination_params(self))
@@ -73,7 +73,7 @@ pub(crate) fn credit_asset_to_string(asset: &CreditAsset) -> String {
 pub(crate) fn asset_to_string(asset: &Asset) -> String {
     match asset {
         Asset::Native => "native".to_string(),
-        Asset::Credit(credit) => credit_asset_to_string(&credit),
+        Asset::Credit(credit) => credit_asset_to_string(credit),
     }
 }
 
