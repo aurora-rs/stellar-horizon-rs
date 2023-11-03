@@ -6,28 +6,9 @@ use stellar_base::asset::Asset;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
-/// Creates a request to retrieve all claimable balances filtered by asset.
-pub fn all_by_asset(asset: Asset) -> AllClaimableBalancesRequest {
-    AllClaimableBalancesRequest {
-        asset: Some(asset),
-        ..Default::default()
-    }
-}
-
-/// Creates a request to retrieve all claimable balances filtered by claimant.
-pub fn all_by_claimant(claimant: &PublicKey) -> AllClaimableBalancesRequest {
-    AllClaimableBalancesRequest {
-        claimant: Some(claimant.account_id()),
-        ..Default::default()
-    }
-}
-
-/// Creates a request to retrieve all claimable balances filtered by sponsor.
-pub fn all_by_sponsor(sponsor: &PublicKey) -> AllClaimableBalancesRequest {
-    AllClaimableBalancesRequest {
-        sponsor: Some(sponsor.account_id()),
-        ..Default::default()
-    }
+/// Creates a request to retrieve all claimable balances.
+pub fn all() -> AllClaimableBalancesRequest {
+    AllClaimableBalancesRequest::default()
 }
 
 /// Creates a request to retrieve a single offer.
@@ -46,10 +27,21 @@ pub struct AllClaimableBalancesRequest {
     order: Option<Order>,
 }
 
-/// Request a single offer.
-#[derive(Debug, Clone)]
-pub struct SingleClaimableBalanceRequest {
-    balance_id: ClaimableBalanceId,
+impl AllClaimableBalancesRequest {
+    pub fn with_asset(mut self, asset: Asset) -> Self {
+        self.asset = Some(asset);
+        self
+    }
+
+    pub fn with_claimant(mut self, claimant: &PublicKey) -> Self {
+        self.claimant = Some(claimant.to_string());
+        self
+    }
+
+    pub fn with_sponsor(mut self, sponsor: &PublicKey) -> Self {
+        self.sponsor = Some(sponsor.to_string());
+        self
+    }
 }
 
 impl Request for AllClaimableBalancesRequest {
@@ -71,6 +63,12 @@ impl Request for AllClaimableBalancesRequest {
 }
 
 impl_page_request!(AllClaimableBalancesRequest);
+
+/// Request a single offer.
+#[derive(Debug, Clone)]
+pub struct SingleClaimableBalanceRequest {
+    balance_id: ClaimableBalanceId,
+}
 
 impl Request for SingleClaimableBalanceRequest {
     type Response = resources::ClaimableBalance;
@@ -94,60 +92,33 @@ mod tests {
     }
 
     #[test]
-    fn test_all_claimable_balances_by_native_asset_request_uri() {
-        let req = all_by_asset(Asset::new_native());
+    fn test_all_claimable_balances_request_uri() {
+        let asset = Asset::new_native();
+        let claimant =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let sponsor =
+            PublicKey::from_account_id("GBLY3AN6XDY2FZMZLGL7YX6ZWI7YC6H3Z2QHQKE6SJ2LDX6UGNPHDNUU")
+                .unwrap();
+
+        let req = all()
+            .with_asset(asset)
+            .with_claimant(&claimant)
+            .with_sponsor(&sponsor);
         let uri = req.uri(&host()).unwrap();
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/claimable_balances?"));
         let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
         assert_eq!(Some(&"native".to_string()), query.get("asset"));
-    }
-
-    #[test]
-    fn test_all_claimable_balances_by_credit_asset_request_uri() {
-        let issuer =
-            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
-                .unwrap();
-        let asset = Asset::new_credit("XYZ", issuer).unwrap();
-        let req = all_by_asset(asset);
-        let uri = req.uri(&host()).unwrap();
-        assert!(uri
-            .to_string()
-            .starts_with("https://horizon.stellar.org/claimable_balances?"));
-        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
         assert_eq!(
-            Some(&"XYZ:GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA".to_string()),
-            query.get("asset")
+            Some(&"GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA".to_string()),
+            query.get("claimant")
         );
-    }
-
-    #[test]
-    fn test_all_claimable_balances_by_claimant_request_uri() {
-        let pk =
-            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
-                .unwrap();
-        let req = all_by_claimant(&pk);
-        let uri = req.uri(&host()).unwrap();
-        assert!(uri
-            .to_string()
-            .starts_with("https://horizon.stellar.org/claimable_balances?"));
-        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
-        assert_eq!(Some(&pk.account_id()), query.get("claimant"));
-    }
-
-    #[test]
-    fn test_all_claimable_balances_by_sponsor_request_uri() {
-        let pk =
-            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
-                .unwrap();
-        let req = all_by_sponsor(&pk);
-        let uri = req.uri(&host()).unwrap();
-        assert!(uri
-            .to_string()
-            .starts_with("https://horizon.stellar.org/claimable_balances?"));
-        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
-        assert_eq!(Some(&pk.account_id()), query.get("sponsor"));
+        assert_eq!(
+            Some(&"GBLY3AN6XDY2FZMZLGL7YX6ZWI7YC6H3Z2QHQKE6SJ2LDX6UGNPHDNUU".to_string()),
+            query.get("sponsor")
+        );
     }
 
     #[test]

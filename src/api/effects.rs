@@ -56,6 +56,19 @@ pub fn for_account(account: &PublicKey) -> EffectsForAccountRequest {
     }
 }
 
+/// Create a request to retrieve effects for an operation.
+pub fn for_liquidity_pool<S>(liquidity_pool_id: S) -> EffectsForLiquidityPoolRequest
+where
+    S: Into<String>,
+{
+    EffectsForLiquidityPoolRequest {
+        liquidity_pool_id: liquidity_pool_id.into(),
+        limit: None,
+        cursor: None,
+        order: None,
+    }
+}
+
 /// Request all effects.
 #[derive(Debug, Clone, Default)]
 pub struct AllEffectsRequest {
@@ -95,6 +108,15 @@ pub struct EffectsForOperationRequest {
 #[derive(Debug, Clone)]
 pub struct EffectsForAccountRequest {
     account_id: String,
+    limit: Option<u64>,
+    cursor: Option<String>,
+    order: Option<Order>,
+}
+
+/// Request effects for a liquidity pool.
+#[derive(Debug, Clone)]
+pub struct EffectsForLiquidityPoolRequest {
+    liquidity_pool_id: String,
     limit: Option<u64>,
     cursor: Option<String>,
     order: Option<Order>,
@@ -167,9 +189,28 @@ impl StreamRequest for EffectsForAccountRequest {
     type Resource = resources::Effect;
 }
 
+impl Request for EffectsForLiquidityPoolRequest {
+    type Response = Page<resources::Effect>;
+
+    fn uri(&self, host: &Url) -> Result<Url> {
+        let url = host.join(&format!(
+            "/liquidity_pools/{}/effects",
+            self.liquidity_pool_id
+        ))?;
+        Ok(url.append_pagination_params(self))
+    }
+}
+
+impl_page_request!(EffectsForLiquidityPoolRequest);
+
+impl StreamRequest for EffectsForLiquidityPoolRequest {
+    type Resource = resources::Effect;
+}
+
 #[cfg(test)]
 mod tests {
     use super::{all, for_account, for_ledger, for_operation, for_transaction};
+    use crate::api::effects::for_liquidity_pool;
     use crate::request::{Order, PageRequest, Request};
     use std::collections::HashMap;
     use stellar_base::crypto::PublicKey;
@@ -230,5 +271,16 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/transactions/23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e/effects?"));
+    }
+
+    #[test]
+    fn test_effects_for_liquidity_pool_request_uri() {
+        let expected_uri = "https://horizon.stellar.org/liquidity_pools/006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207/effects?";
+
+        let req =
+            for_liquidity_pool("006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207");
+        let uri = req.uri(&host()).unwrap();
+
+        assert_eq!(expected_uri, uri.as_str());
     }
 }

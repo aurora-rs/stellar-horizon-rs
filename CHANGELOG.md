@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add liquidity pool endpoints
+- Add claimable balance related endpoints
+- Add `LiquidityPool`, `LiquidityPoolLinks`, `LiquidityPoolReserve`, `AssetAmount`, `TradePrice`
+and `LiquidityPoolOrAsset` resources.
+- Add `LiquidityPoolDepositedEffect`
+- Add `LiquidityPoolWithdrewEffect`
+- Add `LiquidityPoolTradeEffect`
+- Add `LiquidityPoolCreatedEffect`
+- Add `LiquidityPoolRemovedEffect`
+- Add `LiquidityPoolRevokedEffect`
+- Add `ClaimableBalanceFlags` resource
+- Add `Clawback`, `ClawbackClaimableBalance`, `SetTrustLineFlags`, `LiquidityPoolDeposit` and `LiquidityPoolWithdraw` operations
+- Add `TradePrice` resource
+
+### Changed
+
+- Update `ChangeTrustOperation`
+- Update `Trade` resource
+- Update `AccountFlags` resource
+- Update `ClaimableBalance` resource
+- Update `Root` resource
+- Update `Transaction` resource
+- Update most effects to support liquidity pools
+- Update most effects to support muxed accounts
+- Update most operations to support muxed accounts
+- Update operations to support liquidity pools
+- Change deserialization for `Predicate` to support the extra `abs_before_epoch` field
+- BREAKING CHANGE: Update account's asset `Balance` resource
+- BREAKING CHANGE: Update `AssetStat` resource
+- BREAKING CHANGE: Update `Trade` resource
+- BREAKING CHANGE: Update `TradeAggregation` resource
+
 ## [0.6.0] - 2020-01-20
 ### Added
  - Add claimable balances endpoints

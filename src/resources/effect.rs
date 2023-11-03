@@ -1,9 +1,10 @@
 use crate::link::Link;
 use crate::resources::trade::{BoughtAsset, SoldAsset};
-use crate::resources::Asset;
-use crate::resources::Predicate;
+use crate::resources::{Asset, AssetAmount};
+use crate::resources::{LiquidityPoolOrAsset, Predicate};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use serde_with::rust::display_fromstr;
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
@@ -32,17 +33,16 @@ pub enum Effect {
     TrustLineAuthorizedToMaintainLiabilities(TrustLineAuthorizedToMaintainLiabilitiesEffect),
     #[serde(rename = "trustline_deauthorized")]
     TrustLineDeauthorized(TrustLineDeauthorizedEffect),
-    OfferCreated(OfferCreatedEffect),
-    OfferRemoved(OfferRemovedEffect),
-    OfferUpdated(OfferUpdatedEffect),
+    #[serde(rename = "trustline_flags_updated")]
+    TrustLineFlagsUpdated(TrustLineFlagsUpdatedEffect),
     Trade(TradeEffect),
     DataCreated(DataCreatedEffect),
     DataRemoved(DataRemovedEffect),
     DataUpdated(DataUpdatedEffect),
     SequenceBumped(SequenceBumpedEffect),
     ClaimableBalanceCreated(ClaimableBalanceCreatedEffect),
-    ClaimableBalanceClaimantCreated(ClaimableBalanceClaimantCreatedEffect),
     ClaimableBalanceClaimed(ClaimableBalanceClaimedEffect),
+    ClaimableBalanceClaimantCreated(ClaimableBalanceClaimantCreatedEffect),
     AccountSponsorshipCreated(AccountSponsorshipCreatedEffect),
     AccountSponsorshipUpdated(AccountSponsorshipUpdatedEffect),
     AccountSponsorshipRemoved(AccountSponsorshipRemovedEffect),
@@ -52,12 +52,22 @@ pub enum Effect {
     TrustLineSponsorshipUpdated(TrustLineSponsorshipUpdatedEffect),
     #[serde(rename = "trustline_sponsorship_removed")]
     TrustLineSponsorshipRemoved(TrustLineSponsorshipRemovedEffect),
+    DataSponsorshipCreated(DataSponsorshipCreatedEffect),
+    DataSponsorshipUpdated(DataSponsorshipUpdatedEffect),
+    DataSponsorshipRemoved(DataSponsorshipRemovedEffect),
     ClaimableBalanceSponsorshipCreated(ClaimableBalanceSponsorshipCreatedEffect),
     ClaimableBalanceSponsorshipUpdated(ClaimableBalanceSponsorshipUpdatedEffect),
     ClaimableBalanceSponsorshipRemoved(ClaimableBalanceSponsorshipRemovedEffect),
     SignerSponsorshipCreated(SignerSponsorshipCreatedEffect),
     SignerSponsorshipUpdated(SignerSponsorshipUpdatedEffect),
     SignerSponsorshipRemoved(SignerSponsorshipRemovedEffect),
+    ClaimableBalanceClawedBack(ClaimableBalanceClawedBackEffect),
+    LiquidityPoolDeposited(LiquidityPoolDepositedEffect),
+    LiquidityPoolWithdrew(LiquidityPoolWithdrewEffect),
+    LiquidityPoolTrade(LiquidityPoolTradeEffect),
+    LiquidityPoolCreated(LiquidityPoolCreatedEffect),
+    LiquidityPoolRemoved(LiquidityPoolRemovedEffect),
+    LiquidityPoolRevoked(LiquidityPoolRevokedEffect),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -67,6 +77,8 @@ pub struct EffectBase {
     pub id: String,
     pub paging_token: String,
     pub account: String,
+    pub account_muxed: Option<String>,
+    pub account_muxed_id: Option<String>,
     pub type_i: i32,
     pub created_at: DateTime<Utc>,
 }
@@ -137,8 +149,8 @@ pub struct AccountInflationDestinationUpdated {
 pub struct SequenceBumpedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    #[serde(rename = "new_seq")]
-    pub new_sequence: String,
+    #[serde(rename = "new_seq", with = "display_fromstr")]
+    pub new_sequence: i64,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -173,7 +185,7 @@ pub struct TrustLineCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     #[serde(flatten)]
-    pub asset: Asset,
+    pub liquidity_pool_or_asset: LiquidityPoolOrAsset,
     pub limit: String,
 }
 
@@ -182,7 +194,7 @@ pub struct TrustLineRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     #[serde(flatten)]
-    pub asset: Asset,
+    pub liquidity_pool_or_asset: LiquidityPoolOrAsset,
     pub limit: String,
 }
 
@@ -191,7 +203,7 @@ pub struct TrustLineUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     #[serde(flatten)]
-    pub asset: Asset,
+    pub liquidity_pool_or_asset: LiquidityPoolOrAsset,
     pub limit: String,
 }
 
@@ -199,27 +211,39 @@ pub struct TrustLineUpdatedEffect {
 pub struct TrustLineAuthorizedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    #[serde(flatten)]
-    pub asset: Asset,
     pub trustor: String,
+    pub asset_type: String,
+    pub asset_code: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineAuthorizedToMaintainLiabilitiesEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    #[serde(flatten)]
-    pub asset: Asset,
     pub trustor: String,
+    pub asset_type: String,
+    pub asset_code: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TrustLineDeauthorizedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub trustor: String,
+    pub asset_type: String,
+    pub asset_code: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct TrustLineFlagsUpdatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
     #[serde(flatten)]
     pub asset: Asset,
     pub trustor: String,
+    pub authorized_flag: Option<bool>,
+    pub authorized_to_maintain_liabilites_flag: Option<bool>,
+    pub clawback_enabled_flag: Option<bool>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -244,18 +268,23 @@ pub struct OfferUpdatedEffect {
 pub struct DataCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub name: String,
+    pub value: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct DataRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub name: String,
+    pub value: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct DataUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub name: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -263,6 +292,8 @@ pub struct TradeEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     pub seller: String,
+    pub seller_muxed: Option<String>,
+    pub seller_muxed_id: Option<String>,
     pub offer_id: String,
     pub sold_amount: String,
     #[serde(flatten, with = "SoldAsset")]
@@ -276,8 +307,17 @@ pub struct TradeEffect {
 pub struct ClaimableBalanceCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    pub balance_id: String,
     pub asset: String,
+    pub balance_id: String,
+    pub amount: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceClaimedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub asset: String,
+    pub balance_id: String,
     pub amount: String,
 }
 
@@ -285,19 +325,10 @@ pub struct ClaimableBalanceCreatedEffect {
 pub struct ClaimableBalanceClaimantCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    pub balance_id: String,
     pub asset: String,
+    pub balance_id: String,
     pub amount: String,
     pub predicate: Predicate,
-}
-
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
-pub struct ClaimableBalanceClaimedEffect {
-    #[serde(flatten)]
-    pub base: EffectBase,
-    pub balance_id: String,
-    pub asset: String,
-    pub amount: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -311,8 +342,8 @@ pub struct AccountSponsorshipCreatedEffect {
 pub struct AccountSponsorshipUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    pub new_sponsor: String,
     pub former_sponsor: String,
+    pub new_sponsor: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -326,6 +357,9 @@ pub struct AccountSponsorshipRemovedEffect {
 pub struct TrustLineSponsorshipCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub asset_type: String,
+    pub asset: Option<String>,
+    pub liquidity_pool_id: Option<String>,
     pub sponsor: String,
 }
 
@@ -333,6 +367,9 @@ pub struct TrustLineSponsorshipCreatedEffect {
 pub struct TrustLineSponsorshipUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub asset_type: String,
+    pub asset: Option<String>,
+    pub liquidity_pool_id: Option<String>,
     pub new_sponsor: String,
     pub former_sponsor: String,
 }
@@ -341,6 +378,34 @@ pub struct TrustLineSponsorshipUpdatedEffect {
 pub struct TrustLineSponsorshipRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub asset_type: String,
+    pub asset: Option<String>,
+    pub liquidity_pool_id: Option<String>,
+    pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct DataSponsorshipCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub data_name: String,
+    pub sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct DataSponsorshipUpdatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub data_name: String,
+    pub former_sponsor: String,
+    pub new_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct DataSponsorshipRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub data_name: String,
     pub former_sponsor: String,
 }
 
@@ -348,6 +413,7 @@ pub struct TrustLineSponsorshipRemovedEffect {
 pub struct ClaimableBalanceSponsorshipCreatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub balance_id: String,
     pub sponsor: String,
 }
 
@@ -355,14 +421,16 @@ pub struct ClaimableBalanceSponsorshipCreatedEffect {
 pub struct ClaimableBalanceSponsorshipUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    pub new_sponsor: String,
+    pub balance_id: String,
     pub former_sponsor: String,
+    pub new_sponsor: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ClaimableBalanceSponsorshipRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
+    pub balance_id: String,
     pub former_sponsor: String,
 }
 
@@ -379,8 +447,8 @@ pub struct SignerSponsorshipUpdatedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     pub signer: String,
-    pub new_sponsor: String,
     pub former_sponsor: String,
+    pub new_sponsor: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -388,6 +456,82 @@ pub struct SignerSponsorshipRemovedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
     pub former_sponsor: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClaimableBalanceClawedBackEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub balance_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolEffect {
+    pub id: String,
+    pub fee_bp: u32,
+    #[serde(rename = "type")]
+    pub pool_type: String,
+    #[serde(with = "display_fromstr")]
+    pub total_trustlines: u64,
+    pub total_shares: String,
+    pub reserves: Vec<AssetAmount>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolDepositedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub reserves_deposited: Vec<AssetAmount>,
+    pub shares_received: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolWithdrewEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub reserves_received: Vec<AssetAmount>,
+    pub shares_redeemed: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolTradeEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub sold: AssetAmount,
+    pub bought: AssetAmount,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolCreatedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolRemovedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolClaimableAssetAmount {
+    pub asset: String,
+    pub amount: String,
+    pub claimable_balance_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolRevokedEffect {
+    #[serde(flatten)]
+    pub base: EffectBase,
+    pub liquidity_pool: LiquidityPoolEffect,
+    pub reserves_revoked: Vec<LiquidityPoolClaimableAssetAmount>,
+    pub shared_revoked: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -417,9 +561,7 @@ impl Effect {
             Effect::TrustLineAuthorized(op) => &op.base,
             Effect::TrustLineAuthorizedToMaintainLiabilities(op) => &op.base,
             Effect::TrustLineDeauthorized(op) => &op.base,
-            Effect::OfferCreated(op) => &op.base,
-            Effect::OfferRemoved(op) => &op.base,
-            Effect::OfferUpdated(op) => &op.base,
+            Effect::TrustLineFlagsUpdated(op) => &op.base,
             Effect::Trade(op) => &op.base,
             Effect::DataCreated(op) => &op.base,
             Effect::DataRemoved(op) => &op.base,
@@ -434,12 +576,22 @@ impl Effect {
             Effect::TrustLineSponsorshipCreated(op) => &op.base,
             Effect::TrustLineSponsorshipUpdated(op) => &op.base,
             Effect::TrustLineSponsorshipRemoved(op) => &op.base,
+            Effect::DataSponsorshipCreated(op) => &op.base,
+            Effect::DataSponsorshipUpdated(op) => &op.base,
+            Effect::DataSponsorshipRemoved(op) => &op.base,
             Effect::ClaimableBalanceSponsorshipCreated(op) => &op.base,
             Effect::ClaimableBalanceSponsorshipUpdated(op) => &op.base,
             Effect::ClaimableBalanceSponsorshipRemoved(op) => &op.base,
             Effect::SignerSponsorshipCreated(op) => &op.base,
             Effect::SignerSponsorshipUpdated(op) => &op.base,
             Effect::SignerSponsorshipRemoved(op) => &op.base,
+            Effect::ClaimableBalanceClawedBack(op) => &op.base,
+            Effect::LiquidityPoolDeposited(op) => &op.base,
+            Effect::LiquidityPoolWithdrew(op) => &op.base,
+            Effect::LiquidityPoolTrade(op) => &op.base,
+            Effect::LiquidityPoolCreated(op) => &op.base,
+            Effect::LiquidityPoolRemoved(op) => &op.base,
+            Effect::LiquidityPoolRevoked(op) => &op.base,
         }
     }
 }

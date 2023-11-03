@@ -23,10 +23,18 @@ pub struct Transaction {
     pub created_at: DateTime<Utc>,
     /// The account that originates the transaction.
     pub source_account: String,
+    /// The muxed account that was the source account.
+    pub account_muxed: Option<String>,
+    /// The ID of the muxed account that was the source account.
+    pub account_muxed_id: Option<String>,
     /// The source account’s sequence number that this transaction consumed.
     pub source_account_sequence: String,
     /// The account that paid this transaction fee.
     pub fee_account: String,
+    /// The muxed account that paid this transaction fee.
+    pub fee_account_muxed: Option<String>,
+    /// The ID of the muxed account that paid this transaction fee.
+    pub fee_account_muxed_id: Option<String>,
     /// The fee (in stroops) paid by the source account to apply this transaction to the ledger.
     #[serde(with = "display_fromstr")]
     pub fee_charged: i64,

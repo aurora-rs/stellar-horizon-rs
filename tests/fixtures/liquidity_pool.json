@@ -1,0 +1,33 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://horizon-testnet.stellar.org/liquidity_pools/0cd55dccf9353bd3e03a75c0acbcb7075a7363fbaada9c4104032ec3772633b0"
+    },
+    "transactions": {
+      "href": "https://horizon-testnet.stellar.org/liquidity_pools/0cd55dccf9353bd3e03a75c0acbcb7075a7363fbaada9c4104032ec3772633b0/transactions{?cursor,limit,order}",
+      "templated": true
+    },
+    "operations": {
+      "href": "https://horizon-testnet.stellar.org/liquidity_pools/0cd55dccf9353bd3e03a75c0acbcb7075a7363fbaada9c4104032ec3772633b0/operations{?cursor,limit,order}",
+      "templated": true
+    }
+  },
+  "id": "0cd55dccf9353bd3e03a75c0acbcb7075a7363fbaada9c4104032ec3772633b0",
+  "paging_token": "0cd55dccf9353bd3e03a75c0acbcb7075a7363fbaada9c4104032ec3772633b0",
+  "fee_bp": 30,
+  "type": "constant_product",
+  "total_trustlines": "1",
+  "total_shares": "132.2568006",
+  "reserves": [
+    {
+      "asset": "native",
+      "amount": "5826.8490536"
+    },
+    {
+      "asset": "BRC:GDLBSW2EWVJT3N6OAUOOLWFNDNBFGOSTTGLCA2EPQ7HS2I6Z5GA7K2ZO",
+      "amount": "3.0179002"
+    }
+  ],
+  "last_modified_ledger": 176304,
+  "last_modified_time": "2022-03-27T03:11:01Z"
+}

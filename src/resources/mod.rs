@@ -11,6 +11,7 @@ pub mod book;
 pub mod claimable_balance;
 pub mod effect;
 pub mod ledger;
+pub mod liquidity_pool;
 pub mod offer;
 pub mod operation;
 pub mod root;
@@ -23,6 +24,7 @@ pub use book::*;
 pub use claimable_balance::*;
 pub use effect::*;
 pub use ledger::*;
+pub use liquidity_pool::*;
 pub use offer::*;
 pub use operation::*;
 pub use root::*;
@@ -55,6 +57,21 @@ pub struct Asset {
     pub asset_type: String,
     pub asset_code: Option<String>,
     pub asset_issuer: Option<String>,
+}
+
+/// An asset definition or liquidity pool ID.
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolOrAsset {
+    #[serde(flatten)]
+    pub asset: Asset,
+    pub liquidity_pool_id: Option<String>,
+}
+
+/// An asset along with its amount
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct AssetAmount {
+    pub asset: Option<String>,
+    pub amount: String,
 }
 
 /// Represent

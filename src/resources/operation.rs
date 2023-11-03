@@ -1,31 +1,39 @@
 use crate::link::Link;
-use crate::resources::{Asset, Claimant, Price, SourceAsset, Transaction};
+use crate::resources::{
+    Asset, AssetAmount, Claimant, LiquidityPoolOrAsset, Price, SourceAsset, Transaction,
+};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use serde_with::rust::display_fromstr;
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum Operation {
-    BumpSequence(BumpSequenceOperation),
     CreateAccount(CreateAccountOperation),
     Payment(PaymentOperation),
     PathPaymentStrictReceive(PathPaymentStrictReceiveOperation),
-    PathPaymentStrictSend(PathPaymentStrictSendOperation),
-    ManageData(ManageDataOperation),
-    CreatePassiveSellOffer(CreatePassiveSellOfferOperation),
     ManageSellOffer(ManageSellOfferOperation),
-    ManageBuyOffer(ManageBuyOfferOperation),
+    CreatePassiveSellOffer(CreatePassiveSellOfferOperation),
     SetOptions(SetOptionsOperation),
     ChangeTrust(ChangeTrustOperation),
     AllowTrust(AllowTrustOperation),
     AccountMerge(AccountMergeOperation),
     Inflation(InflationOperation),
+    ManageData(ManageDataOperation),
+    BumpSequence(BumpSequenceOperation),
+    ManageBuyOffer(ManageBuyOfferOperation),
+    PathPaymentStrictSend(PathPaymentStrictSendOperation),
     CreateClaimableBalance(CreateClaimableBalanceOperation),
     ClaimClaimableBalance(ClaimClaimableBalanceOperation),
     BeginSponsoringFutureReserves(BeginSponsoringFutureReservesOperation),
     EndSponsoringFutureReserves(EndSponsoringFutureReservesOperation),
     RevokeSponsorship(RevokeSponsorshipOperation),
+    Clawback(ClawbackOperation),
+    ClawbackClaimableBalance(ClawbackClaimableBalanceOperation),
+    SetTrustLineFlags(SetTrustLineFlagsOperation),
+    LiquidityPoolDeposit(LiquidityPoolDepositOperation),
+    LiquidityPoolWithdraw(LiquidityPoolWithdrawOperation),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -47,10 +55,13 @@ pub struct OperationBase {
     pub paging_token: String,
     pub transaction_successful: bool,
     pub source_account: String,
+    pub source_account_muxed: Option<String>,
+    pub source_account_muxed_id: Option<String>,
     pub type_i: i32,
     pub created_at: DateTime<Utc>,
     pub transaction_hash: String,
     pub transaction: Option<Transaction>,
+    pub sponsor: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -66,6 +77,8 @@ pub struct CreateAccountOperation {
     pub base: OperationBase,
     pub starting_balance: String,
     pub funder: String,
+    pub funder_muxed: Option<String>,
+    pub funder_muxed_id: Option<String>,
     pub account: String,
 }
 
@@ -73,8 +86,14 @@ pub struct CreateAccountOperation {
 pub struct PaymentOperation {
     #[serde(flatten)]
     pub base: OperationBase,
+    #[serde(flatten)]
+    pub asset: Asset,
     pub from: String,
+    pub from_muxed: Option<String>,
+    pub from_muxed_id: Option<String>,
     pub to: String,
+    pub to_muxed: Option<String>,
+    pub to_muxed_id: Option<String>,
     pub amount: String,
 }
 
@@ -82,8 +101,14 @@ pub struct PaymentOperation {
 pub struct PathPaymentStrictReceiveOperation {
     #[serde(flatten)]
     pub base: OperationBase,
+    #[serde(flatten)]
+    pub asset: Asset,
     pub from: String,
+    pub from_muxed: Option<String>,
+    pub from_muxed_id: Option<String>,
     pub to: String,
+    pub to_muxed: Option<String>,
+    pub to_muxed_id: Option<String>,
     pub amount: String,
     pub path: Vec<Asset>,
     pub source_amount: String,
@@ -96,8 +121,14 @@ pub struct PathPaymentStrictReceiveOperation {
 pub struct PathPaymentStrictSendOperation {
     #[serde(flatten)]
     pub base: OperationBase,
+    #[serde(flatten)]
+    pub asset: Asset,
     pub from: String,
+    pub from_muxed: Option<String>,
+    pub from_muxed_id: Option<String>,
     pub to: String,
+    pub to_muxed: Option<String>,
+    pub to_muxed_id: Option<String>,
     pub amount: String,
     pub path: Vec<Asset>,
     pub source_amount: String,
@@ -140,7 +171,8 @@ pub struct ManageSellOfferOperation {
     pub buying: Asset,
     #[serde(flatten, with = "SellingAsset")]
     pub selling: Asset,
-    pub offer_id: String,
+    #[serde(with = "display_fromstr")]
+    pub offer_id: i64,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -155,7 +187,8 @@ pub struct ManageBuyOfferOperation {
     pub buying: Asset,
     #[serde(flatten, with = "SellingAsset")]
     pub selling: Asset,
-    pub offer_id: String,
+    #[serde(with = "display_fromstr")]
+    pub offer_id: i64,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -187,10 +220,12 @@ pub struct ChangeTrustOperation {
     #[serde(flatten)]
     pub base: OperationBase,
     #[serde(flatten)]
-    pub asset: Asset,
+    pub asset_or_pool: LiquidityPoolOrAsset,
     pub limit: String,
-    pub trustee: String,
+    pub trustee: Option<String>,
     pub trustor: String,
+    pub trustor_muxed: Option<String>,
+    pub trustor_muxed_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -200,6 +235,8 @@ pub struct AllowTrustOperation {
     #[serde(flatten)]
     pub asset: Asset,
     pub trustee: String,
+    pub trustee_muxed: Option<String>,
+    pub trustee_muxed_id: Option<String>,
     pub trustor: String,
     pub authorize: bool,
     pub authorize_to_maintain_liabilities: bool,
@@ -210,7 +247,11 @@ pub struct AccountMergeOperation {
     #[serde(flatten)]
     pub base: OperationBase,
     pub account: String,
+    pub account_muxed: Option<String>,
+    pub account_muxed_id: Option<String>,
     pub into: String,
+    pub into_muxed: Option<String>,
+    pub into_muxed_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -234,6 +275,8 @@ pub struct ClaimClaimableBalanceOperation {
     pub base: OperationBase,
     pub balance_id: String,
     pub claimant: String,
+    pub claimant_muxed: Option<String>,
+    pub claimant_muxed_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -248,6 +291,8 @@ pub struct EndSponsoringFutureReservesOperation {
     #[serde(flatten)]
     pub base: OperationBase,
     pub begin_sponsor: String,
+    pub begin_sponsor_muxed: Option<String>,
+    pub begin_sponsor_muxed_id: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -260,9 +305,70 @@ pub struct RevokeSponsorshipOperation {
     pub data_name: Option<String>,
     pub offer_id: Option<String>,
     pub trustline_account_id: Option<String>,
+    pub trustline_liquidity_pool_id: Option<String>,
     pub trustline_asset: Option<String>,
     pub signer_account_id: Option<String>,
     pub signer_key: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClawbackOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    #[serde(flatten)]
+    pub asset: Asset,
+    pub from: String,
+    pub from_muxed: Option<String>,
+    pub from_muxed_id: Option<String>,
+    pub amount: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ClawbackClaimableBalanceOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub balance_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct SetTrustLineFlagsOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    #[serde(flatten)]
+    pub asset: Asset,
+    pub trustor: String,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub set_flags: Vec<i32>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub set_flags_s: Vec<String>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub clear_flags: Vec<i32>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub clear_flags_s: Vec<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolDepositOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub liquidity_pool_id: String,
+    pub reserves_max: Vec<AssetAmount>,
+    pub min_price: String,
+    pub min_price_r: Price,
+    pub max_price: String,
+    pub max_price_r: Price,
+    pub reserves_deposited: Vec<AssetAmount>,
+    pub shares_received: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct LiquidityPoolWithdrawOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub liquidity_pool_id: String,
+    pub reserves_min: Vec<AssetAmount>,
+    pub shares: String,
+    pub reserves_received: Vec<AssetAmount>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -278,25 +384,30 @@ pub struct OperationLinks {
 impl Operation {
     pub fn base(&self) -> &OperationBase {
         match self {
-            Operation::BumpSequence(op) => &op.base,
             Operation::CreateAccount(op) => &op.base,
             Operation::Payment(op) => &op.base,
             Operation::PathPaymentStrictReceive(op) => &op.base,
-            Operation::PathPaymentStrictSend(op) => &op.base,
-            Operation::ManageData(op) => &op.base,
-            Operation::CreatePassiveSellOffer(op) => &op.base,
             Operation::ManageSellOffer(op) => &op.base,
-            Operation::ManageBuyOffer(op) => &op.base,
+            Operation::CreatePassiveSellOffer(op) => &op.base,
             Operation::SetOptions(op) => &op.base,
             Operation::ChangeTrust(op) => &op.base,
             Operation::AllowTrust(op) => &op.base,
             Operation::AccountMerge(op) => &op.base,
             Operation::Inflation(op) => &op.base,
+            Operation::ManageData(op) => &op.base,
+            Operation::BumpSequence(op) => &op.base,
+            Operation::ManageBuyOffer(op) => &op.base,
+            Operation::PathPaymentStrictSend(op) => &op.base,
             Operation::CreateClaimableBalance(op) => &op.base,
             Operation::ClaimClaimableBalance(op) => &op.base,
             Operation::BeginSponsoringFutureReserves(op) => &op.base,
             Operation::EndSponsoringFutureReserves(op) => &op.base,
             Operation::RevokeSponsorship(op) => &op.base,
+            Operation::Clawback(op) => &op.base,
+            Operation::ClawbackClaimableBalance(op) => &op.base,
+            Operation::SetTrustLineFlags(op) => &op.base,
+            Operation::LiquidityPoolDeposit(op) => &op.base,
+            Operation::LiquidityPoolWithdraw(op) => &op.base,
         }
     }
 }

@@ -36,16 +36,16 @@ pub struct Account {
     pub signers: Vec<Signer>,
     /// Account data.
     pub data: Map<String, String>,
-    /// Paging token for this account.
-    pub paging_token: String,
-    /// The account sponsoring this account base reserve.
-    pub sponsor: Option<String>,
     /// The number of reserves sponsored by this account.
     #[serde(default)]
     pub num_sponsoring: i64,
     /// The number of reserves sponsored for this account.
     #[serde(default)]
     pub num_sponsored: i64,
+    /// The account sponsoring this account base reserve.
+    pub sponsor: Option<String>,
+    /// Paging token for this account.
+    pub paging_token: String,
 }
 
 /// Links for an Account.
@@ -98,6 +98,8 @@ pub struct AccountFlags {
     pub auth_revocable: bool,
     /// If `true`, this account can freeze the balance of a holder of an asset issued by this account.
     pub auth_immutable: bool,
+    /// If `true`, trustlines created for assets issued by this account have clawbacks enabled.
+    pub auth_clawback_enabled: bool,
 }
 
 /// Asset balance.
@@ -105,20 +107,22 @@ pub struct AccountFlags {
 pub struct Balance {
     /// The number of units the account holds.
     pub balance: String,
+    pub liquidity_pool_id: Option<String>,
     /// The maximum amount of the asset the account is willing to accept.
     pub limit: Option<String>,
     /// The sum of all buy offers owned by this account for this asset.
-    pub buying_liabilities: String,
+    pub buying_liabilities: Option<String>,
     /// The sum of all sell offers owned by this account for this asset.
-    pub selling_liabilities: String,
+    pub selling_liabilities: Option<String>,
+    /// The account sponsoring this trustline.
+    pub sponsor: Option<String>,
     /// Ledger when the balance was last changed.
     pub last_modified_ledger: Option<u32>,
     /// Flag to indicate if the account is authorized to hold asset.
     pub is_authorized: Option<bool>,
     /// Flag to indicate if the account is authorized to maintain liabilities.
     pub is_authorized_to_maintain_liabilities: Option<bool>,
-    /// The account sponsoring this trustline.
-    pub sponsor: Option<String>,
+    pub is_clawback_enabled: Option<bool>,
     /// The asset.
     #[serde(flatten)]
     pub asset: Asset,
