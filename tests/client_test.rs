@@ -17,6 +17,10 @@ fn new_client() -> HorizonHttpClient {
     HorizonHttpClient::new_from_str("https://horizon.stellar.org").unwrap()
 }
 
+fn new_client_public_node() -> HorizonHttpClient {
+    HorizonHttpClient::new_from_str("https://horizon.publicnode.org").unwrap()
+}
+
 fn new_root_key() -> KeyPair {
     KeyPair::from_network(&Network::new_public()).unwrap()
 }
@@ -46,7 +50,10 @@ async fn test_root() {
 
 #[tokio::test]
 async fn test_headers() {
-    let client = new_client();
+    // Use publicnode.org instead of stellar.org, since the latter doesn't have
+    // rate limit fields (see
+    // https://stellar.stackexchange.com/questions/6123/cant-find-horizon-x-ratelimit-headers)
+    let client = new_client_public_node();
     let (headers, _) = client.request(api::root::root()).await.unwrap();
     let limit = rate_limit_limit(&headers).unwrap();
     let remaining = rate_limit_remaining(&headers).unwrap();
