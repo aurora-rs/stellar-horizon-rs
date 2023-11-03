@@ -4,7 +4,7 @@ use crate::resources::{Asset, AssetAmount};
 use crate::resources::{LiquidityPoolOrAsset, Predicate};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::rust::display_fromstr;
+use serde_with::{serde_as, DisplayFromStr};
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
@@ -145,11 +145,13 @@ pub struct AccountInflationDestinationUpdated {
     pub base: EffectBase,
 }
 
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct SequenceBumpedEffect {
     #[serde(flatten)]
     pub base: EffectBase,
-    #[serde(rename = "new_seq", with = "display_fromstr")]
+    #[serde(rename = "new_seq")]
+    #[serde_as(as = "DisplayFromStr")]
     pub new_sequence: i64,
 }
 
@@ -465,13 +467,14 @@ pub struct ClaimableBalanceClawedBackEffect {
     pub balance_id: String,
 }
 
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct LiquidityPoolEffect {
     pub id: String,
     pub fee_bp: u32,
     #[serde(rename = "type")]
     pub pool_type: String,
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub total_trustlines: u64,
     pub total_shares: String,
     pub reserves: Vec<AssetAmount>,

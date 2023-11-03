@@ -13,7 +13,6 @@ keywords = ["stellar", "blockchain"]
 [dependencies]
 stellar-base = "0.6.0"
 async-sse = "5.1.0"
-base64 = "0.13.0"
 chrono = { version = "0.4.19", features = ["serde"] }
 futures = "0.3.21"
 hyper = { version = "0.14.18", features = ["client", "http1", "stream"] }
@@ -23,7 +22,7 @@ http-types = "2.12.0"
 serde = "1.0.136"
 serde_derive = "1.0.136"
 serde_json = "1.0.79"
-serde_with = { version = "1.12.0", features = ["default"] }
+serde_with = "3.4"
 thiserror = "1.0.30"
 url = "2.2.2"
 

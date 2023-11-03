@@ -4,7 +4,7 @@ use crate::resources::{
 };
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::rust::display_fromstr;
+use serde_with::{serde_as, DisplayFromStr};
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
@@ -159,6 +159,7 @@ pub struct CreatePassiveSellOfferOperation {
     pub selling: Asset,
 }
 
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ManageSellOfferOperation {
     #[serde(flatten)]
@@ -171,10 +172,11 @@ pub struct ManageSellOfferOperation {
     pub buying: Asset,
     #[serde(flatten, with = "SellingAsset")]
     pub selling: Asset,
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub offer_id: i64,
 }
 
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct ManageBuyOfferOperation {
     #[serde(flatten)]
@@ -187,7 +189,7 @@ pub struct ManageBuyOfferOperation {
     pub buying: Asset,
     #[serde(flatten, with = "SellingAsset")]
     pub selling: Asset,
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub offer_id: i64,
 }
 

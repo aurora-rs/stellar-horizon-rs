@@ -2,14 +2,15 @@ use crate::link::Link;
 use crate::resources::{Asset, LedgerId, OfferId, Price};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::rust::display_fromstr;
+use serde_with::{serde_as, DisplayFromStr};
 
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct Offer {
     #[serde(rename = "_links")]
     pub links: OfferLinks,
     /// The offer id.
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub id: OfferId,
     /// The paging token for this offer.
     pub paging_token: String,

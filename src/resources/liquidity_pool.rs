@@ -1,9 +1,10 @@
 use crate::link::Link;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::rust::display_fromstr;
+use serde_with::{serde_as, DisplayFromStr};
 
 /// Liquidity Pool on the Stellar Network.
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct LiquidityPool {
     /// Liquidity Pool links.
@@ -19,7 +20,7 @@ pub struct LiquidityPool {
     #[serde(rename = "type")]
     pub pool_type: String,
     /// The number of accounts that have a trustline for this liquidity pool.
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub total_trustlines: u64,
     /// The number of outstanding shares of the liquidity pool.
     pub total_shares: String,

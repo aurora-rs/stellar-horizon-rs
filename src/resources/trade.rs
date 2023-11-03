@@ -2,7 +2,7 @@ use crate::link::Link;
 use crate::resources::Asset;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::rust::display_fromstr;
+use serde_with::{serde_as, DisplayFromStr};
 
 /// A trade on the distributed exchange.
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -51,24 +51,28 @@ pub struct Trade {
 }
 
 /// Price for a trade
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradePrice {
     /// The numerator of the price
-    #[serde(rename = "n", with = "display_fromstr")]
+    #[serde(rename = "n")]
+    #[serde_as(as = "DisplayFromStr")]
     pub numerator: i64,
     /// The denominator of the price
-    #[serde(rename = "d", with = "display_fromstr")]
+    #[serde(rename = "d")]
+    #[serde_as(as = "DisplayFromStr")]
     pub denominator: i64,
 }
 
 /// A trade aggregation represents aggregated statistics on an asset pair (base and counter) for a specific time period.
+#[serde_as]
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct TradeAggregation {
     /// Start time for this trade aggregation. Represented as milliseconds since epoch.
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub timestamp: i64,
     /// Total number of trades aggregated.
-    #[serde(with = "display_fromstr")]
+    #[serde_as(as = "DisplayFromStr")]
     pub trade_count: i64,
     /// Total volume of base asset.
     pub base_volume: String,
