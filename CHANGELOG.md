@@ -138,7 +138,6 @@ and `LiquidityPoolOrAsset` resources.
  - Implement several endpoints
  - Improve documentation
 
-
 ### Changed
  - Update to `stellar-base` version `0.4.0`
 
