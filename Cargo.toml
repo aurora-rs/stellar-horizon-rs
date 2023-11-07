@@ -9,6 +9,7 @@ documentation = "https://docs.rs/stellar-horizon"
 repository = "https://github.com/aurora-rs/stellar-horizon-rs"
 readme = "README.md"
 keywords = ["stellar", "blockchain"]
+include = ["src/**/*", "LICENSE", "README.md", "CHANGELOG.md"]
 
 [dependencies]
 stellar-base = { version = "0.6.0", default-features = false }
