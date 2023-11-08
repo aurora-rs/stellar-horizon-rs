@@ -11,7 +11,7 @@ readme = "README.md"
 keywords = ["stellar", "blockchain"]
 
 [dependencies]
-stellar-base = "0.6.0"
+stellar-base = { version = "0.6.0", default-features = false }
 async-sse = "5.1.0"
 chrono = { version = "0.4.19", features = ["serde"] }
 futures = "0.3.21"
@@ -27,6 +27,7 @@ thiserror = "1.0.30"
 url = "2.2.2"
 
 [dev-dependencies]
+stellar-base = { version = "0.6.0", features = ["sodium_oxide"] }
 tokio = { version = "1.17.0", features = ["full"] }
 tokio-stream = "0.1.8"
 json = "0.12.4"
