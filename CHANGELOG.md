@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2023-11-08
+### Changed
+- Removed 'sodium\_oxide' feature from the 'stellar-base' dependency, which is
+  heavy weight and only needed for signing.
+
 ## [0.7.0] - 2023-11-03
 ### Added
 - Add liquidity pool endpoints
