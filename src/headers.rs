@@ -1,6 +1,7 @@
 //! Helper functions to access Horizon headers.
 use std::str::FromStr;
 
+pub use hyper::header;
 pub use hyper::HeaderMap;
 
 /// Returns the remaining requests quota in the current window.

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Add `Payment::base()`.
+- Add `HorizonHttpClient::with_extra_headers` to support authorization headers
 
 ## [0.7.1] - 2023-11-08
 ### Changed
