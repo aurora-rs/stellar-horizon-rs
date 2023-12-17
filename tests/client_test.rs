@@ -833,6 +833,22 @@ async fn test_single_liquidity_pool() {
     assert_eq!(liquidity_pool_id, response.id);
 }
 
+#[tokio::test]
+async fn test_extra_headers() {
+    let mut headers = hyper::header::HeaderMap::new();
+    headers.insert(
+        "X-Client-Name",
+        hyper::header::HeaderValue::from_static("test"),
+    );
+    let client =
+        HorizonHttpClient::with_extra_headers("https://horizon.stellar.org", headers).unwrap();
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let req = api::liquidity_pools::single(liquidity_pool_id.to_string());
+    let (_, response) = client.request(req).await.unwrap();
+    assert_eq!(liquidity_pool_id, response.id);
+}
+
 /*
 #[tokio::test]
 async fn test_pagination() {

@@ -41,6 +41,7 @@ struct HorizonHttpClientInner {
     host: Url,
     client_name: String,
     client_version: String,
+    extra_headers: Option<hyper::HeaderMap>,
 }
 
 type BoxDecoder = Box<dyn Unpin + Send + Stream<Item = http_types::Result<async_sse::Event>>>;
@@ -70,14 +71,33 @@ impl HorizonHttpClientInner {
             host,
             client_name,
             client_version,
+            extra_headers: None,
         })
     }
 
+    pub fn with_extra_headers(
+        host: Url,
+        extra_headers: hyper::HeaderMap,
+    ) -> Result<HorizonHttpClientInner> {
+        let mut client = HorizonHttpClientInner::new(host)?;
+        client.extra_headers = Some(extra_headers);
+        Ok(client)
+    }
+
     pub fn request_builder(&self, uri: Url) -> http::request::Builder {
-        hyper::Request::builder()
+        let mut builder = hyper::Request::builder()
             .uri(uri.to_string())
             .header("X-Client-Name", self.client_name.to_string())
-            .header("X-Client-Version", self.client_version.to_string())
+            .header("X-Client-Version", self.client_version.to_string());
+        if let Some(extra_headers) = &self.extra_headers {
+            builder.headers_mut().unwrap().extend(
+                extra_headers
+                    .clone()
+                    .iter()
+                    .map(|(k, v)| (k.clone(), v.clone())),
+            );
+        }
+        builder
     }
 
     fn get(&self, uri: Url) -> http::request::Builder {
@@ -94,6 +114,18 @@ impl HorizonHttpClient {
     pub fn new_from_str(host: &str) -> Result<HorizonHttpClient> {
         let host: Url = host.parse().map_err(|_| Error::InvalidHost)?;
         HorizonHttpClient::new(host)
+    }
+
+    /// Creates a new horizon client with the specified host url str and extra headers
+    pub fn with_extra_headers(
+        host: &str,
+        extra_headers: hyper::HeaderMap,
+    ) -> Result<HorizonHttpClient> {
+        let host: Url = host.parse().map_err(|_| Error::InvalidHost)?;
+        let inner = HorizonHttpClientInner::with_extra_headers(host, extra_headers)?;
+        Ok(HorizonHttpClient {
+            inner: Arc::new(inner),
+        })
     }
 
     /// Creates a new horizon client with the specified host url.
