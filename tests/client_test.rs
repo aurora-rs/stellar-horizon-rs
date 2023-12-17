@@ -833,6 +833,22 @@ async fn test_single_liquidity_pool() {
     assert_eq!(liquidity_pool_id, response.id);
 }
 
+#[tokio::test]
+async fn test_extra_headers() {
+    let client = new_client();
+    let mut header = hyper::header::HeaderMap::new();
+    header.insert(
+        "X-Client-Name",
+        hyper::header::HeaderValue::from_static("test"),
+    );
+    let client = client.with_extra_headers(header).unwrap();
+    let liquidity_pool_id = "0016ed5f76feb9f407a3676be3c96448c44e61298e8e5ba0f23011350212fc16";
+
+    let req = api::liquidity_pools::single(liquidity_pool_id.to_string());
+    let (_, response) = client.request(req).await.unwrap();
+    assert_eq!(liquidity_pool_id, response.id);
+}
+
 /*
 #[tokio::test]
 async fn test_pagination() {
