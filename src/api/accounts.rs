@@ -7,6 +7,8 @@ use stellar_base::asset::CreditAsset;
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
+pub(crate) const API_PATH: &str = "accounts";
+
 /// Creates a request to retrieve a single account.
 pub fn single(public_key: &PublicKey) -> SingleAccountRequest {
     let account_id = public_key.account_id();
@@ -58,27 +60,35 @@ pub struct AllAccountsRequest {
 impl Request for SingleAccountRequest {
     type Response = resources::Account;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let path = format!("/accounts/{}", self.account_id);
-        Ok(host.join(&path)?)
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH, self.account_id.as_str()]);
+        }
+        Ok(base_url)
     }
 }
 
 impl Request for AllAccountsRequest {
     type Response = Page<resources::Account>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/accounts")?;
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
         if let Some(signer) = self.signer.as_ref() {
-            url = url.append_query_param("signer", signer);
+            base_url = base_url.append_query_param("signer", signer);
         }
         if let Some(asset) = self.asset.as_ref() {
-            url = url.append_query_param("asset", &credit_asset_to_string(asset));
+            base_url = base_url.append_query_param("asset", &credit_asset_to_string(asset));
         }
         if let Some(sponsor) = self.sponsor.as_ref() {
-            url = url.append_query_param("sponsor", sponsor);
+            base_url = base_url.append_query_param("sponsor", sponsor);
         }
-        Ok(url.append_pagination_params(self))
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -107,6 +117,22 @@ mod tests {
     }
 
     #[test]
+    fn test_single_request_uri_with_base_url() {
+        let pk =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let host: Url = "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap();
+        let req = single(&pk);
+        let uri = req.uri(&host).unwrap();
+        assert_eq!(
+            "https://horizon.stellar.org/some/non/host/url/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+            uri.to_string()
+        );
+    }
+
+    #[test]
     fn test_all_with_signer_request_uri() {
         let pk =
             PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
@@ -122,6 +148,23 @@ mod tests {
     }
 
     #[test]
+    fn test_all_with_signer_request_uri_with_base_url() {
+        let pk =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let host: Url = "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap();
+        let req = all().with_signer(&pk);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/accounts?"));
+        assert_eq!(Some(&pk.account_id()), query.get("signer"));
+    }
+
+    #[test]
     fn test_all_with_sponsor_request_uri() {
         let pk =
             PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
@@ -133,6 +176,23 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/accounts?"));
+        assert_eq!(Some(&pk.account_id()), query.get("sponsor"));
+    }
+
+    #[test]
+    fn test_all_with_sponsor_request_uri_with_base_url() {
+        let pk =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let host: Url = "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap();
+        let req = all().with_sponsor(&pk);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/accounts?"));
         assert_eq!(Some(&pk.account_id()), query.get("sponsor"));
     }
 }

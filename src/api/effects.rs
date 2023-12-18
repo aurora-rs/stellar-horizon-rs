@@ -5,6 +5,10 @@ use crate::resources::{self, LedgerId};
 use stellar_base::PublicKey;
 use url::Url;
 
+use super::{accounts, ledgers};
+
+pub(crate) const API_PATH: &str = "effects";
+
 /// Create a request to retrieve all effects.
 pub fn all() -> AllEffectsRequest {
     Default::default()
@@ -125,9 +129,13 @@ pub struct EffectsForLiquidityPoolRequest {
 impl Request for AllEffectsRequest {
     type Response = Page<resources::Effect>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join("/effects")?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -140,9 +148,14 @@ impl StreamRequest for AllEffectsRequest {
 impl Request for EffectsForLedgerRequest {
     type Response = Page<resources::Effect>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/ledgers/{}/effects", self.ledger))?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            let ledger = self.ledger.to_string();
+            segments.extend(&[ledgers::API_PATH, ledger.as_str(), API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -155,9 +168,13 @@ impl StreamRequest for EffectsForLedgerRequest {
 impl Request for EffectsForTransactionRequest {
     type Response = Page<resources::Effect>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/transactions/{}/effects", self.tx_hash))?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["transactions", self.tx_hash.as_str(), API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -166,9 +183,13 @@ impl_page_request!(EffectsForTransactionRequest);
 impl Request for EffectsForOperationRequest {
     type Response = Page<resources::Effect>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/operations/{}/effects", self.operation_id))?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["operations", self.operation_id.as_str(), API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -177,9 +198,13 @@ impl_page_request!(EffectsForOperationRequest);
 impl Request for EffectsForAccountRequest {
     type Response = Page<resources::Effect>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/accounts/{}/effects", self.account_id))?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[accounts::API_PATH, self.account_id.as_str(), API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -192,12 +217,13 @@ impl StreamRequest for EffectsForAccountRequest {
 impl Request for EffectsForLiquidityPoolRequest {
     type Response = Page<resources::Effect>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!(
-            "/liquidity_pools/{}/effects",
-            self.liquidity_pool_id
-        ))?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["liquidity_pools", self.liquidity_pool_id.as_str(), API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -220,6 +246,12 @@ mod tests {
         "https://horizon.stellar.org".parse().unwrap()
     }
 
+    fn base_url() -> Url {
+        "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap()
+    }
+
     #[test]
     fn test_all_effects_request_uri() {
         let req = all().with_cursor("now");
@@ -228,6 +260,17 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/effects?"));
+        assert_eq!(Some(&"now".to_string()), query.get("cursor"));
+    }
+
+    #[test]
+    fn test_all_effects_request_uri_with_base_url() {
+        let req = all().with_cursor("now");
+        let uri = req.uri(&base_url()).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/effects?"));
         assert_eq!(Some(&"now".to_string()), query.get("cursor"));
     }
 
@@ -246,6 +289,20 @@ mod tests {
     }
 
     #[test]
+    fn test_effects_for_account_request_uri_with_base_url() {
+        let pk =
+            PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+                .unwrap();
+        let req = for_account(&pk).with_order(&Order::Ascending);
+        let uri = req.uri(&base_url()).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/effects?"));
+        assert_eq!(Some(&"asc".to_string()), query.get("order"));
+    }
+
+    #[test]
     fn test_effects_for_ledger_request_uri() {
         let req = for_ledger(123).with_order(&Order::Ascending);
         let uri = req.uri(&host()).unwrap();
@@ -255,12 +312,30 @@ mod tests {
     }
 
     #[test]
+    fn test_effects_for_ledger_request_uri_with_base_url() {
+        let req = for_ledger(123).with_order(&Order::Ascending);
+        let uri = req.uri(&&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/ledgers/123/effects?"));
+    }
+
+    #[test]
     fn test_effects_for_operation_request_uri() {
         let req = for_operation("12345");
         let uri = req.uri(&host()).unwrap();
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/operations/12345/effects?"));
+    }
+
+    #[test]
+    fn test_effects_for_operation_request_uri_with_base_url() {
+        let req = for_operation("12345");
+        let uri = req.uri(&base_url()).unwrap();
+        assert!(uri.to_string().starts_with(
+            "https://horizon.stellar.org/some/non/host/url/operations/12345/effects?"
+        ));
     }
 
     #[test]
@@ -274,12 +349,33 @@ mod tests {
     }
 
     #[test]
+    fn test_effects_for_transaction_request_uri_with_base_url() {
+        let req =
+            for_transaction("23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e");
+        let uri = req.uri(&&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/transactions/23bf920c4a000b78268589df224c1ba4c883a905687f5a5b3bdba721ee1f481e/effects?"));
+    }
+
+    #[test]
     fn test_effects_for_liquidity_pool_request_uri() {
         let expected_uri = "https://horizon.stellar.org/liquidity_pools/006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207/effects?";
 
         let req =
             for_liquidity_pool("006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207");
         let uri = req.uri(&host()).unwrap();
+
+        assert_eq!(expected_uri, uri.as_str());
+    }
+
+    #[test]
+    fn test_effects_for_liquidity_pool_request_uri_with_base_url() {
+        let expected_uri = "https://horizon.stellar.org/some/non/host/url/liquidity_pools/006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207/effects?";
+
+        let req =
+            for_liquidity_pool("006881bb9a17b0c0f4000cb12eaeb2b954390707b03a676b87f824dc6af9f207");
+        let uri = req.uri(&base_url()).unwrap();
 
         assert_eq!(expected_uri, uri.as_str());
     }
