@@ -414,6 +414,18 @@ impl Operation {
     }
 }
 
+impl Payment {
+    pub fn base(&self) -> &OperationBase {
+        match self {
+            Payment::CreateAccount(op) => &op.base,
+            Payment::Payment(op) => &op.base,
+            Payment::PathPaymentStrictReceive(op) => &op.base,
+            Payment::PathPaymentStrictSend(op) => &op.base,
+            Payment::AccountMerge(op) => &op.base,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(remote = "Asset")]
 struct BuyingAsset {
