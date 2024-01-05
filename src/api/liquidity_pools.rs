@@ -7,6 +7,8 @@ use crate::page::Page;
 use crate::request::{Order, PageRequest, Request, UrlPageRequestExt};
 use crate::resources;
 
+pub(crate) const API_PATH: &str = "liquidity_pools";
+
 /// Creates a request to retrieve all liquidity pools.
 pub fn all() -> AllLiquidityPoolsRequest {
     AllLiquidityPoolsRequest {
@@ -50,11 +52,14 @@ impl AllLiquidityPoolsRequest {
 impl Request for AllLiquidityPoolsRequest {
     type Response = Page<resources::LiquidityPool>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/liquidity_pools")?;
-
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
         {
-            let mut query = url.query_pairs_mut();
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
+        {
+            let mut query = base_url.query_pairs_mut();
 
             if let Some(reserves) = self.reserves.as_ref() {
                 let reserve_str = reserves
@@ -72,7 +77,7 @@ impl Request for AllLiquidityPoolsRequest {
             }
         }
 
-        Ok(url.append_pagination_params(self))
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -87,10 +92,13 @@ pub struct SingleLiquidityPoolRequest {
 impl Request for SingleLiquidityPoolRequest {
     type Response = resources::LiquidityPool;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let path = format!("/liquidity_pools/{}", self.id);
-
-        Ok(host.join(&path)?)
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH, self.id.as_str()]);
+        }
+        Ok(base_url)
     }
 }
 
@@ -105,6 +113,12 @@ mod tests {
 
     fn host() -> Url {
         "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    fn base_url() -> Url {
+        "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap()
     }
 
     #[test]
@@ -137,6 +151,35 @@ mod tests {
     }
 
     #[test]
+    fn test_all_liquidity_pools_request_uri_with_base_url() {
+        let account =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let issuer =
+            PublicKey::from_account_id("GDPFNXAJ6R37LBQ6QYVKGBVW5ZA4QXPFJYKQUHPJSALXCUBQ7I5K6YFN")
+                .unwrap();
+
+        let reserves = vec![
+            Asset::new_native(),
+            Asset::new_credit("BUSD", issuer).unwrap(),
+        ];
+
+        let req = all().with_account(&account).with_reserves(reserves);
+
+        let uri = req.uri(&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/liquidity_pools?"));
+
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+
+        let expected_reserves =
+            "native,BUSD:GDPFNXAJ6R37LBQ6QYVKGBVW5ZA4QXPFJYKQUHPJSALXCUBQ7I5K6YFN".to_string();
+        assert_eq!(Some(&expected_reserves), query.get("reserves"));
+        assert_eq!(Some(&account.account_id()), query.get("account"));
+    }
+
+    #[test]
     fn test_single_liquidity_pools_request_uri() {
         let liquidity_pool_id =
             "67260c4c1807b262ff851b0a3fe141194936bb0215b2f77447f1df11998eabb9".to_string();
@@ -148,6 +191,21 @@ mod tests {
         let req = single(liquidity_pool_id.clone());
 
         let uri = req.uri(&host()).unwrap();
+        assert_eq!(expected_uri, uri.to_string());
+    }
+
+    #[test]
+    fn test_single_liquidity_pools_request_uri_with_base_url() {
+        let liquidity_pool_id =
+            "67260c4c1807b262ff851b0a3fe141194936bb0215b2f77447f1df11998eabb9".to_string();
+        let expected_uri = format!(
+            "https://horizon.stellar.org/some/non/host/url/liquidity_pools/{}",
+            liquidity_pool_id
+        );
+
+        let req = single(liquidity_pool_id.clone());
+
+        let uri = req.uri(&base_url()).unwrap();
         assert_eq!(expected_uri, uri.to_string());
     }
 }

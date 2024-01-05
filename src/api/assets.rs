@@ -6,6 +6,8 @@ use stellar_base::asset::{Asset, CreditAsset};
 use stellar_base::crypto::PublicKey;
 use url::Url;
 
+pub(crate) const API_PATH: &str = "assets";
+
 /// Creates a request to list all assets issued on the network.
 pub fn all() -> AllAssetsRequest {
     AllAssetsRequest {
@@ -47,10 +49,14 @@ impl AllAssetsRequest {
 impl Request for AllAssetsRequest {
     type Response = Page<resources::AssetStat>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/assets")?;
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
         {
-            let mut query = url.query_pairs_mut();
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
+        {
+            let mut query = base_url.query_pairs_mut();
             if let Some(asset_code) = &self.asset_code {
                 query.append_pair("asset_code", asset_code);
             }
@@ -58,7 +64,7 @@ impl Request for AllAssetsRequest {
                 query.append_pair("asset_issuer", asset_issuer);
             }
         }
-        Ok(url.append_pagination_params(self))
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -102,6 +108,24 @@ mod tests {
     }
 
     #[test]
+    fn test_all_assets_request_uri_with_base_url() {
+        let pk =
+            PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+                .unwrap();
+        let host: Url = "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap();
+        let req = all().with_asset_code("CODE").with_asset_issuer(&pk);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/assets?"));
+        assert_eq!(Some(&"CODE".to_string()), query.get("asset_code"));
+        assert_eq!(Some(&pk.account_id()), query.get("asset_issuer"));
+    }
+
+    #[test]
     fn test_all_assets_request_uri_with_page() {
         let host: Url = "https://horizon.stellar.org".parse().unwrap();
         let req = all()
@@ -113,6 +137,25 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/assets?"));
+        assert_eq!(Some(&"100".to_string()), query.get("limit"));
+        assert_eq!(Some(&"now".to_string()), query.get("cursor"));
+        assert_eq!(Some(&"desc".to_string()), query.get("order"));
+    }
+
+    #[test]
+    fn test_all_assets_request_uri_with_page_with_base_url() {
+        let host: Url = "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap();
+        let req = all()
+            .with_cursor("now")
+            .with_order(&Order::Descending)
+            .with_limit(100);
+        let uri = req.uri(&host).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/assets?"));
         assert_eq!(Some(&"100".to_string()), query.get("limit"));
         assert_eq!(Some(&"now".to_string()), query.get("cursor"));
         assert_eq!(Some(&"desc".to_string()), query.get("order"));

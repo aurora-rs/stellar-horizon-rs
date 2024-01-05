@@ -6,6 +6,10 @@ use crate::resources::{self, LedgerId};
 use stellar_base::PublicKey;
 use url::Url;
 
+use super::{accounts, ledgers, transactions};
+
+pub(crate) const API_PATH: &str = "payments";
+
 /// Creates a request to retrieve all payments.
 pub fn all() -> AllPaymentsRequest {
     Default::default()
@@ -116,11 +120,17 @@ pub struct PaymentsForTransactionRequest {
 impl Request for AllPaymentsRequest {
     type Response = Page<resources::Payment>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/payments")?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
+        base_url = base_url
+            .append_include_failed(&self.include_failed)
+            .appen_join(&self.join);
+
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -133,11 +143,17 @@ impl StreamRequest for AllPaymentsRequest {
 impl Request for PaymentsForAccountRequest {
     type Response = Page<resources::Payment>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/accounts/{}/payments", self.account_id))?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[accounts::API_PATH, self.account_id.as_str(), API_PATH]);
+        }
+        base_url = base_url
+            .append_include_failed(&self.include_failed)
+            .appen_join(&self.join);
+
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -150,11 +166,18 @@ impl StreamRequest for PaymentsForAccountRequest {
 impl Request for PaymentsForLedgerRequest {
     type Response = Page<resources::Payment>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/ledgers/{}/payments", self.ledger_id))?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            let ledger_id = self.ledger_id.to_string();
+            segments.extend(&[ledgers::API_PATH, ledger_id.as_str(), API_PATH]);
+        }
+        base_url = base_url
+            .append_include_failed(&self.include_failed)
+            .appen_join(&self.join);
+
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -163,11 +186,17 @@ impl_page_request!(PaymentsForLedgerRequest);
 impl Request for PaymentsForTransactionRequest {
     type Response = Page<resources::Payment>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/transactions/{}/payments", self.tx_hash))?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[transactions::API_PATH, self.tx_hash.as_str(), API_PATH]);
+        }
+        base_url = base_url
+            .append_include_failed(&self.include_failed)
+            .appen_join(&self.join);
+
+        Ok(base_url.append_pagination_params(self))
     }
 }
 

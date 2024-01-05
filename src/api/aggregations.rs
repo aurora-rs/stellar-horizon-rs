@@ -203,52 +203,64 @@ impl PathsStrictSendRequest {
 impl Request for OrderBookRequest {
     type Response = resources::OrderBookSummary;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/order_book")?;
-        url = url.append_asset_params(&self.buying, Some("buying"));
-        url = url.append_asset_params(&self.selling, Some("selling"));
-        if let Some(limit) = &self.limit {
-            url = url.append_query_param("limit", &limit.to_string());
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["order_book"]);
         }
-        Ok(url)
+        base_url = base_url.append_asset_params(&self.buying, Some("buying"));
+        base_url = base_url.append_asset_params(&self.selling, Some("selling"));
+        if let Some(limit) = &self.limit {
+            base_url = base_url.append_query_param("limit", &limit.to_string());
+        }
+        Ok(base_url)
     }
 }
 
 impl Request for PathsStrictReceiveRequest {
     type Response = Page<resources::Path>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/paths/strict-receive")?;
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["paths", "strict-receive"]);
+        }
         if let Some(source_account) = &self.source_account {
-            url = url.append_query_param("source_account", source_account);
+            base_url = base_url.append_query_param("source_account", source_account);
         }
         if !self.source_assets.is_empty() {
             let source_assets = serialize_assets_to_query_value(&self.source_assets);
-            url = url.append_query_param("source_assets", &source_assets);
+            base_url = base_url.append_query_param("source_assets", &source_assets);
         }
-        url = url.append_asset_params(&self.destination_asset, Some("destination"));
+        base_url = base_url.append_asset_params(&self.destination_asset, Some("destination"));
         let amount = Amount::from_stroops(&self.destination_amount)?;
-        url = url.append_query_param("destination_amount", &amount.to_string());
-        Ok(url)
+        base_url = base_url.append_query_param("destination_amount", &amount.to_string());
+        Ok(base_url)
     }
 }
 
 impl Request for PathsStrictSendRequest {
     type Response = Page<resources::Path>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/paths/strict-send")?;
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["paths", "strict-send"]);
+        }
         if let Some(destination_account) = &self.destination_account {
-            url = url.append_query_param("destination_account", destination_account);
+            base_url = base_url.append_query_param("destination_account", destination_account);
         }
         if !self.destination_assets.is_empty() {
             let destination_assets = serialize_assets_to_query_value(&self.destination_assets);
-            url = url.append_query_param("destination_assets", &destination_assets);
+            base_url = base_url.append_query_param("destination_assets", &destination_assets);
         }
-        url = url.append_asset_params(&self.source_asset, Some("source"));
+        base_url = base_url.append_asset_params(&self.source_asset, Some("source"));
         let amount = Amount::from_stroops(&self.source_amount)?;
-        url = url.append_query_param("source_amount", &amount.to_string());
-        Ok(url)
+        base_url = base_url.append_query_param("source_amount", &amount.to_string());
+        Ok(base_url)
     }
 }
 
@@ -259,34 +271,45 @@ impl StreamRequest for OrderBookRequest {
 impl Request for AllTradesRequest {
     type Response = Page<resources::TradeAggregation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/trade_aggregations")?;
-        let start_time = self.start_time.timestamp_millis();
-        url = url.append_query_param("start_time", &start_time.to_string());
-        let end_time = self.end_time.timestamp_millis();
-        url = url.append_query_param("end_time", &end_time.to_string());
-        let resolution = resolution_to_milliseconds(&self.resolution);
-        url = url.append_query_param("resolution", &resolution.to_string());
-        if let Some(offset) = &self.offset {
-            url = url.append_query_param("offset", &offset.num_milliseconds().to_string());
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["trade_aggregations"]);
         }
-        url = url.append_asset_params(&self.base_asset, Some("base"));
-        url = url.append_asset_params(&self.counter_asset, Some("counter"));
+
+        let start_time = self.start_time.timestamp_millis();
+        base_url = base_url.append_query_param("start_time", &start_time.to_string());
+        let end_time = self.end_time.timestamp_millis();
+        base_url = base_url.append_query_param("end_time", &end_time.to_string());
+        let resolution = resolution_to_milliseconds(&self.resolution);
+        base_url = base_url.append_query_param("resolution", &resolution.to_string());
+        if let Some(offset) = &self.offset {
+            base_url =
+                base_url.append_query_param("offset", &offset.num_milliseconds().to_string());
+        }
+        base_url = base_url.append_asset_params(&self.base_asset, Some("base"));
+        base_url = base_url.append_asset_params(&self.counter_asset, Some("counter"));
         if let Some(order) = &self.order {
-            url = url.append_query_param("order", &order.to_query_value());
+            base_url = base_url.append_query_param("order", &order.to_query_value());
         }
         if let Some(limit) = &self.limit {
-            url = url.append_query_param("limit", &limit.to_string());
+            base_url = base_url.append_query_param("limit", &limit.to_string());
         }
-        Ok(url)
+        Ok(base_url)
     }
 }
 
 impl Request for FeeStatsRequest {
     type Response = resources::FeeStats;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join("/fee_stats")?)
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&["fee_stats"]);
+        }
+        Ok(base_url)
     }
 }
 
@@ -318,6 +341,12 @@ mod tests {
 
     fn host() -> Url {
         "https://horizon.stellar.org".parse().unwrap()
+    }
+
+    fn base_url() -> Url {
+        "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap()
     }
 
     fn keypair0() -> PublicKey {
@@ -355,6 +384,29 @@ mod tests {
     }
 
     #[test]
+    fn test_order_book_request_uri_with_base_url() {
+        let req = order_book(credit_asset0(), Asset::new_native());
+        let uri = req.uri(&&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/order_book?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"native".to_string()), query.get("buying_asset_type"));
+        assert_eq!(None, query.get("buying_asset_code"));
+        assert_eq!(None, query.get("buying_asset_issuer"));
+        assert_eq!(
+            Some(&"credit_alphanum4".to_string()),
+            query.get("selling_asset_type")
+        );
+        assert_eq!(Some(&"ABCD".to_string()), query.get("selling_asset_code"));
+        assert_eq!(
+            Some(&"GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623".to_string()),
+            query.get("selling_asset_issuer")
+        );
+        assert_eq!(None, query.get("limit"));
+    }
+
+    #[test]
     fn test_order_book_request_uri_with_limit() {
         let req = order_book(credit_asset0(), Asset::new_native()).with_limit(100);
         let uri = req.uri(&host()).unwrap();
@@ -362,6 +414,17 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/order_book?"));
+        assert_eq!(Some(&"100".to_string()), query.get("limit"));
+    }
+
+    #[test]
+    fn test_order_book_request_uri_with_limit_with_base_url() {
+        let req = order_book(credit_asset0(), Asset::new_native()).with_limit(100);
+        let uri = req.uri(&base_url()).unwrap();
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/order_book?"));
         assert_eq!(Some(&"100".to_string()), query.get("limit"));
     }
 }

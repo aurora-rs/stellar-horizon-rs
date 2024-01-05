@@ -6,6 +6,10 @@ use crate::resources::{self, ClaimableBalanceId, LedgerId};
 use stellar_base::PublicKey;
 use url::Url;
 
+use super::{accounts, claimable_balances, ledgers, liquidity_pools, transactions};
+
+pub(crate) const API_PATH: &str = "operations";
+
 /// Creates a request to retrieve all operations.
 pub fn all() -> AllOperationsRequest {
     Default::default()
@@ -190,11 +194,16 @@ pub struct OperationsForLiquidityPoolRequest {
 impl Request for AllOperationsRequest {
     type Response = Page<resources::Operation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/operations")?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
+        base_url = base_url
+            .append_include_failed(&self.include_failed)
+            .appen_join(&self.join);
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -207,21 +216,28 @@ impl StreamRequest for AllOperationsRequest {
 impl Request for SingleOperationRequest {
     type Response = resources::Operation;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/operations/{}", self.operation_id))?;
-        url = url.appen_join(&self.join);
-        Ok(url)
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH, self.operation_id.as_str()]);
+        }
+        Ok(base_url.appen_join(&self.join))
     }
 }
 
 impl Request for OperationsForAccountRequest {
     type Response = Page<resources::Operation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/accounts/{}/operations", self.account_id))?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[accounts::API_PATH, self.account_id.as_str(), API_PATH]);
+        }
+        base_url = base_url.append_include_failed(&self.include_failed);
+        base_url = base_url.appen_join(&self.join);
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -234,11 +250,16 @@ impl StreamRequest for OperationsForAccountRequest {
 impl Request for OperationsForLedgerRequest {
     type Response = Page<resources::Operation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/ledgers/{}/operations", self.ledger))?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            let ledger = self.ledger.to_string();
+            segments.extend(&[ledgers::API_PATH, ledger.as_str(), API_PATH]);
+        }
+        base_url = base_url.append_include_failed(&self.include_failed);
+        base_url = base_url.appen_join(&self.join);
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -251,11 +272,15 @@ impl StreamRequest for OperationsForLedgerRequest {
 impl Request for OperationsForTransactionRequest {
     type Response = Page<resources::Operation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/transactions/{}/operations", self.tx_id))?;
-        url = url.append_include_failed(&self.include_failed);
-        url = url.appen_join(&self.join);
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[transactions::API_PATH, self.tx_id.as_str(), API_PATH]);
+        }
+        base_url = base_url.append_include_failed(&self.include_failed);
+        base_url = base_url.appen_join(&self.join);
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -269,16 +294,22 @@ impl OperationsForClaimableBalanceRequest {
 impl Request for OperationsForClaimableBalanceRequest {
     type Response = Page<resources::Operation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host
-            .join(&format!(
-                "/claimable_balances/{}/operations",
-                self.claimable_balance_id
-            ))?
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[
+                claimable_balances::API_PATH,
+                self.claimable_balance_id.as_str(),
+                API_PATH,
+            ]);
+        }
+
+        let base_url = base_url
             .append_include_failed(&self.include_failed)
             .appen_join(&self.join)
             .append_pagination_params(self);
-        Ok(url)
+        Ok(base_url)
     }
 }
 
@@ -296,16 +327,21 @@ impl OperationsForLiquidityPoolRequest {
 impl Request for OperationsForLiquidityPoolRequest {
     type Response = Page<resources::Operation>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!(
-            "/liquidity_pools/{}/operations",
-            self.liquidity_pool_id
-        ))?;
-        url = url
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[
+                liquidity_pools::API_PATH,
+                self.liquidity_pool_id.as_str(),
+                API_PATH,
+            ]);
+        }
+        base_url = base_url
             .append_include_failed(&self.include_failed)
             .appen_join(&self.join)
             .append_pagination_params(self);
-        Ok(url)
+        Ok(base_url)
     }
 }
 
@@ -328,6 +364,12 @@ mod tests {
         "https://horizon.stellar.org".parse().unwrap()
     }
 
+    fn base_url() -> Url {
+        "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap()
+    }
+
     #[test]
     fn test_all_operations_request_uri() {
         let req = all()
@@ -342,12 +384,37 @@ mod tests {
     }
 
     #[test]
+    fn test_all_operations_request_uri_with_base_url() {
+        let req = all()
+            .with_include_failed(true)
+            .with_join(Join::Transactions);
+        let uri = req.uri(&base_url()).unwrap();
+        println!("LNK: {}", uri.to_string());
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/operations?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"true".to_string()), query.get("include_failed"));
+    }
+
+    #[test]
     fn test_single_operation_request_uri() {
         let req = single("8181").with_join(Join::Transactions);
         let uri = req.uri(&host()).unwrap();
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/operations/8181?"));
+        let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
+        assert_eq!(Some(&"transactions".to_string()), query.get("join"));
+    }
+
+    #[test]
+    fn test_single_operation_request_uri_with_base_url() {
+        let req = single("8181").with_join(Join::Transactions);
+        let uri = req.uri(&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/operations/8181?"));
         let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
         assert_eq!(Some(&"transactions".to_string()), query.get("join"));
     }
@@ -368,6 +435,21 @@ mod tests {
     }
 
     #[test]
+    fn test_operation_for_account_request_uri_with_base_url() {
+        let pk =
+            PublicKey::from_account_id("GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623")
+                .unwrap();
+        let req = for_account(&pk)
+            .with_cursor("now")
+            .with_join(Join::Transactions)
+            .with_include_failed(true);
+        let uri = req.uri(&&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/accounts/GDHCYXWSMCGPN7S5VBCSDVNXUMRI62MCRVK7DBULCDBBIEQE76DND623/operations?"));
+    }
+
+    #[test]
     fn test_operation_for_ledger_request_uri() {
         let req = for_ledger(888)
             .with_include_failed(true)
@@ -376,6 +458,17 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/ledgers/888/operations?"));
+    }
+
+    #[test]
+    fn test_operation_for_ledger_request_uri_with_base_url() {
+        let req = for_ledger(888)
+            .with_include_failed(true)
+            .with_join(Join::Transactions);
+        let uri = req.uri(&&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/ledgers/888/operations?"));
     }
 
     #[test]
@@ -388,6 +481,18 @@ mod tests {
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/transactions/715ffb63673a4ee9b84d4b60924b3e141b34fe3777697f35bad6d4b990524ca2/operations?"));
+    }
+
+    #[test]
+    fn test_operation_for_transaction_request_uri_with_base_url() {
+        let req =
+            for_transaction("715ffb63673a4ee9b84d4b60924b3e141b34fe3777697f35bad6d4b990524ca2")
+                .with_include_failed(true)
+                .with_join(Join::Transactions);
+        let uri = req.uri(&&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/transactions/715ffb63673a4ee9b84d4b60924b3e141b34fe3777697f35bad6d4b990524ca2/operations?"));
     }
 
     #[test]
@@ -404,12 +509,35 @@ mod tests {
     }
 
     #[test]
+    fn test_operation_for_claimable_balance_request_uri_with_base_url() {
+        let req = for_claimbable_balance(
+            "00000000178826fbfe339e1f5c53417c6fedfe2c05e8bec14303143ec46b38981b09c3f9",
+        )
+        .with_include_failed(true)
+        .with_join(Join::Transactions);
+        let uri = req.uri(&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/claimable_balances/00000000178826fbfe339e1f5c53417c6fedfe2c05e8bec14303143ec46b38981b09c3f9/operations?"));
+    }
+
+    #[test]
     fn test_operation_for_liquidity_pool_request_uri() {
         let expected_uri = "https://horizon.stellar.org/liquidity_pools/6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c/operations?";
         let liquidity_pool_id = "6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c";
 
         let req = for_liquidity_pool(liquidity_pool_id);
         let uri = req.uri(&host()).unwrap();
+        assert_eq!(expected_uri, uri.as_str());
+    }
+
+    #[test]
+    fn test_operation_for_liquidity_pool_request_uri_with_base_url() {
+        let expected_uri = "https://horizon.stellar.org/some/non/host/url/liquidity_pools/6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c/operations?";
+        let liquidity_pool_id = "6d30e1f5721962d8bad07d90c606a3963ddbe23c8751cdbdc87224d188f4593c";
+
+        let req = for_liquidity_pool(liquidity_pool_id);
+        let uri = req.uri(&base_url()).unwrap();
         assert_eq!(expected_uri, uri.as_str());
     }
 }

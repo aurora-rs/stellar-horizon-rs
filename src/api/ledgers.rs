@@ -4,6 +4,8 @@ use crate::request::{Order, PageRequest, Request, StreamRequest, UrlPageRequestE
 use crate::resources::{self, LedgerId};
 use url::Url;
 
+pub(crate) const API_PATH: &str = "ledgers";
+
 /// Creates a request to retrieve a single ledger.
 pub fn single(ledger_sequence: LedgerId) -> SingleLedgerRequest {
     SingleLedgerRequest { ledger_sequence }
@@ -35,18 +37,27 @@ pub struct AllLedgersRequest {
 impl Request for SingleLedgerRequest {
     type Response = resources::Ledger;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let path = format!("/ledgers/{}", self.ledger_sequence);
-        Ok(host.join(&path)?)
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            let ledger = self.ledger_sequence.to_string();
+            segments.extend(&[API_PATH, ledger.as_str()]);
+        }
+        Ok(base_url)
     }
 }
 
 impl Request for AllLedgersRequest {
     type Response = Page<resources::Ledger>;
 
-    fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join("/ledgers")?;
-        Ok(url.append_pagination_params(self))
+    fn uri(&self, base_url: &Url) -> Result<Url> {
+        let mut base_url = base_url.clone();
+        {
+            let mut segments = base_url.path_segments_mut().unwrap();
+            segments.extend(&[API_PATH]);
+        }
+        Ok(base_url.append_pagination_params(self))
     }
 }
 
@@ -66,6 +77,12 @@ mod tests {
         "https://horizon.stellar.org".parse().unwrap()
     }
 
+    fn base_url() -> Url {
+        "https://horizon.stellar.org/some/non/host/url"
+            .parse()
+            .unwrap()
+    }
+
     #[test]
     fn test_all_ledgers_request_uri() {
         let req = all();
@@ -76,11 +93,29 @@ mod tests {
     }
 
     #[test]
+    fn test_all_ledgers_request_uri_with_non_host_url() {
+        let req = all();
+        let uri = req.uri(&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/ledgers?"));
+    }
+
+    #[test]
     fn test_single_ledger_request_uri() {
         let req = single(888);
         let uri = req.uri(&host()).unwrap();
         assert!(uri
             .to_string()
             .starts_with("https://horizon.stellar.org/ledgers/888"));
+    }
+
+    #[test]
+    fn test_single_ledger_request_uri_with_non_host_url() {
+        let req = single(888);
+        let uri = req.uri(&base_url()).unwrap();
+        assert!(uri
+            .to_string()
+            .starts_with("https://horizon.stellar.org/some/non/host/url/ledgers/888"));
     }
 }
