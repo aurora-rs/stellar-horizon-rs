@@ -6,10 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add `Payment::base()`.
 
 ## [0.7.1] - 2023-11-08
 ### Changed
-- Removed 'sodium\_oxide' feature from the 'stellar-base' dependency, which is
+- Remove 'sodium\_oxide' feature from the 'stellar-base' dependency, which is
   heavy weight and only needed for signing.
 
 ## [0.7.0] - 2023-11-03
