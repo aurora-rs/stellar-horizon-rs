@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `Operation::ExtendFootprintTTL`
 - Add `Operation::RestoreFootprint`
 - Add `Payment::InvokeHostFunction`
+- Add `HorizonHttpClient::new_with_client`
+
+### Changed
+- `HorizonHttpClient` now uses a 60-second timeout by default
 
 ## [0.7.1] - 2023-11-08
 ### Changed
