@@ -7,12 +7,14 @@ use futures::future::{BoxFuture, Future};
 use futures::stream::TryStreamExt;
 use futures::Stream;
 use hyper::client::{Client, ResponseFuture};
+use hyper_timeout::TimeoutConnector;
 use hyper_tls::HttpsConnector;
 use std::convert::TryInto;
 use std::marker::Unpin;
 use std::pin::Pin;
 use std::sync::Arc;
 use std::task::{Context, Poll};
+use std::time::Duration;
 use url::Url;
 
 /// Horizon Client trait. Send HTTP and stream requests to Horizon.
@@ -29,7 +31,7 @@ pub trait HorizonClient {
     ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'static + Send + Unpin>>;
 }
 
-type HttpClient = Client<HttpsConnector<hyper::client::HttpConnector>>;
+type HttpClient = Client<TimeoutConnector<HttpsConnector<hyper::client::HttpConnector>>>;
 
 /// Type that implements `HorizonClient` using `hyper` for http.
 pub struct HorizonHttpClient {
@@ -62,8 +64,13 @@ where
 impl HorizonHttpClientInner {
     pub fn new(host: Url) -> Result<HorizonHttpClientInner> {
         let https = HttpsConnector::new();
-        let inner = Client::builder().build::<_, hyper::Body>(https);
-        let host = host.try_into().map_err(|_| Error::InvalidHost)?;
+        let mut timeout_connector = TimeoutConnector::new(https);
+        let duration = Duration::from_secs(60);
+
+        timeout_connector.set_connect_timeout(Some(duration));
+        timeout_connector.set_read_timeout(Some(duration));
+        timeout_connector.set_write_timeout(Some(duration));
+        let inner = Client::builder().build::<_, hyper::Body>(timeout_connector);
         let client_name = "aurora-rs/stellar-horizon-rs".to_string();
         let client_version = crate::VERSION.to_string();
         Ok(HorizonHttpClientInner {
@@ -72,6 +79,22 @@ impl HorizonHttpClientInner {
             client_name,
             client_version,
             extra_headers: None,
+        })
+    }
+
+    pub fn new_with_client(
+        host: Url,
+        client: HttpClient,
+        extra_headers: hyper::HeaderMap,
+    ) -> Result<HorizonHttpClientInner> {
+        let client_name = "aurora-rs/stellar-horizon-rs".to_string();
+        let client_version = crate::VERSION.to_string();
+        Ok(HorizonHttpClientInner {
+            inner: client,
+            host,
+            client_name,
+            client_version,
+            extra_headers: Some(extra_headers),
         })
     }
 
@@ -123,6 +146,19 @@ impl HorizonHttpClient {
     ) -> Result<HorizonHttpClient> {
         let host: Url = host.parse().map_err(|_| Error::InvalidHost)?;
         let inner = HorizonHttpClientInner::with_extra_headers(host, extra_headers)?;
+        Ok(HorizonHttpClient {
+            inner: Arc::new(inner),
+        })
+    }
+
+    /// Creates a new horizon client with a custom HTTP client and extra headers
+    pub fn new_with_client(
+        client: HttpClient,
+        host: &str,
+        extra_headers: hyper::HeaderMap,
+    ) -> Result<HorizonHttpClient> {
+        let host: Url = host.parse().map_err(|_| Error::InvalidHost)?;
+        let inner = HorizonHttpClientInner::new_with_client(host, client, extra_headers)?;
         Ok(HorizonHttpClient {
             inner: Arc::new(inner),
         })
