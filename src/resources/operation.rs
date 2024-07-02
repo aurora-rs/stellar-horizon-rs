@@ -4,7 +4,7 @@ use crate::resources::{
 };
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::{serde_as, DisplayFromStr};
+use serde_with::{serde_as, DisplayFromStr, NoneAsEmptyString};
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "type")]
@@ -34,6 +34,9 @@ pub enum Operation {
     SetTrustLineFlags(SetTrustLineFlagsOperation),
     LiquidityPoolDeposit(LiquidityPoolDepositOperation),
     LiquidityPoolWithdraw(LiquidityPoolWithdrawOperation),
+    InvokeHostFunction(InvokeHostFunctionOperation),
+    ExtendFootprintTTL(ExtendFootprintTTLOperation),
+    RestoreFootprint(RestoreFootprintOperation),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -45,6 +48,7 @@ pub enum Payment {
     PathPaymentStrictReceive(PathPaymentStrictReceiveOperation),
     PathPaymentStrictSend(PathPaymentStrictSendOperation),
     AccountMerge(AccountMergeOperation),
+    InvokeHostFunction(InvokeHostFunctionOperation),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -374,6 +378,49 @@ pub struct LiquidityPoolWithdrawOperation {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub enum HostFunctionType {
+    HostFunctionTypeHostFunctionTypeInvokeContract,
+    HostFunctionTypeHostFunctionTypeCreateContract,
+    HostFunctionTypeHostFunctionTypeUploadContractWasm,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct InvokeContractParameter {
+    #[serde(rename = "type")]
+    pub type_of: String,
+    pub value: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct InvokeHostFunctionOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub function: HostFunctionType,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub parameters: Vec<InvokeContractParameter>,
+    #[serde_as(as = "NoneAsEmptyString")]
+    pub address: Option<String>,
+    #[serde_as(as = "NoneAsEmptyString")]
+    pub salt: Option<String>,
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub asset_balance_changes: Vec<AssetBalanceChange>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct ExtendFootprintTTLOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    pub extend_to: i64,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct RestoreFootprintOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub struct OperationLinks {
     #[serde(rename = "self")]
     pub self_: Link,
@@ -410,6 +457,9 @@ impl Operation {
             Operation::SetTrustLineFlags(op) => &op.base,
             Operation::LiquidityPoolDeposit(op) => &op.base,
             Operation::LiquidityPoolWithdraw(op) => &op.base,
+            Operation::InvokeHostFunction(op) => &op.base,
+            Operation::ExtendFootprintTTL(op) => &op.base,
+            Operation::RestoreFootprint(op) => &op.base,
         }
     }
 }
@@ -422,6 +472,7 @@ impl Payment {
             Payment::PathPaymentStrictReceive(op) => &op.base,
             Payment::PathPaymentStrictSend(op) => &op.base,
             Payment::AccountMerge(op) => &op.base,
+            Payment::InvokeHostFunction(op) => &op.base,
         }
     }
 }
@@ -446,4 +497,25 @@ struct SellingAsset {
     asset_code: Option<String>,
     #[serde(rename = "selling_asset_issuer")]
     asset_issuer: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AssetBalanceChangeType {
+    Transfer,
+    Mint,
+    Clawback,
+    Burn,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
+pub struct AssetBalanceChange {
+    pub asset_type: String,
+    pub code: Option<String>,
+    pub issuer: Option<String>,
+    #[serde(rename = "type")]
+    pub type_of: AssetBalanceChangeType,
+    pub from: Option<String>,
+    pub to: Option<String>,
+    pub amount: String,
 }
