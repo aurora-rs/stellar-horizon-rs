@@ -49,7 +49,7 @@ pub struct Transaction {
     /// A base64 encoded string of the raw `TransactionResult` XDR struct for this transaction.
     pub result_xdr: String,
     /// A base64 encoded string of the raw `TransactionMeta` XDR struct for this transaction.
-    pub result_meta_xdr: String,
+    pub result_meta_xdr: Option<String>,
     /// A base64 encoded string of the raw `LedgerEntryChanges` XDR struct produced by taking fees for this transaction.
     pub fee_meta_xdr: String,
     /// The type of memo. Potential values include `MEMO_TEXT`, `MEMO_ID`, `MEMO_HASH`, `MEMO_RETURN`.
