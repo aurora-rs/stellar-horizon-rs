@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add `Payment::base()`.
 - Add `HorizonHttpClient::with_extra_headers` to support authorization headers
+- Add `Operation::InvokeHostFunction`
+- Add `Operation::ExtendFootprintTTL`
+- Add `Operation::RestoreFootprint`
+- Add `Payment::InvokeHostFunction`
 
 ## [0.7.1] - 2023-11-08
 ### Changed
