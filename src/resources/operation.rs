@@ -4,9 +4,12 @@ use crate::resources::{
 };
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use serde_with::{serde_as, DisplayFromStr, NoneAsEmptyString};
+use serde_with::{serde_as, DisplayFromStr, NoneAsEmptyString, DefaultOnNull};
+use serde::de::{self, Deserializer};
+use serde_json::Value;
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+
+#[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum Operation {
@@ -37,6 +40,7 @@ pub enum Operation {
     InvokeHostFunction(InvokeHostFunctionOperation),
     ExtendFootprintTTL(ExtendFootprintTTLOperation),
     RestoreFootprint(RestoreFootprintOperation),
+    Other(OtherOperation), 
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -296,7 +300,7 @@ pub struct BeginSponsoringFutureReservesOperation {
 pub struct EndSponsoringFutureReservesOperation {
     #[serde(flatten)]
     pub base: OperationBase,
-    pub begin_sponsor: String,
+    pub begin_sponsor: Option<String>,
     pub begin_sponsor_muxed: Option<String>,
     pub begin_sponsor_muxed_id: Option<String>,
 }
@@ -397,12 +401,14 @@ pub struct InvokeHostFunctionOperation {
     #[serde(flatten)]
     pub base: OperationBase,
     pub function: HostFunctionType,
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub parameters: Vec<InvokeContractParameter>,
     #[serde_as(as = "NoneAsEmptyString")]
     pub address: Option<String>,
     #[serde_as(as = "NoneAsEmptyString")]
     pub salt: Option<String>,
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub asset_balance_changes: Vec<AssetBalanceChange>,
 }
@@ -418,6 +424,17 @@ pub struct ExtendFootprintTTLOperation {
 pub struct RestoreFootprintOperation {
     #[serde(flatten)]
     pub base: OperationBase,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+pub struct OtherOperation {
+    #[serde(flatten)]
+    pub base: OperationBase,
+    #[serde(default)]
+    pub op_type: String,
+
+    #[serde(default)]
+    pub raw_value: serde_json::Value,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -460,6 +477,63 @@ impl Operation {
             Operation::InvokeHostFunction(op) => &op.base,
             Operation::ExtendFootprintTTL(op) => &op.base,
             Operation::RestoreFootprint(op) => &op.base,
+            Operation::Other(op) => &op.base,
+        }
+    }
+
+}
+
+impl<'de> Deserialize<'de> for Operation {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let v = Value::deserialize(deserializer)?;
+
+        let ty: String = v.get("type")
+            .and_then(|t| t.as_str())
+            .ok_or_else(|| de::Error::missing_field("type"))?
+            .to_string();
+
+        fn as_op<T: for<'a> Deserialize<'a>, E: de::Error>(v: &Value) -> Result<T, E> {
+            serde_json::from_value::<T>(v.clone()).map_err(E::custom)
+        }
+
+        match ty.as_str() {
+            "create_account" => Ok(Operation::CreateAccount(as_op(&v)?)),
+            "payment" => Ok(Operation::Payment(as_op(&v)?)),
+            "path_payment_strict_receive" => Ok(Operation::PathPaymentStrictReceive(as_op(&v)?)),
+            "manage_sell_offer" => Ok(Operation::ManageSellOffer(as_op(&v)?)),
+            "create_passive_sell_offer" => Ok(Operation::CreatePassiveSellOffer(as_op(&v)?)),
+            "set_options" => Ok(Operation::SetOptions(as_op(&v)?)),
+            "change_trust" => Ok(Operation::ChangeTrust(as_op(&v)?)),
+            "allow_trust" => Ok(Operation::AllowTrust(as_op(&v)?)),
+            "account_merge" => Ok(Operation::AccountMerge(as_op(&v)?)),
+            "inflation" => Ok(Operation::Inflation(as_op(&v)?)),
+            "manage_data" => Ok(Operation::ManageData(as_op(&v)?)),
+            "bump_sequence" => Ok(Operation::BumpSequence(as_op(&v)?)),
+            "manage_buy_offer" => Ok(Operation::ManageBuyOffer(as_op(&v)?)),
+            "path_payment_strict_send" => Ok(Operation::PathPaymentStrictSend(as_op(&v)?)),
+            "create_claimable_balance" => Ok(Operation::CreateClaimableBalance(as_op(&v)?)),
+            "claim_claimable_balance" => Ok(Operation::ClaimClaimableBalance(as_op(&v)?)),
+            "begin_sponsoring_future_reserves" => Ok(Operation::BeginSponsoringFutureReserves(as_op(&v)?)),
+            "end_sponsoring_future_reserves" => Ok(Operation::EndSponsoringFutureReserves(as_op(&v)?)),
+            "revoke_sponsorship" => Ok(Operation::RevokeSponsorship(as_op(&v)?)),
+            "clawback" => Ok(Operation::Clawback(as_op(&v)?)),
+            "clawback_claimable_balance" => Ok(Operation::ClawbackClaimableBalance(as_op(&v)?)),
+            "set_trust_line_flags" => Ok(Operation::SetTrustLineFlags(as_op(&v)?)),
+            "liquidity_pool_deposit" => Ok(Operation::LiquidityPoolDeposit(as_op(&v)?)),
+            "liquidity_pool_withdraw" => Ok(Operation::LiquidityPoolWithdraw(as_op(&v)?)),
+            "invoke_host_function" => Ok(Operation::InvokeHostFunction(as_op(&v)?)),
+            "restore_footprint" => Ok(Operation::RestoreFootprint(as_op(&v)?)),
+            "extend_footprint_ttl" => Ok(Operation::ExtendFootprintTTL(as_op(&v)?)),
+
+            _ => {
+                let mut other = as_op::<OtherOperation, D::Error>(&v)?;
+                other.op_type = ty;
+                other.raw_value = v;
+                Ok(Operation::Other(other))
+            }
         }
     }
 }

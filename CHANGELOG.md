@@ -14,11 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `Operation::RestoreFootprint`
 - Add `Payment::InvokeHostFunction`
 - Add `HorizonHttpClient::new_with_client`
+- Add `Operation::Other` a dedicated operation to catch and store unsupported / changed / unknown Operations.
 
 ### Changed
 - `HorizonHttpClient` now uses a 60-second timeout by default
 - Switch to relative `Url::join` path segments across all endpoints so a base Horizon URL with a path prefix is preserved.
-
+- Added null-tolerance for InvokeHostFunctionOperation fields to prevent runtime parsing errors.Added null-tolerance for InvokeHostFunctionOperation fields to prevent runtime parsing errors.
 
 ## [0.7.1] - 2023-11-08
 ### Changed
