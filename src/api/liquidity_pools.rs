@@ -51,7 +51,7 @@ impl Request for AllLiquidityPoolsRequest {
     type Response = Page<resources::LiquidityPool>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/liquidity_pools")?;
+        let mut url = host.join("liquidity_pools")?;
 
         {
             let mut query = url.query_pairs_mut();
@@ -88,7 +88,7 @@ impl Request for SingleLiquidityPoolRequest {
     type Response = resources::LiquidityPool;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let path = format!("/liquidity_pools/{}", self.id);
+        let path = format!("liquidity_pools/{}", self.id);
 
         Ok(host.join(&path)?)
     }

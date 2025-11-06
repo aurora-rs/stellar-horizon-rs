@@ -23,6 +23,6 @@ impl Request for DataForAccountRequest {
     type Response = resources::AccountData;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join(&format!("/accounts/{}/data/{}", self.account_id, self.key))?)
+        Ok(host.join(&format!("accounts/{}/data/{}", self.account_id, self.key))?)
     }
 }

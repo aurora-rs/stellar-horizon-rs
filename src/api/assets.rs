@@ -48,7 +48,7 @@ impl Request for AllAssetsRequest {
     type Response = Page<resources::AssetStat>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/assets")?;
+        let mut url = host.join("assets")?;
         {
             let mut query = url.query_pairs_mut();
             if let Some(asset_code) = &self.asset_code {

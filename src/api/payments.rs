@@ -117,7 +117,7 @@ impl Request for AllPaymentsRequest {
     type Response = Page<resources::Payment>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/payments")?;
+        let mut url = host.join("payments")?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -134,7 +134,7 @@ impl Request for PaymentsForAccountRequest {
     type Response = Page<resources::Payment>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/accounts/{}/payments", self.account_id))?;
+        let mut url = host.join(&format!("accounts/{}/payments", self.account_id))?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -151,7 +151,7 @@ impl Request for PaymentsForLedgerRequest {
     type Response = Page<resources::Payment>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/ledgers/{}/payments", self.ledger_id))?;
+        let mut url = host.join(&format!("ledgers/{}/payments", self.ledger_id))?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -164,7 +164,7 @@ impl Request for PaymentsForTransactionRequest {
     type Response = Page<resources::Payment>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/transactions/{}/payments", self.tx_hash))?;
+        let mut url = host.join(&format!("transactions/{}/payments", self.tx_hash))?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))

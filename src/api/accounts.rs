@@ -59,7 +59,7 @@ impl Request for SingleAccountRequest {
     type Response = resources::Account;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let path = format!("/accounts/{}", self.account_id);
+        let path = format!("accounts/{}", self.account_id);
         Ok(host.join(&path)?)
     }
 }
@@ -68,7 +68,7 @@ impl Request for AllAccountsRequest {
     type Response = Page<resources::Account>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/accounts")?;
+        let mut url = host.join("accounts")?;
         if let Some(signer) = self.signer.as_ref() {
             url = url.append_query_param("signer", signer);
         }
@@ -97,7 +97,7 @@ mod tests {
         let pk =
             PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
                 .unwrap();
-        let host: Url = "https://horizon.stellar.org".parse().unwrap();
+        let host: Url = "https://horizon.stellar.org/".parse().unwrap();
         let req = single(&pk);
         let uri = req.uri(&host).unwrap();
         assert_eq!(
@@ -111,7 +111,7 @@ mod tests {
         let pk =
             PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
                 .unwrap();
-        let host: Url = "https://horizon.stellar.org".parse().unwrap();
+        let host: Url = "https://horizon.stellar.org/".parse().unwrap();
         let req = all().with_signer(&pk);
         let uri = req.uri(&host).unwrap();
         let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();
@@ -126,7 +126,7 @@ mod tests {
         let pk =
             PublicKey::from_account_id("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
                 .unwrap();
-        let host: Url = "https://horizon.stellar.org".parse().unwrap();
+        let host: Url = "https://horizon.stellar.org/".parse().unwrap();
         let req = all().with_sponsor(&pk);
         let uri = req.uri(&host).unwrap();
         let query: HashMap<_, _> = uri.query_pairs().into_owned().collect();

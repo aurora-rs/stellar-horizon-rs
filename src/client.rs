@@ -1,4 +1,8 @@
 //! Horizon client traits and types.
+//!
+//! All request paths are joined using relative segments (no leading '/') via [`Url::join`](https://docs.rs/url/latest/url/struct.Url.html#method.join).
+//! If your base host includes a path (e.g., https://example.com/horizon/api), ensure it ends
+//! with a trailing slash (https://example.com/horizon/api/) so joins append to that path.
 use crate::error::{Error, Result};
 use crate::headers::HeaderMap;
 use crate::horizon_error::HorizonError;

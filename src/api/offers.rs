@@ -84,7 +84,7 @@ impl Request for AllOffersRequest {
     type Response = Page<resources::Offer>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/offers")?;
+        let mut url = host.join("offers")?;
         if let Some(seller) = self.seller.as_ref() {
             url = url.append_query_param("seller", seller);
         }
@@ -107,7 +107,7 @@ impl Request for SingleOfferRequest {
     type Response = resources::Offer;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join(&format!("/offers/{}", self.offer_id))?)
+        Ok(host.join(&format!("offers/{}", self.offer_id))?)
     }
 }
 
@@ -117,7 +117,7 @@ impl Request for OffersForAccountRequest {
     type Response = Page<resources::Offer>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/accounts/{}/offers", self.account_id))?;
+        let url = host.join(&format!("accounts/{}/offers", self.account_id))?;
         Ok(url.append_pagination_params(self))
     }
 }

@@ -109,7 +109,7 @@ impl Request for AllTradesRequest {
     type Response = Page<resources::Trade>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/trades")?;
+        let mut url = host.join("trades")?;
         if let Some(offer_id) = &self.offer_id {
             url = url.append_query_param("offer_id", &offer_id.to_string());
         }
@@ -133,7 +133,7 @@ impl Request for TradesForAccountRequest {
     type Response = Page<resources::Trade>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/accounts/{}/trades", self.account_id))?;
+        let url = host.join(&format!("accounts/{}/trades", self.account_id))?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -148,7 +148,7 @@ impl Request for TradesForOfferRequest {
     type Response = Page<resources::Trade>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/offers/{}/trades", self.offer_id))?;
+        let url = host.join(&format!("offers/{}/trades", self.offer_id))?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -160,7 +160,7 @@ impl Request for TradesForLiquidityPoolRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let url = host.join(&format!(
-            "/liquidity_pools/{}/trades",
+            "liquidity_pools/{}/trades",
             self.liquidity_pool_id
         ))?;
         Ok(url.append_pagination_params(self))
