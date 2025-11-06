@@ -191,7 +191,7 @@ impl Request for AllOperationsRequest {
     type Response = Page<resources::Operation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/operations")?;
+        let mut url = host.join("operations")?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -208,7 +208,7 @@ impl Request for SingleOperationRequest {
     type Response = resources::Operation;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/operations/{}", self.operation_id))?;
+        let mut url = host.join(&format!("operations/{}", self.operation_id))?;
         url = url.appen_join(&self.join);
         Ok(url)
     }
@@ -218,7 +218,7 @@ impl Request for OperationsForAccountRequest {
     type Response = Page<resources::Operation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/accounts/{}/operations", self.account_id))?;
+        let mut url = host.join(&format!("accounts/{}/operations", self.account_id))?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -235,7 +235,7 @@ impl Request for OperationsForLedgerRequest {
     type Response = Page<resources::Operation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/ledgers/{}/operations", self.ledger))?;
+        let mut url = host.join(&format!("ledgers/{}/operations", self.ledger))?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -252,7 +252,7 @@ impl Request for OperationsForTransactionRequest {
     type Response = Page<resources::Operation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/transactions/{}/operations", self.tx_id))?;
+        let mut url = host.join(&format!("transactions/{}/operations", self.tx_id))?;
         url = url.append_include_failed(&self.include_failed);
         url = url.appen_join(&self.join);
         Ok(url.append_pagination_params(self))
@@ -298,7 +298,7 @@ impl Request for OperationsForLiquidityPoolRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!(
-            "/liquidity_pools/{}/operations",
+            "liquidity_pools/{}/operations",
             self.liquidity_pool_id
         ))?;
         url = url

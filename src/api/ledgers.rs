@@ -36,7 +36,7 @@ impl Request for SingleLedgerRequest {
     type Response = resources::Ledger;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let path = format!("/ledgers/{}", self.ledger_sequence);
+        let path = format!("ledgers/{}", self.ledger_sequence);
         Ok(host.join(&path)?)
     }
 }
@@ -45,7 +45,7 @@ impl Request for AllLedgersRequest {
     type Response = Page<resources::Ledger>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join("/ledgers")?;
+        let url = host.join("ledgers")?;
         Ok(url.append_pagination_params(self))
     }
 }

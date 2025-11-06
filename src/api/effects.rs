@@ -126,7 +126,7 @@ impl Request for AllEffectsRequest {
     type Response = Page<resources::Effect>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join("/effects")?;
+        let url = host.join("effects")?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -141,7 +141,7 @@ impl Request for EffectsForLedgerRequest {
     type Response = Page<resources::Effect>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/ledgers/{}/effects", self.ledger))?;
+        let url = host.join(&format!("ledgers/{}/effects", self.ledger))?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -156,7 +156,7 @@ impl Request for EffectsForTransactionRequest {
     type Response = Page<resources::Effect>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/transactions/{}/effects", self.tx_hash))?;
+        let url = host.join(&format!("transactions/{}/effects", self.tx_hash))?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -167,7 +167,7 @@ impl Request for EffectsForOperationRequest {
     type Response = Page<resources::Effect>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/operations/{}/effects", self.operation_id))?;
+        let url = host.join(&format!("operations/{}/effects", self.operation_id))?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -178,7 +178,7 @@ impl Request for EffectsForAccountRequest {
     type Response = Page<resources::Effect>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let url = host.join(&format!("/accounts/{}/effects", self.account_id))?;
+        let url = host.join(&format!("accounts/{}/effects", self.account_id))?;
         Ok(url.append_pagination_params(self))
     }
 }
@@ -194,7 +194,7 @@ impl Request for EffectsForLiquidityPoolRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let url = host.join(&format!(
-            "/liquidity_pools/{}/effects",
+            "liquidity_pools/{}/effects",
             self.liquidity_pool_id
         ))?;
         Ok(url.append_pagination_params(self))

@@ -144,7 +144,7 @@ impl Request for AllTransactionsRequest {
     type Response = Page<resources::Transaction>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/transactions")?;
+        let mut url = host.join("transactions")?;
         url = url.append_include_failed(&self.include_failed);
         Ok(url.append_pagination_params(self))
     }
@@ -160,7 +160,7 @@ impl Request for SingleTransactionRequest {
     type Response = resources::Transaction;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join(&format!("/transactions/{}", self.id))?)
+        Ok(host.join(&format!("transactions/{}", self.id))?)
     }
 }
 
@@ -175,7 +175,7 @@ impl Request for SubmitTransactionRequest {
     }
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join("/transactions")?)
+        Ok(host.join("transactions")?)
     }
 }
 
@@ -187,7 +187,7 @@ impl Request for TransactionsForAccountRequest {
     type Response = Page<resources::Transaction>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/accounts/{}/transactions", self.account_id))?;
+        let mut url = host.join(&format!("accounts/{}/transactions", self.account_id))?;
         url = url.append_include_failed(&self.include_failed);
         Ok(url.append_pagination_params(self))
     }
@@ -207,7 +207,7 @@ impl Request for TransactionsForLedgerRequest {
     type Response = Page<resources::Transaction>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join(&format!("/ledgers/{}/transactions", self.ledger))?;
+        let mut url = host.join(&format!("ledgers/{}/transactions", self.ledger))?;
         url = url.append_include_failed(&self.include_failed);
         Ok(url.append_pagination_params(self))
     }
@@ -253,7 +253,7 @@ impl Request for TransactionsForLiquidityPoolRequest {
 
     fn uri(&self, host: &Url) -> Result<Url> {
         let mut url = host.join(&format!(
-            "/liquidity_pools/{}/transactions",
+            "liquidity_pools/{}/transactions",
             self.liquidity_pool_id
         ))?;
         url = url

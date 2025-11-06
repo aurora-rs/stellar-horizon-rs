@@ -204,7 +204,7 @@ impl Request for OrderBookRequest {
     type Response = resources::OrderBookSummary;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/order_book")?;
+        let mut url = host.join("order_book")?;
         url = url.append_asset_params(&self.buying, Some("buying"));
         url = url.append_asset_params(&self.selling, Some("selling"));
         if let Some(limit) = &self.limit {
@@ -218,7 +218,7 @@ impl Request for PathsStrictReceiveRequest {
     type Response = Page<resources::Path>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/paths/strict-receive")?;
+        let mut url = host.join("paths/strict-receive")?;
         if let Some(source_account) = &self.source_account {
             url = url.append_query_param("source_account", source_account);
         }
@@ -237,7 +237,7 @@ impl Request for PathsStrictSendRequest {
     type Response = Page<resources::Path>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/paths/strict-send")?;
+        let mut url = host.join("paths/strict-send")?;
         if let Some(destination_account) = &self.destination_account {
             url = url.append_query_param("destination_account", destination_account);
         }
@@ -260,7 +260,7 @@ impl Request for AllTradesRequest {
     type Response = Page<resources::TradeAggregation>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/trade_aggregations")?;
+        let mut url = host.join("trade_aggregations")?;
         let start_time = self.start_time.timestamp_millis();
         url = url.append_query_param("start_time", &start_time.to_string());
         let end_time = self.end_time.timestamp_millis();
@@ -286,7 +286,7 @@ impl Request for FeeStatsRequest {
     type Response = resources::FeeStats;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join("/fee_stats")?)
+        Ok(host.join("fee_stats")?)
     }
 }
 
@@ -317,7 +317,7 @@ mod tests {
     use url::Url;
 
     fn host() -> Url {
-        "https://horizon.stellar.org".parse().unwrap()
+        "https://horizon.stellar.org/".parse().unwrap()
     }
 
     fn keypair0() -> PublicKey {

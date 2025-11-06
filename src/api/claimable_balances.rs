@@ -48,7 +48,7 @@ impl Request for AllClaimableBalancesRequest {
     type Response = Page<resources::ClaimableBalance>;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        let mut url = host.join("/claimable_balances")?;
+        let mut url = host.join("claimable_balances")?;
         if let Some(asset) = self.asset.as_ref() {
             url = url.append_canonical_asset_params("asset", asset);
         }
@@ -74,7 +74,7 @@ impl Request for SingleClaimableBalanceRequest {
     type Response = resources::ClaimableBalance;
 
     fn uri(&self, host: &Url) -> Result<Url> {
-        Ok(host.join(&format!("/claimable_balances/{}", self.balance_id))?)
+        Ok(host.join(&format!("claimable_balances/{}", self.balance_id))?)
     }
 }
 
