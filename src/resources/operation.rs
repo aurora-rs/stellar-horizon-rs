@@ -8,7 +8,6 @@ use serde_with::{serde_as, DisplayFromStr, NoneAsEmptyString, DefaultOnNull};
 use serde::de::{self, Deserializer};
 use serde_json::Value;
 
-
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
@@ -385,6 +384,7 @@ pub struct LiquidityPoolWithdrawOperation {
 pub enum HostFunctionType {
     HostFunctionTypeHostFunctionTypeInvokeContract,
     HostFunctionTypeHostFunctionTypeCreateContract,
+    HostFunctionTypeHostFunctionTypeCreateContractV2,
     HostFunctionTypeHostFunctionTypeUploadContractWasm,
 }
 
