@@ -3,10 +3,10 @@ use crate::resources::{
     Asset, AssetAmount, Claimant, LiquidityPoolOrAsset, Price, SourceAsset, Transaction,
 };
 use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
-use serde_with::{serde_as, DisplayFromStr, NoneAsEmptyString, DefaultOnNull};
 use serde::de::{self, Deserializer};
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use serde_with::{serde_as, DefaultOnNull, DisplayFromStr, NoneAsEmptyString};
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(tag = "type")]
@@ -39,7 +39,7 @@ pub enum Operation {
     InvokeHostFunction(InvokeHostFunctionOperation),
     ExtendFootprintTTL(ExtendFootprintTTLOperation),
     RestoreFootprint(RestoreFootprintOperation),
-    Other(OtherOperation), 
+    Other(OtherOperation),
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
@@ -480,7 +480,6 @@ impl Operation {
             Operation::Other(op) => &op.base,
         }
     }
-
 }
 
 impl<'de> Deserialize<'de> for Operation {
@@ -490,7 +489,8 @@ impl<'de> Deserialize<'de> for Operation {
     {
         let v = Value::deserialize(deserializer)?;
 
-        let ty: String = v.get("type")
+        let ty: String = v
+            .get("type")
             .and_then(|t| t.as_str())
             .ok_or_else(|| de::Error::missing_field("type"))?
             .to_string();
@@ -516,8 +516,12 @@ impl<'de> Deserialize<'de> for Operation {
             "path_payment_strict_send" => Ok(Operation::PathPaymentStrictSend(as_op(&v)?)),
             "create_claimable_balance" => Ok(Operation::CreateClaimableBalance(as_op(&v)?)),
             "claim_claimable_balance" => Ok(Operation::ClaimClaimableBalance(as_op(&v)?)),
-            "begin_sponsoring_future_reserves" => Ok(Operation::BeginSponsoringFutureReserves(as_op(&v)?)),
-            "end_sponsoring_future_reserves" => Ok(Operation::EndSponsoringFutureReserves(as_op(&v)?)),
+            "begin_sponsoring_future_reserves" => {
+                Ok(Operation::BeginSponsoringFutureReserves(as_op(&v)?))
+            }
+            "end_sponsoring_future_reserves" => {
+                Ok(Operation::EndSponsoringFutureReserves(as_op(&v)?))
+            }
             "revoke_sponsorship" => Ok(Operation::RevokeSponsorship(as_op(&v)?)),
             "clawback" => Ok(Operation::Clawback(as_op(&v)?)),
             "clawback_claimable_balance" => Ok(Operation::ClawbackClaimableBalance(as_op(&v)?)),
