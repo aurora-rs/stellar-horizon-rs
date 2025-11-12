@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `Operation::RestoreFootprint`
 - Add `Payment::InvokeHostFunction`
 - Add `HorizonHttpClient::new_with_client`
+- Add `Operation::Other`, a dedicated operation to catch and store unknown Operations.
 
 ### Changed
 - `HorizonHttpClient` now uses a 60-second timeout by default
