@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.8.0] - 2025-11-20
 ### Added
 - Add `Payment::base()`.
 - Add `HorizonHttpClient::with_extra_headers` to support authorization headers
@@ -19,12 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - `HorizonHttpClient` now uses a 60-second timeout by default
 - Switch to relative `Url::join` path segments across all endpoints so a base Horizon URL with a path prefix is preserved.
+- Updated dependencies (most significantly, `stellar-base` and `hyper`)
 
 
 ## [0.7.1] - 2023-11-08
 ### Changed
 - Remove 'sodium\_oxide' feature from the 'stellar-base' dependency, which is
   heavy weight and only needed for signing.
+
 
 ## [0.7.0] - 2023-11-03
 ### Added
