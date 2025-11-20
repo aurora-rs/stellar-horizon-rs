@@ -3,7 +3,7 @@ use std::env;
 use std::str::FromStr;
 use stellar_base::account::DataValue;
 use stellar_base::amount::Amount;
-use stellar_base::crypto::SodiumKeyPair;
+use stellar_base::crypto::DalekKeyPair;
 use stellar_base::time_bounds::TimeBounds;
 use stellar_base::transaction::MIN_BASE_FEE;
 use stellar_base::{Asset, Network, Operation, PublicKey, Transaction};
@@ -22,13 +22,13 @@ fn new_client_public_node() -> HorizonHttpClient {
     HorizonHttpClient::new_from_str("https://horizon.publicnode.org").unwrap()
 }
 
-fn new_root_key() -> SodiumKeyPair {
-    SodiumKeyPair::from_network(&Network::new_public()).unwrap()
+fn new_root_key() -> DalekKeyPair {
+    DalekKeyPair::from_network(&Network::new_public()).unwrap()
 }
 
-fn new_project_key_pair() -> SodiumKeyPair {
+fn new_project_key_pair() -> DalekKeyPair {
     let secret_seed = env::var("SECRET_SEED").unwrap();
-    SodiumKeyPair::from_secret_seed(&secret_seed).unwrap()
+    DalekKeyPair::from_secret_seed(&secret_seed).unwrap()
 }
 
 fn new_project_public_key() -> PublicKey {
