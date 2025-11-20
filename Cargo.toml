@@ -14,18 +14,21 @@ include = ["src/**/*", "LICENSE", "README.md", "CHANGELOG.md"]
 [dependencies]
 stellar-base = { version = "0.7.0", default-features = false }
 async-sse = "5.1.0"
+bytes = "1"
 chrono = { version = "0.4.19", features = ["serde"] }
 futures = "0.3.21"
-hyper = { version = "0.14.18", features = ["client", "http1", "stream"] }
-hyper-tls = "0.5.0"
-hyper-timeout = "0.4"
-http = "0.2.6"
+hyper = { version = "1", features = ["client", "http1"] }
+hyper-timeout = "0.5"
+hyper-tls = "0.6.0"
+hyper-util = { version = "0.1", features = ["http1", "client-legacy"] }
+http = "1"
 http-types = "2.12.0"
+http-body-util = "0.1"
 serde = "1.0.136"
 serde_derive = "1.0.136"
 serde_json = "1.0.79"
 serde_with = "3.4"
-thiserror = "1.0.30"
+thiserror = "2.0.17"
 url = "2.2.2"
 
 [dev-dependencies]

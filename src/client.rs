@@ -7,12 +7,15 @@ use crate::error::{Error, Result};
 use crate::headers::HeaderMap;
 use crate::horizon_error::HorizonError;
 use crate::request::{Request, StreamRequest};
+use bytes::Bytes;
 use futures::future::{BoxFuture, Future};
 use futures::stream::TryStreamExt;
 use futures::Stream;
-use hyper::client::{Client, ResponseFuture};
+use http_body_util::{BodyExt, Full};
 use hyper_timeout::TimeoutConnector;
 use hyper_tls::HttpsConnector;
+use hyper_util::client::legacy::{connect::HttpConnector, Client, ResponseFuture};
+use hyper_util::rt::TokioExecutor;
 use std::convert::TryInto;
 use std::marker::Unpin;
 use std::pin::Pin;
@@ -35,7 +38,7 @@ pub trait HorizonClient {
     ) -> Result<Box<dyn Stream<Item = Result<R::Resource>> + 'static + Send + Unpin>>;
 }
 
-type HttpClient = Client<TimeoutConnector<HttpsConnector<hyper::client::HttpConnector>>>;
+type HttpClient = Client<TimeoutConnector<HttpsConnector<HttpConnector>>, Full<Bytes>>;
 
 /// Type that implements `HorizonClient` using `hyper` for http.
 pub struct HorizonHttpClient {
@@ -74,7 +77,8 @@ impl HorizonHttpClientInner {
         timeout_connector.set_connect_timeout(Some(duration));
         timeout_connector.set_read_timeout(Some(duration));
         timeout_connector.set_write_timeout(Some(duration));
-        let inner = Client::builder().build::<_, hyper::Body>(timeout_connector);
+        let inner =
+            Client::builder(TokioExecutor::new()).build::<_, Full<Bytes>>(timeout_connector);
         let client_name = "aurora-rs/stellar-horizon-rs".to_string();
         let client_version = crate::VERSION.to_string();
         Ok(HorizonHttpClientInner {
@@ -131,7 +135,7 @@ impl HorizonHttpClientInner {
         self.request_builder(uri).method(hyper::Method::GET)
     }
 
-    fn raw_request(&self, req: hyper::Request<hyper::Body>) -> ResponseFuture {
+    fn raw_request(&self, req: hyper::Request<Full<Bytes>>) -> ResponseFuture {
         self.inner.request(req)
     }
 }
@@ -184,7 +188,7 @@ impl HorizonHttpClient {
     }
 
     /// Performs a request.
-    fn raw_request(&self, req: hyper::Request<hyper::Body>) -> ResponseFuture {
+    fn raw_request(&self, req: hyper::Request<Full<Bytes>>) -> ResponseFuture {
         self.inner.raw_request(req)
     }
 }
@@ -225,22 +229,28 @@ async fn execute_request<R: Request>(
                 hyper::header::CONTENT_TYPE,
                 "application/x-www-form-urlencoded",
             )
-            .body(hyper::Body::from(body))?
+            .body(Full::new(Bytes::from(body)))?
     } else {
         request_builder
             .method(hyper::Method::GET)
-            .body(hyper::Body::empty())?
+            .body(Full::new(Bytes::new()))?
     };
 
-    let response = client.raw_request(request).await?;
+    let response = match client.raw_request(request).await {
+        Ok(r) => r,
+        Err(_e) => return Err(Error::HorizonServerError),
+    };
+    let status = response.status();
 
-    if response.status().is_success() {
+    if status.is_success() {
         let headers = response.headers().clone();
-        let bytes = hyper::body::to_bytes(response).await?;
+        let body = response.into_body();
+        let bytes = body.collect().await?.to_bytes();
         let result: R::Response = serde_json::from_slice(&bytes)?;
         Ok((headers, result))
-    } else if response.status().is_client_error() {
-        let bytes = hyper::body::to_bytes(response).await?;
+    } else if status.is_client_error() {
+        let body = response.into_body();
+        let bytes = body.collect().await?.to_bytes();
         let result: HorizonError = serde_json::from_slice(&bytes)?;
         Err(Error::HorizonRequestError(result))
     } else {
@@ -264,7 +274,7 @@ where
                     request_builder = request_builder.header("Last-Event-Id", last_id.clone());
                 }
 
-                let request = request_builder.body(hyper::Body::empty())?;
+                let request = request_builder.body(Full::new(Bytes::new()))?;
                 let response = self.client.raw_request(request);
                 self.response = Some(response);
             }
@@ -275,14 +285,18 @@ where
                         self.response = Some(resp);
                         return Poll::Pending;
                     }
-                    Poll::Ready(Err(e)) => {
-                        return Poll::Ready(Some(Err(e.into())));
+                    Poll::Ready(Err(_e)) => {
+                        // Map legacy client error to a generic horizon server error.
+                        // The legacy error type from hyper-util doesn't implement Into<Error>,
+                        // and for our purposes a server-level failure is sufficient.
+                        return Poll::Ready(Some(Err(Error::HorizonServerError)));
                     }
                     Poll::Ready(Ok(resp)) => {
                         // TODO(fra): handle non success statuses
                         assert!(resp.status().is_success());
                         let body_stream = resp
                             .into_body()
+                            .into_data_stream()
                             .map_err(|e| futures::io::Error::new(futures::io::ErrorKind::Other, e))
                             .into_async_read();
 
